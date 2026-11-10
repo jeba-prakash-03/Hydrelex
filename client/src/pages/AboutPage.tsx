@@ -91,14 +91,26 @@ export const AboutPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Visual Frame */}
-          <div className="lg:col-span-6 relative">
+          {/* Right Visual Frame: Official Banner & Engineering Assembly */}
+          <div className="lg:col-span-6 relative space-y-6">
+            <div className="p-4 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card">
+              <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-graphite-700 mb-2">
+                <span className="font-bold">Official Registered Enterprise Brand</span>
+                <span className="text-copper-700 font-bold">UDYAM & GST VERIFIED</span>
+              </div>
+              <img
+                src="/company_brand_banner.jpg"
+                alt="HYDRELEX LIFT SYSTEMS Official Verified Registration Banner"
+                className="w-full h-auto object-contain border border-graphite-700/10 rounded-xs bg-white"
+              />
+            </div>
+
             <div className="rounded-sm overflow-hidden shadow-2xl border border-graphite-700 bg-graphite-900">
               <ImageWithFallback
                 alt="HYDRELEX Elevator Engineering Assembly Bay in Sriperumbudur"
                 fallbackType="passenger"
                 fallbackLabel="SRIPERUMBUDUR HUB // STRUCTURAL ASSEMBLY"
-                aspectRatioClass="aspect-[4/3]"
+                aspectRatioClass="aspect-[16/9]"
                 showOverlay={true}
               />
             </div>

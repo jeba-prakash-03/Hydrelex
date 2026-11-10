@@ -21,13 +21,16 @@ export const Logo: React.FC<LogoProps> = ({
       aria-label="HYDRELEX LIFT SYSTEMS Home"
     >
       {/* Real Emblem Mark Container */}
-      <div className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-ink-950 border border-graphite-700 group-hover:border-copper-500 transition-colors duration-300 p-1.5 shrink-0 shadow-sm">
+      <div className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-ink-950 border border-graphite-700 group-hover:border-copper-500 transition-colors duration-300 p-1 shrink-0 shadow-sm">
         <img
-          src="/logo_transparent.png"
+          src="/logo_emblem.png"
           alt="HYDRELEX Emblem"
-          className="w-full h-full object-contain filter brightness-105"
+          className="w-full h-full object-contain filter brightness-110"
           onError={(e) => {
-            (e.target as HTMLElement).style.display = 'none';
+            const target = e.target as HTMLImageElement;
+            if (!target.src.includes('logo_transparent.png')) {
+              target.src = '/logo_transparent.png';
+            }
           }}
         />
         {/* Architectural indicator point */}

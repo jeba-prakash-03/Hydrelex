@@ -149,12 +149,19 @@ export const ContactPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Official Registrations Card */}
-            <div className="p-6 rounded-sm bg-ink-950 text-steel-100 space-y-3 border border-graphite-700 shadow-elevated-card">
+            {/* Official Registrations Card with Banner */}
+            <div className="p-6 rounded-sm bg-ink-950 text-steel-100 space-y-4 border border-graphite-700 shadow-elevated-card">
               <span className="text-[11px] font-sans tracking-[0.14em] uppercase text-copper-400 font-bold block">
-                VERIFIED REGISTRATIONS
+                VERIFIED CORPORATE CREDENTIALS
               </span>
-              <div className="space-y-2 text-xs font-mono">
+              <div className="p-2 bg-white rounded-xs border border-graphite-700/40">
+                <img
+                  src="/company_brand_banner.jpg"
+                  alt="HYDRELEX Verified Enterprise Credentials"
+                  className="w-full h-auto object-contain rounded-xs"
+                />
+              </div>
+              <div className="space-y-2 text-xs font-mono pt-1">
                 <div className="flex items-center gap-2.5">
                   <FileCheck2 className="w-4 h-4 text-copper-500" />
                   <span>

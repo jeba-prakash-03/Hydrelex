@@ -61,15 +61,44 @@ export const Navbar: React.FC<NavbarProps> = ({
       <header
         className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 ${
           isScrolled || !isHome
-            ? 'bg-ink-950/95 border-b border-graphite-700 shadow-xl py-3.5'
-            : 'bg-transparent py-5 sm:py-6'
+            ? 'bg-ink-950/95 border-b border-graphite-700 shadow-xl'
+            : 'bg-ink-950/80 border-b border-graphite-700/60'
         }`}
         style={{
-          backgroundColor: isScrolled || !isHome ? 'rgba(10, 10, 11, 0.96)' : 'transparent',
-          backdropFilter: isScrolled || !isHome ? 'none' : 'none',
+          backgroundColor: isScrolled || !isHome ? 'rgba(10, 10, 11, 0.98)' : 'rgba(10, 10, 11, 0.85)',
         }}
       >
-        <div className="w-full px-fluid flex items-center justify-between">
+        {/* Top Corporate Accreditation Strip: Sourced from verified company banner */}
+        <div className="w-full border-b border-graphite-700/60 bg-graphite-900/90 py-1.5 px-fluid hidden md:block">
+          <div className="w-full flex items-center justify-between text-[11px] font-mono">
+            {/* Left: Verified Registrations & Facility */}
+            <div className="flex items-center gap-3 text-steel-300">
+              <span className="text-copper-400 font-bold tracking-wider">UDYAM: UDYAM-TN-08-0090275</span>
+              <span className="text-graphite-700">|</span>
+              <span>GSTIN: 33BNOPK2159N1ZJ</span>
+              <span className="hidden xl:inline text-graphite-700">|</span>
+              <span className="hidden xl:inline text-steel-300">Mevallurkuppam Village, Sriperumbudur Taluk – 602015</span>
+            </div>
+
+            {/* Right: Direct Phones */}
+            <div className="flex items-center gap-3 text-steel-100">
+              <span className="text-steel-300 uppercase tracking-widest text-[10px] hidden sm:inline">Direct Lines:</span>
+              <a href="tel:8939359592" className="flex items-center gap-1 hover:text-copper-400 transition-colors">
+                <Phone className="w-3 h-3 text-copper-500" />
+                <span>8939359592</span>
+              </a>
+              <span className="text-graphite-700">/</span>
+              <a href="tel:9789397504" className="hover:text-copper-400 transition-colors">
+                <span>9789397504</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Navbar */}
+        <div className={`w-full px-fluid flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? 'py-3' : 'py-3.5 sm:py-4'
+        }`}>
           {/* Brand Logo */}
           <Logo variant="light" />
 
