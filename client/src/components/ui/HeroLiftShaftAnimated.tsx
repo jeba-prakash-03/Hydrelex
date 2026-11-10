@@ -211,3 +211,4 @@ export const HeroLiftShaftAnimated: React.FC<{ className?: string }> = ({
     </div>
   );
 };
+
