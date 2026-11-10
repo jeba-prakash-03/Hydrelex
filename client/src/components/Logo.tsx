@@ -21,7 +21,7 @@ export const Logo: React.FC<LogoProps> = ({
       aria-label="HYDRELEX LIFT SYSTEMS Home"
     >
       {/* Real Emblem Mark Container */}
-      <div className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-ink-900 border border-graphite-600 group-hover:border-champagne-500 transition-colors duration-300 p-1.5 shrink-0 shadow-sm">
+      <div className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-ink-950 border border-graphite-700 group-hover:border-copper-500 transition-colors duration-300 p-1.5 shrink-0 shadow-sm">
         <img
           src="/logo_transparent.png"
           alt="HYDRELEX Emblem"
@@ -31,7 +31,7 @@ export const Logo: React.FC<LogoProps> = ({
           }}
         />
         {/* Architectural indicator point */}
-        <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-champagne-500 rounded-full" />
+        <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-copper-500 rounded-full shadow-copper-glow" />
       </div>
 
       <div className="flex flex-col">
@@ -39,20 +39,20 @@ export const Logo: React.FC<LogoProps> = ({
           <span
             className={`font-heading text-lg sm:text-xl tracking-tight font-extrabold transition-colors duration-200 ${
               isLight
-                ? 'text-ivory-100 group-hover:text-champagne-500'
-                : 'text-graphite-800 group-hover:text-champagne-600'
+                ? 'text-steel-100 group-hover:text-copper-400'
+                : 'text-graphite-900 group-hover:text-copper-700'
             }`}
           >
             HYDRELEX
           </span>
-          <span className="text-[9px] font-mono tracking-widest uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-graphite-600/60 text-champagne-500 border border-graphite-600">
+          <span className="text-[9px] font-sans tracking-widest uppercase font-bold px-1.5 py-0.5 rounded-xs bg-ink-950 text-copper-500 border border-copper-500/30">
             SYSTEMS
           </span>
         </div>
         {showTagline && (
           <span
-            className={`text-[9px] font-mono tracking-technical uppercase mt-0.5 font-medium ${
-              isLight ? 'text-silver-400' : 'text-graphite-600'
+            className={`text-[9px] font-sans tracking-[0.14em] uppercase mt-0.5 font-bold ${
+              isLight ? 'text-steel-300' : 'text-graphite-700'
             }`}
           >
             A way to reach a goal

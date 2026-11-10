@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, FileCheck2, ShieldCheck } from 'lucide-react';
+import { ArrowRight, FileCheck2, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
-import { ImageWithFallback } from './ui/ImageWithFallback';
+import { BlueprintShaftView } from './ui/BlueprintShaftView';
 
 export const CompanyIntro: React.FC = () => {
   const { settings } = useSettings();
@@ -12,116 +12,121 @@ export const CompanyIntro: React.FC = () => {
   return (
     <section
       id="company-intro"
-      className="w-full bg-ivory-100 text-graphite-800 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-600/20"
-      style={{ backgroundColor: '#F4EFE6' }}
+      className="w-full bg-gradient-to-br from-ivory-50 via-steel-100/40 to-ivory-100 text-graphite-900 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-700/20"
+      style={{ backgroundColor: '#FBF8F2' }}
     >
-      <div className="w-full px-fluid">
-        {/* 50/50 Edge-to-Edge Architectural Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
-          {/* Left Column: Big Visual Bleeding (5 cols) */}
+      {/* Background Architectural Scale Grid Overlay */}
+      <div className="absolute inset-0 bg-technical-grid opacity-30 pointer-events-none" />
+
+      {/* Oversized Outlined Numeral 01 Cropped Behind Section */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-10 right-4 sm:right-16 text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
+        style={{
+          WebkitTextStroke: '1.5px #B4531A',
+          color: 'transparent',
+        }}
+      >
+        01
+      </div>
+
+      <div className="w-full px-fluid relative z-10">
+        {/* Edge-to-Edge 50/50 Architectural Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 xl:gap-20 items-center">
+          {/* Left Column: Full-Bleed Graphite Blueprint Cross-Section Panel (5 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
+            initial={{ opacity: 1, x: 0 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-5 relative group"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 relative"
           >
-            <div className="relative rounded-sm overflow-hidden border border-graphite-600/30 shadow-xl bg-graphite-800">
-              <ImageWithFallback
-                alt="HYDRELEX Lift Engineering Assembly in Sriperumbudur"
-                fallbackType="shaft-cross-section"
-                fallbackLabel="SRIPERUMBUDUR ENGINEERING HUB // ELEVATOR CROSS-SECTION"
-                aspectRatioClass="aspect-[4/5]"
-                showOverlay={true}
-              />
-
-              {/* Overlaid Operations Base Info Card */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-sm bg-graphite-800/95 border border-graphite-600 text-ivory-100 space-y-2">
-                <div className="flex items-center justify-between text-[10px] font-mono tracking-technical uppercase text-champagne-500">
-                  <span>FACILITY BASE</span>
-                  <span>TAMIL NADU 602015</span>
-                </div>
-                <div className="font-heading text-sm font-bold tracking-tight text-ivory-100">
-                  No. B3-G4, Arakonam Road, Mevallurkuppam Village
-                </div>
-                <div className="text-[11px] font-mono text-silver-400">
-                  Sriperumbudur Taluk • Lift Systems & Engineering Hub
-                </div>
-              </div>
-            </div>
-
-            {/* Architectural Champagne Corner Accents */}
-            <div className="absolute -top-2.5 -left-2.5 w-8 h-8 border-t-2 border-l-2 border-champagne-600 pointer-events-none" />
-            <div className="absolute -bottom-2.5 -right-2.5 w-8 h-8 border-b-2 border-r-2 border-champagne-600 pointer-events-none" />
+            <BlueprintShaftView />
           </motion.div>
 
-          {/* Right Column: Oversized Editorial Narrative (7 cols) */}
+          {/* Right Column: Oversized Editorial Narrative & Pull-Quote (6 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
+            initial={{ opacity: 1, x: 0 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-7 space-y-8"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 space-y-8"
           >
-            <div className="space-y-3">
+            <div className="space-y-4">
               <TechnicalEyebrow variant="graphite">
                 ABOUT HYDRELEX LIFT SYSTEMS // 01
               </TechnicalEyebrow>
-              <h2 className="font-h2-clamp font-extrabold text-graphite-800 tracking-tight leading-[1.05]">
-                {settings?.intro_headline || 'A Way to Reach a Goal.'}
+
+              {/* Big Pull-Quote Line in 40-60px type */}
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-heading font-extrabold text-graphite-900 tracking-tight leading-[1.08]">
+                A Way to Reach a Goal through{' '}
+                <span className="text-copper-700 underline decoration-copper-500/40 underline-offset-8">
+                  Engineered
+                </span>{' '}
+                Precision.
               </h2>
             </div>
 
-            <p className="text-lg sm:text-xl text-graphite-600 leading-relaxed font-light font-sans">
+            <p className="text-lg sm:text-xl text-graphite-700 leading-relaxed font-light font-sans">
               {settings?.intro_text ||
-                'HYDRELEX LIFT SYSTEMS delivers engineering-focused vertical mobility and industrial lifting solutions. Based in Sriperumbudur, Tamil Nadu, we engineer durable elevator systems and hydraulic machinery built for industrial, commercial, and customized structural requirements.'}
+                'HYDRELEX LIFT SYSTEMS is an industrial-grade elevator and vertical mobility manufacturer headquartered in Sriperumbudur, Tamil Nadu. We specialize in heavy-capacity goods lifts, hydraulic platforms, custom passenger systems, and modernization built to strict architectural and industrial standards.'}
             </p>
 
-            {/* Verified Certifications & Scope Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-5 rounded-sm bg-white border border-graphite-600/25 shadow-sm space-y-1.5">
-                <div className="flex items-center gap-2 text-champagne-600 text-xs font-mono uppercase tracking-technical font-semibold">
-                  <FileCheck2 className="w-4 h-4" />
-                  <span>UDYAM REGISTERED</span>
+            {/* Verified Certifications in a single row of Copper-Outlined Badge Chips */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="border border-copper-700/35 bg-ivory-50/90 shadow-sm px-4 py-2.5 rounded-sm inline-flex items-center gap-2.5 transition-colors hover:border-copper-700">
+                <FileCheck2 className="w-4 h-4 text-copper-700 shrink-0" />
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-copper-700">
+                    UDYAM MSME VERIFIED
+                  </span>
+                  <span className="font-mono text-xs font-bold text-graphite-900">
+                    {settings?.udyam_registration || 'UDYAM-TN-08-0090275'}
+                  </span>
                 </div>
-                <div className="font-mono text-sm font-bold text-graphite-800">
-                  {settings?.udyam_registration || 'UDYAM-TN-08-0090275'}
-                </div>
-                <p className="text-xs text-graphite-600 font-light">
-                  Government of India Ministry of MSME verified enterprise.
-                </p>
               </div>
 
-              <div className="p-5 rounded-sm bg-white border border-graphite-600/25 shadow-sm space-y-1.5">
-                <div className="flex items-center gap-2 text-champagne-600 text-xs font-mono uppercase tracking-technical font-semibold">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>GST COMPLIANT</span>
+              <div className="border border-copper-700/35 bg-ivory-50/90 shadow-sm px-4 py-2.5 rounded-sm inline-flex items-center gap-2.5 transition-colors hover:border-copper-700">
+                <ShieldCheck className="w-4 h-4 text-copper-700 shrink-0" />
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-copper-700">
+                    GST TAX REGISTERED
+                  </span>
+                  <span className="font-mono text-xs font-bold text-graphite-900">
+                    {settings?.gstin || '33BNOPK2159N1ZJ'}
+                  </span>
                 </div>
-                <div className="font-mono text-sm font-bold text-graphite-800">
-                  {settings?.gstin || '33BNOPK2159N1ZJ'}
+              </div>
+
+              <div className="border border-graphite-700/20 bg-ivory-50/90 shadow-sm px-4 py-2.5 rounded-sm inline-flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-graphite-700 shrink-0" />
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-graphite-700">
+                    LOCATION
+                  </span>
+                  <span className="font-sans text-xs font-semibold text-graphite-900">
+                    Sriperumbudur, Tamil Nadu
+                  </span>
                 </div>
-                <p className="text-xs text-graphite-600 font-light">
-                  Direct commercial tax and trade registration in Tamil Nadu.
-                </p>
               </div>
             </div>
 
-            {/* Action Bar */}
+            {/* Action Buttons */}
             <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Link
                 to="/about"
-                className="group inline-flex items-center gap-3 px-8 h-13 py-3.5 rounded-sm bg-graphite-800 hover:bg-ink-900 text-ivory-100 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 shadow-sm"
+                className="group relative inline-flex items-center gap-3 px-8 h-12 py-3 rounded-sm bg-graphite-900 hover:bg-ink-950 text-steel-100 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 shadow-elevated-card hover:shadow-copper-glow"
               >
                 <span>Read Full Corporate Profile</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-copper-500" />
               </Link>
 
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-technical text-champagne-600 hover:text-champagne-500 font-bold transition-colors"
+                className="group inline-flex items-center gap-2 text-[13px] font-sans uppercase tracking-[0.12em] text-copper-700 hover:text-copper-600 font-bold transition-colors"
               >
                 <span>Explore Technical Services</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </motion.div>

@@ -54,7 +54,7 @@ export const AdminLayout: React.FC = () => {
 
         {/* Navigation Items */}
         <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
-          <div className="px-3 mb-2 text-[10px] font-mono tracking-technical text-champagne-500 uppercase font-semibold">
+          <div className="px-3 mb-2 text-[10px] font-mono tracking-technical text-copper-500 uppercase font-semibold">
             CONTROL PORTAL
           </div>
           {navItems.map((item) => {
@@ -70,11 +70,11 @@ export const AdminLayout: React.FC = () => {
                 to={item.path}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-xs font-mono uppercase tracking-wider transition-all ${
                   isActive
-                    ? 'bg-graphite-800 text-champagne-500 border-l-2 border-champagne-500 font-bold'
+                    ? 'bg-graphite-800 text-copper-500 border-l-2 border-copper-500 font-bold'
                     : 'text-silver-400 hover:text-ivory-100 hover:bg-graphite-800/40'
                 }`}
               >
-                <Icon className="w-4 h-4 shrink-0 text-champagne-500" />
+                <Icon className="w-4 h-4 shrink-0 text-copper-500" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -84,14 +84,14 @@ export const AdminLayout: React.FC = () => {
         {/* User Card & Logout */}
         <div className="p-4 border-t border-graphite-600/60 space-y-3 bg-graphite-800/50">
           <div className="flex items-center gap-2.5 px-2">
-            <div className="w-8 h-8 rounded-sm bg-ink-900 border border-graphite-600 flex items-center justify-center text-champagne-500">
+            <div className="w-8 h-8 rounded-sm bg-ink-900 border border-graphite-600 flex items-center justify-center text-copper-500">
               <User className="w-4 h-4" />
             </div>
             <div className="truncate">
               <div className="text-xs font-bold text-ivory-100 truncate font-heading">
                 {admin?.username || 'Administrator'}
               </div>
-              <div className="text-[9.5px] font-mono text-champagne-500 uppercase tracking-wider">
+              <div className="text-[9.5px] font-mono text-copper-500 uppercase tracking-wider">
                 {admin?.role || 'SUPER_ADMIN'}
               </div>
             </div>
@@ -164,11 +164,11 @@ export const AdminLayout: React.FC = () => {
                   onClick={() => setSidebarOpen(false)}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-xs font-mono uppercase tracking-wider ${
                     isActive
-                      ? 'bg-graphite-800 text-champagne-500 font-bold'
+                      ? 'bg-graphite-800 text-copper-500 font-bold'
                       : 'text-silver-400 hover:text-ivory-100 hover:bg-graphite-800/40'
                   }`}
                 >
-                  <Icon className="w-4 h-4 text-champagne-500" />
+                  <Icon className="w-4 h-4 text-copper-500" />
                   <span>{item.label}</span>
                 </Link>
               );

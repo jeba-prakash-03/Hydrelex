@@ -124,14 +124,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
     reset();
   };
 
-  const inputBaseClasses = `w-full h-14 px-4 text-sm font-sans transition-all duration-200 border rounded-sm outline-none placeholder:text-silver-400/50 ${
+  const inputBaseClasses = `w-full h-14 px-4 text-sm font-sans transition-all duration-200 border rounded-xs outline-none ${
     isDark
-      ? 'bg-ink-900/70 border-graphite-600 text-ivory-100 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500'
-      : 'bg-white border-graphite-600/30 text-graphite-800 focus:border-champagne-600 focus:ring-1 focus:ring-champagne-600'
+      ? 'bg-graphite-900/90 border-steel-300/40 text-steel-100 placeholder:text-steel-300/40 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30'
+      : 'bg-white border-steel-300/60 text-graphite-900 placeholder:text-graphite-600/50 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30'
   }`;
 
-  const labelBaseClasses = `block font-mono text-[11px] uppercase tracking-technical mb-2 font-medium ${
-    isDark ? 'text-silver-400' : 'text-graphite-600'
+  const labelBaseClasses = `block font-sans text-[12px] uppercase tracking-[0.12em] mb-2 font-bold ${
+    isDark ? 'text-steel-300' : 'text-graphite-700'
   }`;
 
   return (
@@ -141,20 +141,20 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           ? 'p-6 sm:p-10 lg:p-12'
           : `p-6 sm:p-10 lg:p-14 border ${
               isDark
-                ? 'bg-graphite-800 border-graphite-600 shadow-2xl'
-                : 'bg-ivory-50 border-graphite-600/30 shadow-md'
+                ? 'bg-ink-950 border-graphite-700 border-t-4 border-t-copper-500 shadow-2xl'
+                : 'bg-ivory-50 border-graphite-700/20 shadow-md'
             }`
       }`}
     >
-      {/* 1px Champagne Top Accent */}
+      {/* 2px Copper Top Accent */}
       {!isModal && (
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-champagne-500/70 to-transparent mb-8" />
+        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-copper-500 to-transparent mb-8" />
       )}
 
       {!submittedReference ? (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
           <div className="space-y-3">
-            <TechnicalEyebrow variant={isDark ? 'champagne' : 'graphite'}>
+            <TechnicalEyebrow variant={isDark ? 'copper' : 'graphite'}>
               TECHNICAL CONSULTATION // SRIPERUMBUDUR HUB
             </TechnicalEyebrow>
             <h3
@@ -408,7 +408,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 h-14 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 active:scale-[0.98] disabled:opacity-50 shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 h-14 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 active:scale-[0.98] disabled:opacity-50 shrink-0 shadow-copper-glow hover:shadow-[0_0_28px_rgba(232,120,46,0.6)]"
             >
               {isSubmitting ? (
                 <>
@@ -427,24 +427,24 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
       ) : (
         /* Confirmation State */
         <div className="text-center py-12 space-y-6">
-          <div className="w-16 h-16 rounded-full bg-champagne-500/15 border border-champagne-500 text-champagne-500 mx-auto flex items-center justify-center shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-copper-500/15 border border-copper-500 text-copper-500 mx-auto flex items-center justify-center shadow-copper-glow">
             <CheckCircle2 className="w-9 h-9" />
           </div>
 
           <div className="space-y-2 max-w-lg mx-auto">
-            <TechnicalEyebrow variant={isDark ? 'champagne' : 'graphite'}>
+            <TechnicalEyebrow variant={isDark ? 'copper' : 'graphite'}>
               REQUEST RECORDED IN HYDRELEX SYSTEMS
             </TechnicalEyebrow>
             <h3
               className={`font-heading text-3xl sm:text-4xl font-extrabold ${
-                isDark ? 'text-ivory-100' : 'text-graphite-800'
+                isDark ? 'text-steel-100' : 'text-graphite-900'
               }`}
             >
               Consultation Logged
             </h3>
             <p
               className={`text-sm font-light leading-relaxed ${
-                isDark ? 'text-silver-400' : 'text-graphite-600'
+                isDark ? 'text-steel-300' : 'text-graphite-700'
               }`}
             >
               Your appointment request has been persisted to the HYDRELEX operations database and routed to our Sriperumbudur engineering office.
@@ -455,24 +455,24 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <div
             className={`max-w-md mx-auto p-6 rounded-sm border space-y-3 ${
               isDark
-                ? 'bg-ink-900/80 border-graphite-600'
-                : 'bg-white border-graphite-600/30'
+                ? 'bg-graphite-900 border-graphite-700'
+                : 'bg-white border-graphite-700/30'
             }`}
           >
             <div
-              className={`text-[10px] font-mono uppercase tracking-technical ${
-                isDark ? 'text-silver-400' : 'text-graphite-600'
+              className={`text-[11px] font-sans uppercase tracking-[0.12em] font-bold ${
+                isDark ? 'text-steel-300' : 'text-graphite-700'
               }`}
             >
               Your Official Reference Tracking Code
             </div>
             <div className="flex items-center justify-center gap-3">
-              <span className="font-mono text-2xl sm:text-3xl font-extrabold tracking-widest text-champagne-500">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold tracking-widest text-copper-500">
                 {submittedReference}
               </span>
               <button
                 onClick={handleCopy}
-                className="p-2 rounded-sm bg-graphite-600/50 hover:bg-graphite-600 text-champagne-500 transition-colors"
+                className="p-2 rounded-sm bg-copper-500 text-ink-950 hover:bg-copper-400 transition-colors shadow-sm"
                 title="Copy Reference Code"
               >
                 <Copy className="w-4 h-4" />
@@ -484,8 +484,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               </span>
             )}
             <p
-              className={`text-[11px] font-mono leading-tight ${
-                isDark ? 'text-silver-400/80' : 'text-graphite-600'
+              className={`text-[11px] font-sans leading-tight ${
+                isDark ? 'text-steel-300/80' : 'text-graphite-600'
               }`}
             >
               Keep this reference code to track appointment progress on our website using the Track Consultation feature.
@@ -495,10 +495,10 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <div className="pt-4 flex justify-center">
             <button
               onClick={handleNewEnquiry}
-              className={`px-6 py-3 rounded-sm border text-xs font-mono uppercase transition-colors ${
+              className={`px-6 py-3 rounded-sm border text-xs font-sans font-bold uppercase tracking-[0.12em] transition-colors ${
                 isDark
-                  ? 'border-graphite-600 text-silver-400 hover:text-ivory-100 hover:bg-graphite-600/30'
-                  : 'border-graphite-600/40 text-graphite-800 hover:bg-ivory-100'
+                  ? 'border-graphite-700 text-steel-300 hover:text-steel-100 hover:bg-graphite-700/50'
+                  : 'border-graphite-700/40 text-graphite-900 hover:bg-ivory-100'
               }`}
             >
               Submit Another Request

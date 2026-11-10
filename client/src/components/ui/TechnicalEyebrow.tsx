@@ -2,38 +2,38 @@ import React from 'react';
 
 interface TechnicalEyebrowProps {
   children: React.ReactNode;
-  variant?: 'champagne' | 'silver' | 'graphite' | 'muted';
+  variant?: 'copper' | 'steel' | 'graphite' | 'muted';
   hasIndicator?: boolean;
   className?: string;
 }
 
 export const TechnicalEyebrow: React.FC<TechnicalEyebrowProps> = ({
   children,
-  variant = 'champagne',
+  variant = 'copper',
   hasIndicator = true,
   className = '',
 }) => {
   const variantStyles = {
-    champagne: 'text-champagne-500',
-    silver: 'text-silver-400',
-    graphite: 'text-graphite-600',
-    muted: 'text-silver-400/70',
+    copper: 'text-copper-500',
+    steel: 'text-steel-300',
+    graphite: 'text-copper-700', // High-contrast on light ivory
+    muted: 'text-steel-300/80',
   };
 
   const dotStyles = {
-    champagne: 'bg-champagne-500',
-    silver: 'bg-silver-400',
-    graphite: 'bg-graphite-600',
-    muted: 'bg-silver-400/60',
+    copper: 'bg-copper-500 shadow-[0_0_8px_rgba(232,120,46,0.8)]',
+    steel: 'bg-steel-300',
+    graphite: 'bg-copper-700',
+    muted: 'bg-steel-300/60',
   };
 
   return (
     <div
-      className={`inline-flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-technical uppercase font-medium select-none ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center gap-2.5 font-sans text-[12.5px] sm:text-[13px] tracking-[0.12em] uppercase font-semibold select-none ${variantStyles[variant]} ${className}`}
     >
       {hasIndicator && (
         <span
-          className={`w-1.5 h-1.5 rounded-full shrink-0 ${dotStyles[variant]}`}
+          className={`w-2 h-2 rounded-full shrink-0 ${dotStyles[variant]}`}
           aria-hidden="true"
         />
       )}
@@ -41,4 +41,3 @@ export const TechnicalEyebrow: React.FC<TechnicalEyebrowProps> = ({
     </div>
   );
 };
-

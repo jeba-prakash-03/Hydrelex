@@ -1,37 +1,59 @@
 /**
- * HYDRELEX LIFT SYSTEMS — Design System Tokens
+ * HYDRELEX LIFT SYSTEMS — Design System Tokens (Vivid Visual Upgrade)
  *
- * Visual Direction: Architectural Editorial + Industrial Luxury + Modern Engineering
- * Core Palette: Matte Obsidian Ink, Deep Graphite, Brushed Silver, Warm Architectural Ivory, Restrained Champagne
+ * Visual Direction: Architectural Luxury + Heavy Industrial Engineering
+ * Palette: Ink-950, Graphite-900, Graphite-700, Brushed Steel-300/100,
+ * Warm Architectural Ivory-50/100, Forged Copper-500/400/700, and Ember Glow.
  */
 
 export const theme = {
   colors: {
-    // Dark surfaces
+    // Page black & dark surfaces
     ink: {
-      900: '#0E0E0F', // Matte obsidian black
+      950: '#0A0A0B', // Pure page black
+      900: '#0E0E0F',
     },
     graphite: {
-      800: '#1C1C1E', // Primary dark surface & solid nav on scroll
-      600: '#3A3A3D', // Secondary dark surface, subtle borders & dark cards
+      900: '#141416', // Primary dark card/section surface
+      800: '#1C1C1E',
+      700: '#26262A', // Elevated surface, cards, panels
+      600: '#3A3A3D',
     },
-    // Metallic mid-tones
-    silver: {
-      400: '#B8BBBE', // Brushed metallic silver, secondary text & hairline borders on dark
+    // Brushed metallic mid-tones
+    steel: {
+      300: '#C9CDD2', // Brushed steel, secondary text & hairline borders on dark
+      200: '#D8DBDF',
+      100: '#E9EBEE', // Bright brushed metallic highlight
     },
     // Warm light architectural surfaces
     ivory: {
-      100: '#F4EFE6', // Warm architectural ivory, light sections
-      50: '#FAF7F1',  // Crisp ivory panel & card background
+      50: '#FBF8F2',  // Crisp ivory panel & card background
+      100: '#F2ECE0', // Warm architectural ivory, light sections
     },
-    // Restrained champagne accent
-    champagne: {
-      500: '#B08D57', // Primary accent: CTAs, active highlights, key lines
-      600: '#8F7144', // Accent hover, high-contrast accent text on light ivory
+    // Primary Vivid Forged Copper Accent
+    copper: {
+      400: '#FF934A', // Hover/glow state
+      500: '#E8782E', // PRIMARY ACCENT: bright forged copper/amber; CTAs, key words, lines, numerals
+      600: '#CC6320',
+      700: '#B4531A', // Accent text on ivory (passes WCAG AA contrast)
+    },
+    // Glows and highlights
+    ember: {
+      glow: 'rgba(232, 120, 46, 0.35)',
+      subtle: 'rgba(232, 120, 46, 0.15)',
     },
     // Accessible error red
     danger: {
-      500: '#C0463C', // Clear readable error red on both dark and light backgrounds
+      500: '#C0463C',
+    },
+
+    // Backwards-compatible aliases
+    silver: {
+      400: '#C9CDD2',
+    },
+    champagne: {
+      500: '#E8782E',
+      600: '#B4531A',
     },
   },
 

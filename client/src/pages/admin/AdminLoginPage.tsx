@@ -35,8 +35,8 @@ export const AdminLoginPage: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen bg-ink-900 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden text-ivory-100"
-      style={{ backgroundColor: '#0E0E0F' }}
+      className="min-h-screen bg-ink-950 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden text-steel-100"
+      style={{ backgroundColor: '#0A0A0B' }}
     >
       <div className="w-full max-w-md relative z-10 space-y-8">
         <div className="text-center space-y-3">
@@ -44,16 +44,16 @@ export const AdminLoginPage: React.FC = () => {
             <Logo variant="light" />
           </div>
           <div className="pt-2">
-            <TechnicalEyebrow variant="champagne">
+            <TechnicalEyebrow variant="copper">
               MANAGEMENT ACCESS PORTAL
             </TechnicalEyebrow>
-            <h2 className="font-heading text-3xl font-extrabold text-ivory-100 mt-1">
+            <h2 className="font-heading text-3xl font-extrabold text-steel-100 mt-1">
               Operations Control
             </h2>
           </div>
         </div>
 
-        <div className="p-8 sm:p-10 rounded-sm bg-graphite-800 border border-graphite-600 shadow-2xl space-y-6">
+        <div className="p-8 sm:p-10 rounded-sm bg-graphite-900 border border-graphite-700 border-t-2 border-t-copper-500 shadow-2xl space-y-6">
           {error && (
             <div className="p-3.5 rounded-sm bg-danger-500/15 border border-danger-500 text-danger-500 text-xs font-mono flex items-center gap-2.5">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -63,7 +63,7 @@ export const AdminLoginPage: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-5" noValidate>
             <div>
-              <label className="block font-mono text-[11px] uppercase tracking-technical text-silver-400 mb-2 font-medium">
+              <label className="block font-sans text-[12px] uppercase tracking-[0.14em] text-steel-300 mb-2 font-bold">
                 Admin Username or Email
               </label>
               <div className="relative">
@@ -73,14 +73,14 @@ export const AdminLoginPage: React.FC = () => {
                   onChange={(e) => setIdentifier(e.target.value)}
                   placeholder="admin@hydrelex.com"
                   autoComplete="username"
-                  className="w-full h-14 pl-11 pr-4 bg-ink-900 border border-graphite-600 text-ivory-100 rounded-sm text-sm font-mono focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none transition-colors placeholder:text-silver-400/40"
+                  className="w-full h-14 pl-11 pr-4 bg-ink-950 border border-steel-300/40 text-steel-100 rounded-xs text-sm font-sans focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none transition-colors placeholder:text-steel-300/40"
                 />
-                <Mail className="w-4 h-4 text-silver-400 absolute left-4 top-5" />
+                <Mail className="w-4 h-4 text-steel-300 absolute left-4 top-5" />
               </div>
             </div>
 
             <div>
-              <label className="block font-mono text-[11px] uppercase tracking-technical text-silver-400 mb-2 font-medium">
+              <label className="block font-sans text-[12px] uppercase tracking-[0.14em] text-steel-300 mb-2 font-bold">
                 Administrative Password
               </label>
               <div className="relative">
@@ -90,16 +90,16 @@ export const AdminLoginPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
                   autoComplete="current-password"
-                  className="w-full h-14 pl-11 pr-4 bg-ink-900 border border-graphite-600 text-ivory-100 rounded-sm text-sm font-mono focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none transition-colors placeholder:text-silver-400/40"
+                  className="w-full h-14 pl-11 pr-4 bg-ink-950 border border-steel-300/40 text-steel-100 rounded-xs text-sm font-sans focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none transition-colors placeholder:text-steel-300/40"
                 />
-                <Lock className="w-4 h-4 text-silver-400 absolute left-4 top-5" />
+                <Lock className="w-4 h-4 text-steel-300 absolute left-4 top-5" />
               </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-14 inline-flex items-center justify-center gap-2.5 px-6 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical transition-all shadow-sm active:scale-[0.98] disabled:opacity-50"
+              className="w-full h-14 inline-flex items-center justify-center gap-2.5 px-6 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all shadow-copper-glow active:scale-[0.98] disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -109,18 +109,18 @@ export const AdminLoginPage: React.FC = () => {
               ) : (
                 <>
                   <span>Sign In to System</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-ink-950" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="pt-2 border-t border-graphite-600/60 flex items-center justify-between text-[10px] font-mono text-silver-400/70">
-            <span className="flex items-center gap-1.5 text-champagne-500">
+          <div className="pt-2 border-t border-graphite-700 flex items-center justify-between text-[11px] font-sans text-steel-300/70">
+            <span className="flex items-center gap-1.5 text-copper-500 font-semibold">
               <ShieldCheck className="w-3.5 h-3.5" />
               SHA-256 JWT Authenticated
             </span>
-            <span>HYDRELEX // v2.0</span>
+            <span className="font-mono">HYDRELEX // v2.0</span>
           </div>
         </div>
       </div>

@@ -22,25 +22,40 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   className = '',
   showOverlay = true,
 }) => {
-  // If the source is an external URL that might be unreliable (e.g. Unsplash) or empty,
-  // or if image loading fails, we immediately render our deliberate line-art architectural fallback.
-  const isInvalidUrl = !src || src.includes('unsplash.com') || src.trim() === '';
+  // Disallow external hotlinks (e.g. Unsplash) per Section 7 Image Policy.
+  // Only valid local assets or deliberate vector line-arts are permitted.
+  const isInvalidUrl =
+    !src ||
+    src.includes('unsplash.com') ||
+    src.startsWith('http://') ||
+    src.startsWith('https://') ||
+    src.trim() === '';
+
   const [imageFailed, setImageFailed] = useState<boolean>(isInvalidUrl);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  // Sync state if src prop changes dynamically after API fetch
+  React.useEffect(() => {
+    if (isInvalidUrl) {
+      setImageFailed(true);
+    }
+  }, [src, isInvalidUrl]);
+
+  const shouldShowFallback = isInvalidUrl || imageFailed;
+
   return (
     <div
-      className={`relative w-full overflow-hidden bg-graphite-800 ${aspectRatioClass} ${className}`}
-      style={{ backgroundColor: '#1C1C1E' }}
+      className={`relative w-full overflow-hidden bg-graphite-900 ${aspectRatioClass} ${className}`}
+      style={{ backgroundColor: '#141416' }}
     >
-      {/* Fallback Architectural Visual Canvas */}
-      {imageFailed ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none bg-graphite-800 border border-graphite-600/50">
-          <div className="w-full h-full max-h-[75%] max-w-[75%] flex items-center justify-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
-            <LiftLineArtSvg type={fallbackType} strokeColor="#B08D57" />
+      {/* Fallback Architectural Visual Canvas in Vivid Steel + Copper */}
+      {shouldShowFallback ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none bg-graphite-900 border border-graphite-700/60">
+          <div className="w-full h-full max-h-[78%] max-w-[78%] flex items-center justify-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+            <LiftLineArtSvg type={fallbackType} strokeColor="#E8782E" />
           </div>
           {fallbackLabel && (
-            <div className="mt-2 font-mono text-[10px] tracking-technical uppercase text-silver-400/80 font-medium border-t border-graphite-600/60 pt-1.5 px-3">
+            <div className="mt-2 font-sans text-[11px] tracking-[0.14em] uppercase text-steel-300 font-bold border-t border-graphite-700 pt-1.5 px-3">
               {fallbackLabel}
             </div>
           )}
@@ -60,13 +75,13 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
         />
       )}
 
-      {/* Guaranteed Contrast Overlay: Heavy dark gradient ensures white/ivory text remains 100% readable */}
+      {/* Guaranteed Contrast Overlay: Heavy dark gradient ensures text remains 100% readable */}
       {showOverlay && (
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'linear-gradient(180deg, rgba(14, 14, 15, 0.3) 0%, rgba(14, 14, 15, 0.65) 60%, rgba(14, 14, 15, 0.95) 100%)',
+              'linear-gradient(180deg, rgba(10, 10, 11, 0.25) 0%, rgba(10, 10, 11, 0.65) 60%, rgba(10, 10, 11, 0.95) 100%)',
           }}
         />
       )}

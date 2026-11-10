@@ -18,10 +18,10 @@ interface LiftLineArtSvgProps {
 export const LiftLineArtSvg: React.FC<LiftLineArtSvgProps> = ({
   type,
   className = 'w-full h-full',
-  strokeColor = '#B08D57',
+  strokeColor = '#E8782E',
 }) => {
-  const silverColor = '#B8BBBE';
-  const faintColor = 'rgba(184, 187, 190, 0.25)';
+  const silverColor = '#C9CDD2';
+  const faintColor = 'rgba(201, 205, 210, 0.25)';
 
   switch (type) {
     case 'shaft-cross-section':

@@ -3,15 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --ink-900: #0E0E0F;
-  --graphite-800: #1C1C1E;
-  --graphite-600: #3A3A3D;
-  --silver-400: #B8BBBE;
-  --ivory-100: #F4EFE6;
-  --ivory-50: #FAF7F1;
-  --champagne-500: #B08D57;
-  --champagne-600: #8F7144;
-  --danger-500: #C0463C;
+  --ink-950: #0A0A0B;
+  --graphite-900: #141416;
+  --graphite-700: #26262A;
+  --steel-300: #C9CDD2;
+  --steel-100: #E9EBEE;
+  --ivory-50: #FBF8F2;
+  --ivory-100: #F2ECE0;
+  --copper-500: #E8782E;
+  --copper-400: #FF934A;
+  --copper-700: #B4531A;
+  --ember-glow: rgba(232, 120, 46, 0.35);
 }
 
 @layer base {
@@ -24,8 +26,8 @@
   }
 
   body {
-    background-color: var(--ink-900);
-    color: var(--ivory-100);
+    background-color: var(--ink-950);
+    color: var(--ivory-50);
     width: 100%;
     margin: 0;
     padding: 0;
@@ -33,7 +35,7 @@
     font-family: theme('fontFamily.sans');
   }
 
-  /* Reduced motion accessibility */
+  /* Accessibility: Respect prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
       animation-duration: 0.01ms !important;
@@ -53,34 +55,83 @@
 /* Fluid typography rules */
 .font-hero-clamp {
   font-family: theme('fontFamily.heading');
-  font-size: clamp(2.75rem, 8.5vw, 8.5rem);
-  line-height: 0.98;
+  font-size: clamp(3rem, 8.5vw, 8.5rem);
+  line-height: 0.94;
   letter-spacing: -0.03em;
   font-weight: 800;
 }
 
 .font-h2-clamp {
   font-family: theme('fontFamily.heading');
-  font-size: clamp(2rem, 4.5vw, 4.25rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   font-weight: 800;
 }
 
 .font-h3-clamp {
   font-family: theme('fontFamily.heading');
-  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-size: clamp(1.35rem, 2.5vw, 2.2rem);
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   font-weight: 700;
 }
 
+/* Updated bolder uppercase labels: 13px, DM Sans 600, letter-spacing 0.12em */
 .font-eyebrow {
-  font-family: theme('fontFamily.mono');
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-family: theme('fontFamily.sans');
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-weight: 500;
+}
+
+/* Subtle Film-Grain Texture for Dark Surfaces */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Continuous Marquee Ticker */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Architectural Scale Divider */
+.scale-divider {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(232, 120, 46, 0.4) 15%, rgba(232, 120, 46, 0.8) 50%, rgba(232, 120, 46, 0.4) 85%, transparent 100%);
+}
+
+.scale-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  background-color: var(--copper-500);
+  box-shadow: 0 0 10px var(--copper-500);
 }
 
 /* Custom architectural scrollbar */
@@ -90,20 +141,20 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ink-900);
+  background: var(--ink-950);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--graphite-600);
+  background: var(--graphite-700);
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--champagne-500);
+  background: var(--copper-500);
 }
 
-/* Clean text selection */
+/* Clean text selection in copper */
 ::selection {
-  background-color: var(--champagne-500);
-  color: var(--ink-900);
+  background-color: var(--copper-500);
+  color: var(--ink-950);
 }

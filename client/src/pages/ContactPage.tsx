@@ -22,31 +22,31 @@ export const ContactPage: React.FC = () => {
   const [trackModalOpen, setTrackModalOpen] = useState(false);
 
   return (
-    <div className="w-full bg-ivory-100 text-graphite-800 overflow-x-hidden">
-      {/* 1. Full-Width Dark Header (Guarantees Nav Legibility) */}
+    <div className="w-full bg-gradient-to-br from-ivory-50 via-steel-100/40 to-ivory-100 text-graphite-900 overflow-x-hidden">
+      {/* 1. Full-Width Dark Header */}
       <section
-        className="w-full bg-ink-900 text-ivory-100 pt-36 pb-20 relative overflow-hidden border-b border-graphite-600/60"
-        style={{ backgroundColor: '#0E0E0F' }}
+        className="w-full bg-ink-950 text-steel-100 pt-36 pb-20 relative overflow-hidden border-b border-graphite-700"
+        style={{ backgroundColor: '#0A0A0B' }}
       >
         <div className="w-full px-fluid relative z-10 space-y-4">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 font-mono text-xs text-silver-400">
-            <Link to="/" className="hover:text-champagne-500 transition-colors">
+          <div className="flex items-center gap-2 font-sans text-xs text-steel-300">
+            <Link to="/" className="hover:text-copper-400 transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-silver-400/50" />
-            <span className="text-champagne-500">Contact & Consultation</span>
+            <ChevronRight className="w-3.5 h-3.5 text-steel-300/50" />
+            <span className="text-copper-500 font-semibold">Contact & Consultation</span>
           </div>
 
-          <TechnicalEyebrow variant="champagne">
+          <TechnicalEyebrow variant="copper">
             FACILITY COMMUNICATIONS // CONSULTATION
           </TechnicalEyebrow>
 
-          <h1 className="font-h2-clamp font-extrabold tracking-tight uppercase leading-[1.02]">
-            Connect With HYDRELEX
+          <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-heading font-black tracking-tight text-steel-100 uppercase leading-[1.02]">
+            Connect With <span className="text-copper-500">HYDRELEX</span>
           </h1>
 
-          <p className="text-base sm:text-xl text-silver-400 max-w-3xl font-light leading-relaxed">
+          <p className="text-base sm:text-xl text-steel-300 max-w-3xl font-light leading-relaxed">
             Headquartered in Sriperumbudur, Tamil Nadu. Reach out for site surveys, custom engineering quotes, maintenance proposals, or appointment scheduling.
           </p>
         </div>
@@ -61,25 +61,25 @@ export const ContactPage: React.FC = () => {
               <TechnicalEyebrow variant="graphite">
                 HEADQUARTERS & MANUFACTURING
               </TechnicalEyebrow>
-              <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-graphite-800 leading-tight">
+              <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-graphite-900 leading-tight">
                 Operations & Factory Facility
               </h2>
-              <p className="text-sm sm:text-base text-graphite-600 font-light leading-relaxed">
+              <p className="text-sm sm:text-base text-graphite-700 font-light leading-relaxed">
                 Centrally located on Arakonam Road in the Sriperumbudur industrial belt, supporting fast deployment of engineering staff and genuine components across Tamil Nadu.
               </p>
             </div>
 
             {/* Contact Details Stack */}
             <div className="space-y-4">
-              <div className="p-6 rounded-sm bg-white border border-graphite-600/25 shadow-sm flex items-start gap-4">
-                <div className="p-3 rounded-sm bg-ivory-50 text-champagne-600 border border-graphite-600/20 shrink-0">
+              <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card flex items-start gap-4">
+                <div className="p-3 rounded-xs bg-copper-500/10 text-copper-700 border border-copper-700/20 shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
-                <div className="space-y-1 font-mono text-xs">
-                  <div className="uppercase text-champagne-600 font-bold text-[10px] tracking-technical">
+                <div className="space-y-1 font-sans text-xs">
+                  <div className="uppercase text-copper-700 font-bold text-[11px] tracking-[0.14em]">
                     Registered Facility Address
                   </div>
-                  <address className="not-italic font-sans text-xs sm:text-sm font-normal text-graphite-800 leading-relaxed">
+                  <address className="not-italic text-xs sm:text-sm font-normal text-graphite-900 leading-relaxed">
                     {settings?.address_line1 || 'No B3-G4, Arakonam Road'},<br />
                     {settings?.address_line2 || 'Mevallurkuppam Village'},<br />
                     {settings?.city || 'Sriperumbudur Taluk'} – {settings?.pincode || '602015'},<br />
@@ -88,18 +88,18 @@ export const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-6 rounded-sm bg-white border border-graphite-600/25 shadow-sm flex items-start gap-4">
-                <div className="p-3 rounded-sm bg-ivory-50 text-champagne-600 border border-graphite-600/20 shrink-0">
+              <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card flex items-start gap-4">
+                <div className="p-3 rounded-xs bg-copper-500/10 text-copper-700 border border-copper-700/20 shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
-                <div className="space-y-1 font-mono text-xs">
-                  <div className="uppercase text-champagne-600 font-bold text-[10px] tracking-technical">
+                <div className="space-y-1 font-sans text-xs">
+                  <div className="uppercase text-copper-700 font-bold text-[11px] tracking-[0.14em]">
                     Direct Telephones
                   </div>
                   <div>
                     <a
                       href={`tel:${settings?.phone_primary || '8939359592'}`}
-                      className="hover:text-champagne-600 font-bold text-sm text-graphite-800"
+                      className="hover:text-copper-700 font-bold text-sm text-graphite-900 font-mono"
                     >
                       +91 {settings?.phone_primary || '8939359592'}
                     </a>
@@ -107,7 +107,7 @@ export const ContactPage: React.FC = () => {
                   <div>
                     <a
                       href={`tel:${settings?.phone_secondary || '9789397504'}`}
-                      className="hover:text-champagne-600 font-bold text-sm text-graphite-800"
+                      className="hover:text-copper-700 font-bold text-sm text-graphite-900 font-mono"
                     >
                       +91 {settings?.phone_secondary || '9789397504'}
                     </a>
@@ -115,18 +115,18 @@ export const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-6 rounded-sm bg-white border border-graphite-600/25 shadow-sm flex items-start gap-4">
-                <div className="p-3 rounded-sm bg-ivory-50 text-champagne-600 border border-graphite-600/20 shrink-0">
+              <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card flex items-start gap-4">
+                <div className="p-3 rounded-xs bg-copper-500/10 text-copper-700 border border-copper-700/20 shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
-                <div className="space-y-1 font-mono text-xs">
-                  <div className="uppercase text-champagne-600 font-bold text-[10px] tracking-technical">
+                <div className="space-y-1 font-sans text-xs">
+                  <div className="uppercase text-copper-700 font-bold text-[11px] tracking-[0.14em]">
                     Official Correspondence
                   </div>
-                  <div className="text-sm font-semibold text-graphite-800">
+                  <div className="text-sm font-semibold text-graphite-900">
                     <a
                       href={`mailto:${settings?.email || 'info@hydrelex.com'}`}
-                      className="hover:text-champagne-600"
+                      className="hover:text-copper-700 font-mono"
                     >
                       {settings?.email || 'info@hydrelex.com'}
                     </a>
@@ -134,15 +134,15 @@ export const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-6 rounded-sm bg-white border border-graphite-600/25 shadow-sm flex items-start gap-4">
-                <div className="p-3 rounded-sm bg-ivory-50 text-champagne-600 border border-graphite-600/20 shrink-0">
+              <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card flex items-start gap-4">
+                <div className="p-3 rounded-xs bg-copper-500/10 text-copper-700 border border-copper-700/20 shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
-                <div className="space-y-1 font-mono text-xs">
-                  <div className="uppercase text-champagne-600 font-bold text-[10px] tracking-technical">
+                <div className="space-y-1 font-sans text-xs">
+                  <div className="uppercase text-copper-700 font-bold text-[11px] tracking-[0.14em]">
                     Working Hours
                   </div>
-                  <div className="text-xs text-graphite-600">
+                  <div className="text-xs text-graphite-700">
                     {settings?.business_hours || 'Monday – Saturday: 9:00 AM – 6:30 PM (Sunday Closed)'}
                   </div>
                 </div>
@@ -150,43 +150,43 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Official Registrations Card */}
-            <div className="p-6 rounded-sm bg-ink-900 text-ivory-100 space-y-3 border border-graphite-600 shadow-sm">
-              <span className="text-[10px] font-mono tracking-technical uppercase text-champagne-500 font-semibold block">
+            <div className="p-6 rounded-sm bg-ink-950 text-steel-100 space-y-3 border border-graphite-700 shadow-elevated-card">
+              <span className="text-[11px] font-sans tracking-[0.14em] uppercase text-copper-400 font-bold block">
                 VERIFIED REGISTRATIONS
               </span>
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex items-center gap-2.5">
-                  <FileCheck2 className="w-4 h-4 text-champagne-500" />
+                  <FileCheck2 className="w-4 h-4 text-copper-500" />
                   <span>
-                    UDYAM: <strong className="text-ivory-100">{settings?.udyam_registration || 'UDYAM-TN-08-0090275'}</strong>
+                    UDYAM: <strong className="text-steel-100">{settings?.udyam_registration || 'UDYAM-TN-08-0090275'}</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-champagne-500" />
+                  <ShieldCheck className="w-4 h-4 text-copper-500" />
                   <span>
-                    GSTIN: <strong className="text-ivory-100">{settings?.gstin || '33BNOPK2159N1ZJ'}</strong>
+                    GSTIN: <strong className="text-steel-100">{settings?.gstin || '33BNOPK2159N1ZJ'}</strong>
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Track Existing Consultation Card */}
-            <div className="p-6 rounded-sm bg-white border border-graphite-600/25 shadow-sm space-y-4">
+            <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-technical text-champagne-600 font-semibold">
+                <span className="text-[11px] font-sans uppercase tracking-[0.14em] text-copper-700 font-bold">
                   STATUS VERIFICATION
                 </span>
-                <Search className="w-4 h-4 text-champagne-600" />
+                <Search className="w-4 h-4 text-copper-700" />
               </div>
-              <h3 className="font-heading text-lg font-bold text-graphite-800">
+              <h3 className="font-heading text-lg font-bold text-graphite-900">
                 Track Existing Consultation?
               </h3>
-              <p className="text-xs text-graphite-600 font-light leading-relaxed">
+              <p className="text-xs text-graphite-700 font-light leading-relaxed">
                 Check appointment confirmation status using your reference code and telephone number.
               </p>
               <button
                 onClick={() => setTrackModalOpen(true)}
-                className="w-full h-12 inline-flex items-center justify-center gap-2 px-5 rounded-sm bg-ivory-50 hover:bg-ivory-100 text-graphite-800 text-xs font-mono uppercase tracking-technical border border-graphite-600/30 transition-colors font-medium"
+                className="w-full h-12 inline-flex items-center justify-center gap-2 px-5 rounded-sm bg-graphite-900 hover:bg-ink-950 text-steel-100 text-xs font-sans uppercase tracking-[0.12em] transition-colors font-bold shadow-sm"
               >
                 <span>Track By Reference Number</span>
               </button>

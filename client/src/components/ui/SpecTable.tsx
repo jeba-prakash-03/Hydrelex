@@ -76,12 +76,12 @@ export const SpecTable: React.FC<SpecTableProps> = ({
     <div className={`w-full overflow-hidden ${className}`}>
       <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <TechnicalEyebrow variant={isDark ? 'champagne' : 'graphite'}>
+          <TechnicalEyebrow variant={isDark ? 'copper' : 'graphite'}>
             ENGINEERING SPECIFICATION MATRIX
           </TechnicalEyebrow>
           <h3
             className={`font-heading text-2xl sm:text-3xl font-extrabold tracking-tight mt-2 ${
-              isDark ? 'text-ivory-100' : 'text-graphite-800'
+              isDark ? 'text-steel-100' : 'text-graphite-900'
             }`}
           >
             System Comparison & Civil Scope
@@ -89,7 +89,7 @@ export const SpecTable: React.FC<SpecTableProps> = ({
         </div>
         <span
           className={`font-mono text-xs ${
-            isDark ? 'text-silver-400/80' : 'text-graphite-600'
+            isDark ? 'text-steel-300/80' : 'text-graphite-600'
           }`}
         >
           *Parameters engineered strictly per individual site survey
@@ -97,14 +97,14 @@ export const SpecTable: React.FC<SpecTableProps> = ({
       </div>
 
       {/* Responsive Architectural Matrix Table */}
-      <div className="w-full overflow-x-auto border border-graphite-600/40 rounded-sm">
+      <div className="w-full overflow-x-auto border border-graphite-700 rounded-sm shadow-elevated-card">
         <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr
-              className={`border-b text-[11px] font-mono tracking-technical uppercase ${
+              className={`border-b text-[11px] font-sans tracking-[0.14em] uppercase font-bold ${
                 isDark
-                  ? 'bg-graphite-800/90 border-graphite-600/60 text-silver-400'
-                  : 'bg-ivory-50 border-graphite-600/30 text-graphite-800 font-semibold'
+                  ? 'bg-graphite-900 border-graphite-700 text-steel-300'
+                  : 'bg-ivory-50 border-graphite-700/20 text-graphite-900'
               }`}
             >
               <th className="py-4 px-5">System Code</th>
@@ -118,8 +118,8 @@ export const SpecTable: React.FC<SpecTableProps> = ({
           <tbody
             className={`divide-y text-xs font-sans ${
               isDark
-                ? 'divide-graphite-600/30 bg-graphite-800/40 text-ivory-100'
-                : 'divide-graphite-600/20 bg-white text-graphite-800'
+                ? 'divide-graphite-700/50 bg-graphite-700/40 text-steel-100'
+                : 'divide-graphite-700/20 bg-white text-graphite-900'
             }`}
           >
             {defaultSpecs.map((spec) => (
@@ -129,7 +129,7 @@ export const SpecTable: React.FC<SpecTableProps> = ({
                   isDark ? 'hover:bg-graphite-600/30' : 'hover:bg-ivory-100/60'
                 }`}
               >
-                <td className="py-4 px-5 font-mono text-[11px] text-champagne-500 font-semibold whitespace-nowrap">
+                <td className="py-4 px-5 font-mono text-[11px] text-copper-500 font-bold whitespace-nowrap">
                   {spec.id}
                 </td>
                 <td className="py-4 px-5 font-heading text-sm font-bold whitespace-nowrap">
@@ -137,7 +137,7 @@ export const SpecTable: React.FC<SpecTableProps> = ({
                 </td>
                 <td
                   className={`py-4 px-5 font-light ${
-                    isDark ? 'text-silver-400' : 'text-graphite-600'
+                    isDark ? 'text-steel-300' : 'text-graphite-700'
                   }`}
                 >
                   {spec.application}
@@ -147,12 +147,12 @@ export const SpecTable: React.FC<SpecTableProps> = ({
                 </td>
                 <td
                   className={`py-4 px-5 font-light ${
-                    isDark ? 'text-silver-400' : 'text-graphite-600'
+                    isDark ? 'text-steel-300' : 'text-graphite-700'
                   }`}
                 >
                   {spec.scope}
                 </td>
-                <td className="py-4 px-5 text-right font-mono text-[11px] text-champagne-500 whitespace-nowrap">
+                <td className="py-4 px-5 text-right font-mono text-[11px] text-copper-500 whitespace-nowrap font-bold">
                   {spec.status}
                 </td>
               </tr>

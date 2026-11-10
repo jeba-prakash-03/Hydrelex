@@ -1,24 +1,24 @@
 # IMAGES_NEEDED.md — HYDRELEX LIFT SYSTEMS
 
-This document lists all image assets needed across the HYDRELEX LIFT SYSTEMS website.
-All image slots currently render deliberate, high-quality dark graphite fallback blocks with hand-drawn champagne/silver line-art SVGs (1px strokes) and technical typography so the site looks finished with zero photos.
+This document lists all image assets for the HYDRELEX LIFT SYSTEMS corporate website.
+All image slots currently render deliberate, high-contrast dark graphite (`#141416`) fallback blocks with animated or hand-drawn forged copper (`#E8782E`) and brushed steel (`#C9CDD2`) line-art SVGs (1.5–2px strokes) and technical typography so the site looks premium and finished with zero stock photography.
 
-When real photography is ready, place the corresponding image files in `client/public/images/` or upload them via the Admin Portal.
+When real photography is ready, place the corresponding image files in `client/public/images/` or upload them via the Admin Portal. Real photos in `/public/images/` automatically take precedence when present and receive a dark gradient overlay to guarantee text contrast.
 
 ---
 
 ## 1. Hero & Brand Slots
 | Slot / Filename | Recommended Format | Aspect Ratio | Dimensions (Min) | Subject Description | Fallback Behavior |
 |---|---|---|---|---|---|
-| `hero-lift-lobby.webp` | WebP / PNG | 16:9 | 2560 × 1440 | Architectural passenger elevator in high-end modern lobby or atrium with dramatic lighting. | Dark graphite block (`#1C1C1E`) + multi-floor vertical shaft cross-section line-art SVG with heavy gradient overlay. |
-| `about-facility.webp` | WebP / PNG | 4:5 or 1:1 | 1600 × 2000 | Heavy elevator fabrication and assembly line or engineering design desk in Sriperumbudur. | Architectural elevator tower isometric framing line-art SVG. |
+| `hero-lift-lobby.webp` | WebP / PNG | 16:9 | 2560 × 1440 | Architectural passenger elevator in high-end modern lobby or atrium with dramatic lighting. | Full-screen 55/45 split with full-height animated traveling SVG lift shaft (`HeroLiftShaftAnimated.tsx`), digital floor HUD indicator (G, 1, 2, 3, 4), and copper radial glow (`rgba(232,120,46,0.35)`). |
+| `about-facility.webp` | WebP / PNG | 4:5 or 1:1 | 1600 × 2000 | Heavy elevator fabrication and assembly line or engineering design desk in Sriperumbudur. | Full-bleed graphite blueprint cross-section panel (`BlueprintShaftView.tsx`) with dimension lines and millimeter datum callouts. |
 
 ---
 
 ## 2. Product / System Showcase Slots (6 Core Systems)
 | Slot / Filename | Recommended Format | Aspect Ratio | Dimensions (Min) | Subject Description | Fallback Line-Art SVG |
 |---|---|---|---|---|---|
-| `product-passenger.webp` | WebP / PNG | 4:5 or 16:10 | 1600 × 2000 | Interior or entrance of a luxury passenger elevator cabin (stainless steel / glass). | Minimalist architectural passenger cabin interior with ceiling spot lighting. |
+| `product-passenger.webp` | WebP / PNG | 4:5 or 16:10 | 1600 × 2000 | Interior or entrance of a luxury passenger elevator cabin (stainless steel / glass). | Architectural passenger cabin frame in steel and copper strokes with ceiling spot lights. |
 | `product-goods.webp` | WebP / PNG | 16:10 | 1920 × 1200 | Heavy-duty industrial freight lift with steel checker plate floor and forklift loading entry. | Heavy goods lift structural chassis with reinforced uprights and guide shoes. |
 | `product-hydraulic.webp` | WebP / PNG | 4:3 | 1600 × 1200 | Direct or indirect hydraulic lifting ram cylinder and pump power unit. | Precision electro-hydraulic cylinder and piston rod assembly. |
 | `product-scissor.webp` | WebP / PNG | 4:3 | 1600 × 1200 | Industrial hydraulic scissor lift table / dock leveling platform in operation. | Heavy pantograph scissor linkage with dual lifting rams. |
@@ -41,5 +41,4 @@ When real photography is ready, place the corresponding image files in `client/p
 
 ## 4. Logo Assets (Verified Existing)
 - `client/public/logo_original.png` — Original company emblem and wordmark.
-- `client/public/logo_transparent.png` — High-resolution transparent background logo.
-
+- `client/public/logo_transparent.png` — High-resolution transparent background logo (210×60 rendered, naturalWidth 210px).

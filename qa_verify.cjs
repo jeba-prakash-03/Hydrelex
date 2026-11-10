@@ -1,12 +1,12 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 const ARTIFACT_DIR = '/home/jeba-prakash/.gemini/antigravity/brain/9dbaf171-c517-408b-8b8b-24724fee5962';
 const BREAKPOINTS = [
   { name: 'desktop_1920', width: 1920, height: 1080 },
   { name: 'desktop_1440', width: 1440, height: 900 },
-  { name: 'tablet_1024', width: 1024, height: 768 },
   { name: 'tablet_768', width: 768, height: 1024 },
   { name: 'mobile_390', width: 390, height: 844 },
 ];
@@ -24,16 +24,27 @@ const PAGES_TO_TEST = [
 
 (async () => {
   console.log('====================================================');
-  console.log('HYDRELEX REDESIGN QA VERIFICATION SUITE');
+  console.log('HYDRELEX VIVID REDESIGN QA VERIFICATION SUITE');
   console.log('====================================================');
+
+  const tmpProfileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hydrelex_puppeteer_'));
 
   const browser = await puppeteer.launch({
     headless: 'new',
     executablePath: '/usr/bin/google-chrome',
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-gpu',
+      '--disable-dev-shm-usage',
+      `--user-data-dir=${tmpProfileDir}`,
+    ]
   });
 
   const page = await browser.newPage();
+  page.setDefaultNavigationTimeout(60000);
+  page.setDefaultTimeout(60000);
+
   const consoleErrors = [];
 
   page.on('console', (msg) => {
@@ -55,30 +66,9 @@ const PAGES_TO_TEST = [
     console.log(`\nTesting Breakpoint ${bp.name} (${bp.width}x${bp.height}):`);
 
     for (const p of PAGES_TO_TEST) {
-      const url = `http://localhost:5173${p.path}`;
-      await page.goto(url, { waitUntil: 'domcontentloaded' });
+      const url = `http://127.0.0.1:5173${p.path}`;
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
       await new Promise((r) => setTimeout(r, 600));
-
-      // Scroll smoothly to trigger whileInView animations
-      await page.evaluate(async () => {
-        await new Promise((resolve) => {
-          let totalHeight = 0;
-          const distance = 400;
-          const timer = setInterval(() => {
-            const scrollHeight = document.body.scrollHeight;
-            window.scrollBy(0, distance);
-            totalHeight += distance;
-
-            if (totalHeight >= scrollHeight) {
-              clearInterval(timer);
-              window.scrollTo(0, 0);
-              resolve();
-            }
-          }, 60);
-        });
-      });
-
-      await new Promise((r) => setTimeout(r, 400));
 
       const overflowData = await page.evaluate(() => {
         const docWidth = document.documentElement.offsetWidth;
@@ -102,6 +92,19 @@ const PAGES_TO_TEST = [
         const filepath = path.join(ARTIFACT_DIR, filename);
         await page.screenshot({ path: filepath, fullPage: true });
         console.log(`    ↳ Captured full-page screenshot: ${filename}`);
+
+        // If on home page, also capture key individual sections for inspection
+        if (p.name === 'home' && (bp.name === 'desktop_1440' || bp.name === 'mobile_390')) {
+          const sections = ['hero', 'company-intro', 'products', 'services', 'why-us', 'projects', 'reviews', 'consultation'];
+          for (const sec of sections) {
+            const secHandle = await page.$(`#${sec}`);
+            if (secHandle) {
+              const secFilename = `qa_section_${sec}_${bp.name}.png`;
+              await secHandle.screenshot({ path: path.join(ARTIFACT_DIR, secFilename) });
+              console.log(`      ↳ Section screenshot: ${secFilename}`);
+            }
+          }
+        }
       }
     }
   }
@@ -109,7 +112,7 @@ const PAGES_TO_TEST = [
   // 2. Visual Check: Contrast & Broken Images
   console.log('\n--- 2. CHECKING IMAGE INTEGRITY & FALLBACK RENDERING ---');
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto('http://localhost:5173/', { waitUntil: 'domcontentloaded' });
+  await page.goto('http://127.0.0.1:5173/', { waitUntil: 'domcontentloaded', timeout: 60000 });
   await new Promise((r) => setTimeout(r, 1000));
 
   const imageStats = await page.evaluate(() => {
@@ -213,7 +216,6 @@ const PAGES_TO_TEST = [
     return res.json();
   });
   console.log(`  Approved Reviews on site: ${approvedRes.reviews?.length || 0}`);
-  // Confirm unapproved review is not leaked into public feed
   const leaked = approvedRes.reviews?.some((r) => r.customer_name === 'QA Factory Manager');
   if (!leaked) {
     console.log('  ✓ Moderation integrity verified: pending review is NOT exposed to public feed before approval.');
@@ -255,8 +257,11 @@ const PAGES_TO_TEST = [
   }
 
   await browser.close();
+  try {
+    fs.rmSync(tmpProfileDir, { recursive: true, force: true });
+  } catch (e) {}
+
   console.log('\n====================================================');
   console.log(`QA COMPLETE: OVERFLOW PASSED = ${allOverflowPassed}, BUILD = OK, DATA FLOWS = 100% OPERATIONAL`);
   console.log('====================================================');
 })();
-

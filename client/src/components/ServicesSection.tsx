@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronRight, Check } from 'lucide-react';
+import { ArrowRight, ChevronRight, Check, ShieldCheck, Wrench, RefreshCw, Cpu } from 'lucide-react';
 import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
 import { LiftLineArtSvg } from './ui/LiftLineArtSvg';
 
@@ -10,6 +10,7 @@ interface ServiceItem {
   title: string;
   category: string;
   description: string;
+  icon: React.ComponentType<{ className?: string }>;
   deliverables: string[];
 }
 
@@ -18,6 +19,7 @@ const servicesList: ServiceItem[] = [
     number: '01',
     title: 'New Installation & Turnkey Erection',
     category: 'CIVIL INTEGRATION',
+    icon: Wrench,
     description:
       'Complete mechanical and electrical erection of passenger, goods, and panoramic elevators from civil plumb survey to final commissioning.',
     deliverables: [
@@ -30,6 +32,7 @@ const servicesList: ServiceItem[] = [
     number: '02',
     title: 'Preventative Maintenance & AMC Contracts',
     category: 'LIFECYCLE OPERATIONS',
+    icon: ShieldCheck,
     description:
       'Scheduled preventive inspections, multi-point lubrication, and emergency breakdown attendance by factory-trained vertical transport technicians.',
     deliverables: [
@@ -42,6 +45,7 @@ const servicesList: ServiceItem[] = [
     number: '03',
     title: 'Inverter Modernization & Electrical Retrofits',
     category: 'EFFICIENCY UPGRADES',
+    icon: Cpu,
     description:
       'Upgrading older relay-based or inefficient elevator drives with advanced microprocessor controllers and energy-efficient VVVF frequency inverters.',
     deliverables: [
@@ -54,6 +58,7 @@ const servicesList: ServiceItem[] = [
     number: '04',
     title: 'Custom Engineering & Hydraulic Adaptation',
     category: 'BESPOKE FABRICATION',
+    icon: RefreshCw,
     description:
       'Specialized engineering for non-standard shafts, shallow pit depth allowances, zero overhead machine room restrictions, and heavy industrial scissor mechanisms.',
     deliverables: [
@@ -70,36 +75,63 @@ export const ServicesSection: React.FC = () => {
   return (
     <section
       id="services"
-      className="w-full bg-ivory-100 text-graphite-800 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-600/20"
-      style={{ backgroundColor: '#F4EFE6' }}
+      className="w-full bg-gradient-to-br from-ivory-50 via-steel-100/40 to-ivory-100 text-graphite-900 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-700/20"
+      style={{ backgroundColor: '#FBF8F2' }}
     >
+      {/* Background Architectural Grid */}
+      <div className="absolute inset-0 bg-technical-grid opacity-30 pointer-events-none" />
+
+      {/* Oversized Outlined Numeral 03 Cropped Behind Section */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-12 right-6 sm:right-16 text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
+        style={{
+          WebkitTextStroke: '1.5px #B4531A',
+          color: 'transparent',
+        }}
+      >
+        03
+      </div>
+
       <div className="w-full px-fluid relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
-          {/* Left Column: Sticky Heading + Large Architectural Line-Art Cross-Section (5 cols) */}
+          {/* Left Column: Sticky Heading + Architectural Line-Art Cross-Section (5 cols) */}
           <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
-            <div className="space-y-3">
+            <div className="space-y-4">
               <TechnicalEyebrow variant="graphite">
                 ENGINEERING & LIFECYCLE SERVICES // 03
               </TechnicalEyebrow>
-              <h2 className="font-h2-clamp font-extrabold text-graphite-800 tracking-tight leading-[1.08]">
-                Precision Turnkey Execution.
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold text-graphite-900 tracking-tight leading-[1.08]">
+                Precision Turnkey{' '}
+                <span className="text-copper-700 underline decoration-copper-500/40 underline-offset-8">
+                  Execution
+                </span>
+                .
               </h2>
-              <p className="text-base sm:text-lg text-graphite-600 font-light leading-relaxed">
+              <p className="text-base sm:text-lg text-graphite-700 font-light leading-relaxed">
                 From initial civil plumb survey in Tamil Nadu to lifetime preventive maintenance, our certified vertical mobility specialists oversee full equipment integrity.
               </p>
             </div>
 
+            {/* Scale Divider with Center Diamond */}
+            <div className="scale-divider">
+              <span className="diamond" />
+            </div>
+
             {/* Hand-Drawn Architectural Shaft Cross-Section Diagram */}
-            <div className="p-6 rounded-sm bg-white border border-graphite-600/25 shadow-sm space-y-4">
-              <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-technical text-champagne-600 border-b border-graphite-600/20 pb-3">
-                <span>ELEVATOR SHAFT CROSS-SECTION</span>
-                <span>FIG 01.A</span>
+            <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card space-y-4">
+              <div className="flex items-center justify-between font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-copper-700 border-b border-graphite-700/15 pb-3">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-copper-500 inline-block" />
+                  ELEVATOR SHAFT CROSS-SECTION
+                </span>
+                <span className="font-mono text-xs text-graphite-700">CAD-SEC.01</span>
               </div>
-              <div className="h-64 sm:h-72 w-full flex items-center justify-center p-2 bg-ivory-50 rounded-sm">
+              <div className="h-64 sm:h-72 w-full flex items-center justify-center p-3 bg-graphite-900 rounded-sm overflow-hidden">
                 <LiftLineArtSvg
                   type="shaft-cross-section"
                   className="h-full w-auto"
-                  strokeColor="#8F7144"
+                  strokeColor="#E8782E"
                 />
               </div>
               <div className="text-[11px] font-mono text-graphite-600 text-center">
@@ -108,13 +140,13 @@ export const ServicesSection: React.FC = () => {
             </div>
 
             <div className="pt-2">
-              <a
-                href="#consultation"
-                className="inline-flex items-center gap-3 px-8 h-13 py-3.5 rounded-sm bg-graphite-800 hover:bg-ink-900 text-ivory-100 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 shadow-sm"
+              <Link
+                to="/contact#consultation"
+                className="group inline-flex items-center gap-3 px-8 h-12 py-3 rounded-sm bg-graphite-900 hover:bg-ink-950 text-steel-100 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 shadow-elevated-card hover:shadow-copper-glow"
               >
                 <span>Book Engineering Consultation</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-copper-500" />
+              </Link>
             </div>
           </div>
 
@@ -122,56 +154,49 @@ export const ServicesSection: React.FC = () => {
           <div className="lg:col-span-7 space-y-5">
             {servicesList.map((service, idx) => {
               const isActive = activeIdx === idx;
+              const IconComp = service.icon;
+
               return (
                 <motion.div
                   key={service.number}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 1, y: 0 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  transition={{ duration: 0.5, delay: idx * 0.06 }}
                   onMouseEnter={() => setActiveIdx(idx)}
                   className={`p-6 sm:p-8 rounded-sm transition-all duration-300 border cursor-pointer ${
                     isActive
-                      ? 'bg-white border-champagne-600 shadow-xl'
-                      : 'bg-white/70 border-graphite-600/25 hover:bg-white hover:border-champagne-600/50'
+                      ? 'bg-white border-l-4 border-l-copper-500 border-t-graphite-700/20 border-r-graphite-700/20 border-b-graphite-700/20 shadow-elevated-card'
+                      : 'bg-white/75 border border-graphite-700/20 hover:bg-white hover:border-l-4 hover:border-l-copper-500/70'
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 mb-3">
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs font-bold text-champagne-600 tracking-technical">
+                      <span className="font-mono text-sm font-bold text-copper-700">
                         [{service.number}]
                       </span>
-                      <h3 className="font-heading text-xl sm:text-2xl font-bold text-graphite-800">
-                        {service.title}
+                      <h3 className="font-heading text-xl sm:text-2xl font-bold text-graphite-900 flex items-center gap-2">
+                        <IconComp className="w-5 h-5 text-copper-700" />
+                        <span>{service.title}</span>
                       </h3>
                     </div>
-                    <span className="text-[10px] font-mono tracking-technical uppercase text-graphite-600 bg-ivory-50 px-2 py-0.5 rounded-sm border border-graphite-600/20 shrink-0">
+                    <span className="text-[11px] font-sans font-bold tracking-[0.12em] uppercase text-copper-700 bg-copper-500/10 px-2.5 py-1 rounded-xs border border-copper-700/20 shrink-0">
                       {service.category}
                     </span>
                   </div>
 
-                  <p className="text-sm text-graphite-600 font-light leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base text-graphite-700 font-light leading-relaxed mb-4">
                     {service.description}
                   </p>
 
                   {/* Key Deliverables */}
-                  <div className="pt-3 border-t border-graphite-600/15 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-graphite-800">
+                  <div className="pt-3 border-t border-graphite-700/15 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans text-graphite-900">
                     {service.deliverables.map((item, dIdx) => (
                       <div key={dIdx} className="flex items-start gap-2">
-                        <Check className="w-3.5 h-3.5 text-champagne-600 shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                        <Check className="w-4 h-4 text-copper-700 shrink-0 mt-0.5" />
+                        <span className="font-medium text-graphite-800">{item}</span>
                       </div>
                     ))}
-                  </div>
-
-                  <div className="pt-4 mt-4 border-t border-graphite-600/15 flex items-center justify-between text-xs font-mono text-champagne-600 font-bold uppercase tracking-technical">
-                    <Link
-                      to={`/contact?interest=${encodeURIComponent(service.title)}#consultation`}
-                      className="inline-flex items-center gap-1.5 hover:text-champagne-500 transition-colors"
-                    >
-                      <span>Inquire Technical Service</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </Link>
                   </div>
                 </motion.div>
               );

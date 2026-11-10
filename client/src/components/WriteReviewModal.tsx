@@ -24,12 +24,14 @@ interface WriteReviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   onReviewSubmitted?: () => void;
+  onSuccess?: () => void;
 }
 
 export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
   isOpen,
   onClose,
   onReviewSubmitted,
+  onSuccess,
 }) => {
   const [selectedRating, setSelectedRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
@@ -82,6 +84,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
       if (res.success) {
         setSubmitSuccess(true);
         if (onReviewSubmitted) onReviewSubmitted();
+        if (onSuccess) onSuccess();
       } else {
         setServerError(res.message || 'Failed to submit review');
       }
@@ -101,9 +104,9 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
   if (!isOpen) return null;
 
   const inputClasses =
-    'w-full h-14 px-4 text-sm font-sans bg-ink-900/80 border border-graphite-600 rounded-sm text-ivory-100 placeholder:text-silver-400/50 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none transition-colors';
+    'w-full h-14 px-4 text-sm font-sans bg-graphite-900 border border-steel-300/40 rounded-xs text-steel-100 placeholder:text-steel-300/40 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none transition-colors';
   const labelClasses =
-    'block font-mono text-[11px] uppercase tracking-technical text-silver-400 mb-2 font-medium';
+    'block font-sans text-[12px] uppercase tracking-[0.14em] text-steel-300 mb-2 font-bold';
 
   return (
     <AnimatePresence>
@@ -117,7 +120,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleModalClose}
-          className="fixed inset-0 bg-ink-900/90"
+          className="fixed inset-0 bg-ink-950/95"
         />
 
         <motion.div
@@ -125,27 +128,27 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 16 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-xl bg-graphite-800 text-ivory-100 rounded-sm shadow-2xl border border-graphite-600 overflow-hidden z-10 my-8"
+          className="relative w-full max-w-xl bg-graphite-900 text-steel-100 rounded-sm shadow-2xl border border-graphite-700 border-t-2 border-t-copper-500 overflow-hidden z-10 my-8"
         >
           <button
             onClick={handleModalClose}
-            className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-ink-900/80 text-silver-400 hover:text-ivory-100 border border-graphite-600 transition-colors"
+            className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 font-bold" />
           </button>
 
           <div className="p-6 sm:p-10 max-h-[85vh] overflow-y-auto">
             {!submitSuccess ? (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
                 <div className="space-y-2">
-                  <TechnicalEyebrow variant="champagne">
+                  <TechnicalEyebrow variant="copper">
                     CLIENT FEEDBACK // QUALITY CONTROL
                   </TechnicalEyebrow>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-ivory-100">
+                  <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-steel-100">
                     Submit Client Review
                   </h3>
-                  <p className="text-xs sm:text-sm text-silver-400 font-light">
+                  <p className="text-xs sm:text-sm text-steel-300 font-light">
                     Every review is evaluated by HYDRELEX engineering moderation before public publication.
                   </p>
                 </div>
@@ -186,14 +189,14 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                           <Star
                             className={`w-7 h-7 ${
                               filled
-                                ? 'fill-champagne-500 text-champagne-500'
+                                ? 'fill-copper-500 text-copper-500'
                                 : 'text-graphite-600 fill-transparent'
                             }`}
                           />
                         </button>
                       );
                     })}
-                    <span className="ml-3 text-xs font-mono font-bold text-champagne-500">
+                    <span className="ml-3 text-xs font-mono font-bold text-copper-500">
                       {hoverRating || selectedRating} / 5 Stars
                     </span>
                   </div>
@@ -268,7 +271,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                     {...register('description')}
                     rows={4}
                     placeholder="Please detail lift travel smoothness, door operator reliability, installation punctuality, and service support..."
-                    className="w-full p-4 min-h-[140px] text-sm font-sans bg-ink-900/80 border border-graphite-600 rounded-sm text-ivory-100 placeholder:text-silver-400/50 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none leading-relaxed transition-colors"
+                    className="w-full p-4 min-h-[140px] text-sm font-sans bg-graphite-900 border border-steel-300/40 rounded-xs text-steel-100 placeholder:text-steel-300/40 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none leading-relaxed transition-colors"
                   />
                   {errors.description && (
                     <span className="text-[11px] font-mono text-danger-500 mt-1 block">
@@ -283,8 +286,8 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                     Optional Site Photo
                   </label>
                   <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-2 px-4 py-3 rounded-sm bg-ink-900 border border-graphite-600 hover:border-champagne-500 cursor-pointer text-xs font-mono uppercase tracking-technical text-silver-400 hover:text-ivory-100 transition-colors">
-                      <Upload className="w-4 h-4 text-champagne-500" />
+                    <label className="flex items-center gap-2 px-4 py-3 rounded-sm bg-ink-950 border border-graphite-700 hover:border-copper-500 cursor-pointer text-xs font-sans uppercase tracking-[0.12em] text-steel-300 hover:text-steel-100 transition-colors">
+                      <Upload className="w-4 h-4 text-copper-500" />
                       <span>{uploadingImage ? 'Uploading...' : 'Attach Image'}</span>
                       <input
                         type="file"
@@ -306,18 +309,18 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                 {/* Honeypot */}
                 <input {...register('hp_website')} type="text" className="hidden" tabIndex={-1} autoComplete="off" />
 
-                <div className="pt-4 flex items-center justify-end gap-3 border-t border-graphite-600/40">
+                <div className="pt-4 flex items-center justify-end gap-3 border-t border-graphite-700/60">
                   <button
                     type="button"
                     onClick={handleModalClose}
-                    className="px-5 h-12 rounded-sm border border-graphite-600 text-xs font-mono uppercase tracking-technical text-silver-400 hover:text-ivory-100 hover:bg-graphite-600/30 transition-colors"
+                    className="px-5 h-12 rounded-sm border border-graphite-700 text-xs font-sans uppercase tracking-[0.12em] text-steel-300 hover:text-steel-100 hover:bg-graphite-700/50 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting || uploadingImage}
-                    className="inline-flex items-center gap-2 px-8 h-12 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical disabled:opacity-50 transition-all shadow-sm"
+                    className="inline-flex items-center gap-2 px-8 h-12 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] disabled:opacity-50 transition-all shadow-copper-glow"
                   >
                     {isSubmitting ? (
                       <>
@@ -332,19 +335,19 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
               </form>
             ) : (
               <div className="text-center py-10 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-champagne-500/15 border border-champagne-500 text-champagne-500 mx-auto flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-copper-500/15 border border-copper-500 text-copper-500 mx-auto flex items-center justify-center shadow-copper-glow">
                   <CheckCircle2 className="w-9 h-9" />
                 </div>
-                <h3 className="font-heading text-2xl font-bold text-ivory-100">
+                <h3 className="font-heading text-2xl font-bold text-steel-100">
                   Feedback Received
                 </h3>
-                <p className="text-sm text-silver-400 max-w-sm mx-auto leading-relaxed font-light">
+                <p className="text-sm text-steel-300 max-w-sm mx-auto leading-relaxed font-light">
                   Thank you for reviewing HYDRELEX Lift Systems. Your evaluation has been saved with status PENDING and will be published once verified by engineering moderation.
                 </p>
                 <div className="pt-4">
                   <button
                     onClick={handleModalClose}
-                    className="px-8 h-12 rounded-sm bg-champagne-500 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical"
+                    className="px-8 h-12 rounded-sm bg-copper-500 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] shadow-copper-glow hover:bg-copper-400 transition-colors"
                   >
                     Close Window
                   </button>

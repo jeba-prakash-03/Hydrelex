@@ -94,9 +94,9 @@ export const TrackEnquiryModal: React.FC<TrackEnquiryModalProps> = ({
   };
 
   const inputClasses =
-    'w-full h-14 px-4 text-sm font-sans bg-ink-900/80 border border-graphite-600 rounded-sm text-ivory-100 placeholder:text-silver-400/50 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none transition-colors';
+    'w-full h-14 px-4 text-sm font-sans bg-graphite-900 border border-steel-300/40 rounded-xs text-steel-100 placeholder:text-steel-300/40 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none transition-colors';
   const labelClasses =
-    'block font-mono text-[11px] uppercase tracking-technical text-silver-400 mb-2 font-medium';
+    'block font-sans text-[12px] uppercase tracking-[0.14em] text-steel-300 mb-2 font-bold';
 
   return (
     <AnimatePresence>
@@ -110,7 +110,7 @@ export const TrackEnquiryModal: React.FC<TrackEnquiryModalProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleModalClose}
-          className="fixed inset-0 bg-ink-900/90"
+          className="fixed inset-0 bg-ink-950/95"
         />
 
         <motion.div
@@ -118,25 +118,25 @@ export const TrackEnquiryModal: React.FC<TrackEnquiryModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 16 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-lg bg-graphite-800 text-ivory-100 rounded-sm shadow-2xl border border-graphite-600 overflow-hidden z-10 my-8"
+          className="relative w-full max-w-lg bg-graphite-900 text-steel-100 rounded-sm shadow-2xl border border-graphite-700 border-t-2 border-t-copper-500 overflow-hidden z-10 my-8"
         >
           <button
             onClick={handleModalClose}
-            className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-ink-900/80 text-silver-400 hover:text-ivory-100 border border-graphite-600 transition-colors"
+            className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 font-bold" />
           </button>
 
           <div className="p-6 sm:p-10 space-y-6">
             <div className="space-y-2">
-              <TechnicalEyebrow variant="champagne">
+              <TechnicalEyebrow variant="copper">
                 REFERENCE TRACKING // CONSULTATIONS
               </TechnicalEyebrow>
-              <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-ivory-100">
+              <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-steel-100">
                 Track Consultation Status
               </h3>
-              <p className="text-xs sm:text-sm text-silver-400 font-light">
+              <p className="text-xs sm:text-sm text-steel-300 font-light">
                 Verify appointment scheduling and view engineering updates using your reference code.
               </p>
             </div>
@@ -178,7 +178,7 @@ export const TrackEnquiryModal: React.FC<TrackEnquiryModalProps> = ({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full h-14 inline-flex items-center justify-center gap-2 px-6 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical shadow-sm disabled:opacity-50 transition-all"
+                className="w-full h-14 inline-flex items-center justify-center gap-2 px-6 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] shadow-copper-glow disabled:opacity-50 transition-all"
               >
                 {loading ? (
                   <>
@@ -199,14 +199,14 @@ export const TrackEnquiryModal: React.FC<TrackEnquiryModalProps> = ({
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-5 rounded-sm bg-ink-900 border border-graphite-600 space-y-4 shadow-sm"
+                className="p-5 rounded-sm bg-ink-950 border border-graphite-700 space-y-4 shadow-sm"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-graphite-600">
+                <div className="flex items-center justify-between pb-3 border-b border-graphite-700">
                   <div>
-                    <span className="text-[10px] font-mono text-silver-400 uppercase tracking-technical">
+                    <span className="text-[10px] font-mono text-steel-300 uppercase tracking-technical">
                       Reference ID
                     </span>
-                    <div className="font-mono text-base font-bold text-champagne-500">
+                    <div className="font-mono text-base font-bold text-copper-500">
                       {enquiryData.referenceNo}
                     </div>
                   </div>
@@ -215,33 +215,33 @@ export const TrackEnquiryModal: React.FC<TrackEnquiryModalProps> = ({
 
                 <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                   <div>
-                    <span className="text-silver-400/70 block text-[10px]">CATEGORY:</span>
-                    <strong className="text-ivory-100">{enquiryData.enquiryType}</strong>
+                    <span className="text-steel-300/70 block text-[10px]">CATEGORY:</span>
+                    <strong className="text-steel-100">{enquiryData.enquiryType}</strong>
                   </div>
                   <div>
-                    <span className="text-silver-400/70 block text-[10px]">EQUIPMENT:</span>
-                    <strong className="text-ivory-100">{enquiryData.productServiceInterest}</strong>
+                    <span className="text-steel-300/70 block text-[10px]">EQUIPMENT:</span>
+                    <strong className="text-steel-100">{enquiryData.productServiceInterest}</strong>
                   </div>
                   <div>
-                    <span className="text-silver-400/70 block text-[10px]">SITE LOCATION:</span>
-                    <strong className="text-ivory-100">{enquiryData.location}</strong>
+                    <span className="text-steel-300/70 block text-[10px]">SITE LOCATION:</span>
+                    <strong className="text-steel-100">{enquiryData.location}</strong>
                   </div>
                   <div>
-                    <span className="text-silver-400/70 block text-[10px]">SUBMISSION:</span>
-                    <strong className="text-ivory-100">{formatDate(enquiryData.createdAt)}</strong>
+                    <span className="text-steel-300/70 block text-[10px]">SUBMISSION:</span>
+                    <strong className="text-steel-100">{formatDate(enquiryData.createdAt)}</strong>
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-sm bg-graphite-800 border border-graphite-600 text-xs font-mono space-y-1.5">
-                  <div className="text-champagne-500 font-semibold flex items-center gap-1.5">
+                <div className="p-3.5 rounded-sm bg-graphite-900 border border-graphite-700 text-xs font-mono space-y-1.5">
+                  <div className="text-copper-500 font-semibold flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
                     <span>Requested Consultation Window:</span>
                   </div>
-                  <div className="text-silver-400">
+                  <div className="text-steel-300">
                     {formatDate(enquiryData.requestedDate)} ({enquiryData.requestedTime})
                   </div>
                   {enquiryData.confirmedDate && (
-                    <div className="text-emerald-400 text-[11px] pt-1.5 border-t border-graphite-600">
+                    <div className="text-emerald-400 text-[11px] pt-1.5 border-t border-graphite-700">
                       Confirmed by Staff: {formatDate(enquiryData.confirmedDate)} at {enquiryData.confirmedTime}
                     </div>
                   )}
