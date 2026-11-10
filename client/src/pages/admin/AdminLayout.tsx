@@ -13,7 +13,6 @@ import {
   ExternalLink,
   Menu,
   X,
-  ShieldCheck,
   User,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -42,17 +41,20 @@ export const AdminLayout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-arch-ivory text-arch-graphite flex">
-      {/* Desktop Sidebar (Deep Obsidian / Graphite) */}
-      <aside className="hidden lg:flex flex-col w-64 bg-arch-black text-white border-r border-arch-steel/50 shrink-0">
+    <div className="min-h-screen bg-ivory-50 text-graphite-800 flex">
+      {/* Desktop Sidebar (Deep Ink-900 / Graphite-800) */}
+      <aside
+        className="hidden lg:flex flex-col w-64 bg-ink-900 text-ivory-100 border-r border-graphite-600/60 shrink-0"
+        style={{ backgroundColor: '#0E0E0F' }}
+      >
         {/* Sidebar Header */}
-        <div className="p-6 border-b border-arch-steel/40 flex items-center justify-between">
+        <div className="p-6 border-b border-graphite-600/60 flex items-center justify-between">
           <Logo variant="light" showTagline={false} />
         </div>
 
         {/* Navigation Items */}
         <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
-          <div className="px-3 mb-2 text-[10px] font-mono tracking-ultra-wide text-arch-champagne/80 uppercase font-semibold">
+          <div className="px-3 mb-2 text-[10px] font-mono tracking-technical text-champagne-500 uppercase font-semibold">
             CONTROL PORTAL
           </div>
           {navItems.map((item) => {
@@ -68,11 +70,11 @@ export const AdminLayout: React.FC = () => {
                 to={item.path}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-xs font-mono uppercase tracking-wider transition-all ${
                   isActive
-                    ? 'bg-arch-graphite text-arch-champagne border-l-2 border-arch-champagne font-bold'
-                    : 'text-arch-sand/80 hover:text-white hover:bg-white/5'
+                    ? 'bg-graphite-800 text-champagne-500 border-l-2 border-champagne-500 font-bold'
+                    : 'text-silver-400 hover:text-ivory-100 hover:bg-graphite-800/40'
                 }`}
               >
-                <Icon className="w-4 h-4 shrink-0 text-arch-champagne" />
+                <Icon className="w-4 h-4 shrink-0 text-champagne-500" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -80,22 +82,26 @@ export const AdminLayout: React.FC = () => {
         </div>
 
         {/* User Card & Logout */}
-        <div className="p-4 border-t border-arch-steel/40 space-y-3 bg-arch-graphite/40">
+        <div className="p-4 border-t border-graphite-600/60 space-y-3 bg-graphite-800/50">
           <div className="flex items-center gap-2.5 px-2">
-            <div className="w-8 h-8 rounded-sm bg-arch-steel/40 border border-arch-steel flex items-center justify-center text-arch-champagne">
+            <div className="w-8 h-8 rounded-sm bg-ink-900 border border-graphite-600 flex items-center justify-center text-champagne-500">
               <User className="w-4 h-4" />
             </div>
             <div className="truncate">
-              <div className="text-xs font-bold text-white truncate font-heading">{admin?.username || 'Administrator'}</div>
-              <div className="text-[9.5px] font-mono text-arch-champagne uppercase tracking-wider">{admin?.role || 'SUPER_ADMIN'}</div>
+              <div className="text-xs font-bold text-ivory-100 truncate font-heading">
+                {admin?.username || 'Administrator'}
+              </div>
+              <div className="text-[9.5px] font-mono text-champagne-500 uppercase tracking-wider">
+                {admin?.role || 'SUPER_ADMIN'}
+              </div>
             </div>
           </div>
 
-          <div className="pt-2 border-t border-arch-steel/40 flex items-center justify-between text-xs font-mono">
+          <div className="pt-2 border-t border-graphite-600/60 flex items-center justify-between text-xs font-mono">
             <Link
               to="/"
               target="_blank"
-              className="inline-flex items-center gap-1 text-arch-sand/70 hover:text-white text-[11px]"
+              className="inline-flex items-center gap-1 text-silver-400 hover:text-ivory-100 text-[11px]"
             >
               <ExternalLink className="w-3 h-3" />
               <span>Live Site</span>
@@ -103,7 +109,7 @@ export const AdminLayout: React.FC = () => {
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1 text-rose-400 hover:text-rose-300 text-[11px]"
+              className="inline-flex items-center gap-1 text-danger-500 hover:opacity-80 text-[11px]"
             >
               <LogOut className="w-3 h-3" />
               <span>Sign Out</span>
@@ -113,11 +119,11 @@ export const AdminLayout: React.FC = () => {
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-arch-black border-b border-arch-steel/50 px-4 py-3 flex items-center justify-between text-white">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-ink-900 border-b border-graphite-600 px-4 py-3 flex items-center justify-between text-ivory-100">
         <Logo variant="light" showTagline={false} />
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 rounded-sm bg-white/10 text-white"
+          className="p-2 rounded-sm bg-graphite-800 text-ivory-100"
         >
           {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -127,20 +133,20 @@ export const AdminLayout: React.FC = () => {
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 z-40 bg-ink-900/80"
         />
       )}
 
       {/* Mobile Drawer */}
       <div
-        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-arch-black text-white transform transition-transform duration-300 flex flex-col justify-between ${
+        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-ink-900 text-ivory-100 transform transition-transform duration-300 flex flex-col justify-between ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div>
-          <div className="p-5 border-b border-arch-steel/40 flex items-center justify-between">
+          <div className="p-5 border-b border-graphite-600 flex items-center justify-between">
             <Logo variant="light" showTagline={false} />
-            <button onClick={() => setSidebarOpen(false)} className="text-white">
+            <button onClick={() => setSidebarOpen(false)} className="text-silver-400">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -158,11 +164,11 @@ export const AdminLayout: React.FC = () => {
                   onClick={() => setSidebarOpen(false)}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-xs font-mono uppercase tracking-wider ${
                     isActive
-                      ? 'bg-arch-graphite text-arch-champagne font-bold'
-                      : 'text-arch-sand hover:text-white hover:bg-white/5'
+                      ? 'bg-graphite-800 text-champagne-500 font-bold'
+                      : 'text-silver-400 hover:text-ivory-100 hover:bg-graphite-800/40'
                   }`}
                 >
-                  <Icon className="w-4 h-4 text-arch-champagne" />
+                  <Icon className="w-4 h-4 text-champagne-500" />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -170,10 +176,10 @@ export const AdminLayout: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-4 border-t border-arch-steel/40">
+        <div className="p-4 border-t border-graphite-600">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-sm bg-rose-500/20 text-rose-300 text-xs font-mono uppercase"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-sm bg-danger-500/15 text-danger-500 text-xs font-mono uppercase"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
@@ -182,7 +188,7 @@ export const AdminLayout: React.FC = () => {
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto pt-16 lg:pt-0">
+      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto pt-16 lg:pt-0 bg-ivory-50">
         <div className="p-6 sm:p-10 lg:p-12 w-full">
           <Outlet />
         </div>
