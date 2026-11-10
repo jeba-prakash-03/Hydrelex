@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { X, Star, Upload, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { api } from '../lib/api';
+import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
 
 const reviewFormSchema = z.object({
   customerName: z.string().trim().min(2, 'Name must be at least 2 characters').max(120),
@@ -25,7 +26,11 @@ interface WriteReviewModalProps {
   onReviewSubmitted?: () => void;
 }
 
-export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onClose, onReviewSubmitted }) => {
+export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
+  isOpen,
+  onClose,
+  onReviewSubmitted,
+}) => {
   const [selectedRating, setSelectedRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -95,59 +100,69 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
 
   if (!isOpen) return null;
 
+  const inputClasses =
+    'w-full h-14 px-4 text-sm font-sans bg-ink-900/80 border border-graphite-600 rounded-sm text-ivory-100 placeholder:text-silver-400/50 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none transition-colors';
+  const labelClasses =
+    'block font-mono text-[11px] uppercase tracking-technical text-silver-400 mb-2 font-medium';
+
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleModalClose}
-          className="fixed inset-0 bg-arch-black/85 backdrop-blur-md"
+          className="fixed inset-0 bg-ink-900/90"
         />
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 20 }}
+          initial={{ opacity: 0, scale: 0.96, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 20 }}
-          className="relative w-full max-w-lg bg-arch-ivory rounded-sm shadow-architectural-dark border border-arch-steel/60 overflow-hidden z-10 my-8 text-arch-graphite"
+          exit={{ opacity: 0, scale: 0.96, y: 16 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full max-w-xl bg-graphite-800 text-ivory-100 rounded-sm shadow-2xl border border-graphite-600 overflow-hidden z-10 my-8"
         >
           <button
             onClick={handleModalClose}
-            className="absolute top-5 right-5 z-20 p-2.5 rounded-sm bg-arch-ivoryAlt text-arch-slate hover:text-arch-black transition-colors"
+            className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-ink-900/80 text-silver-400 hover:text-ivory-100 border border-graphite-600 transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="p-6 sm:p-10">
+          <div className="p-6 sm:p-10 max-h-[85vh] overflow-y-auto">
             {!submitSuccess ? (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-ultra-wide text-arch-copper font-semibold block">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+                <div className="space-y-2">
+                  <TechnicalEyebrow variant="champagne">
                     CLIENT FEEDBACK // QUALITY CONTROL
-                  </span>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-arch-black mt-1">
+                  </TechnicalEyebrow>
+                  <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-ivory-100">
                     Submit Client Review
                   </h3>
-                  <p className="text-xs text-arch-slate mt-1 font-light">
-                    Every review is verified by HYDRELEX engineering management before public publication.
+                  <p className="text-xs sm:text-sm text-silver-400 font-light">
+                    Every review is evaluated by HYDRELEX engineering moderation before public publication.
                   </p>
                 </div>
 
                 {serverError && (
-                  <div className="p-3.5 rounded-sm bg-rose-50 border border-rose-200 text-rose-800 text-xs font-mono flex items-center gap-2">
+                  <div className="p-3.5 rounded-sm bg-danger-500/15 border border-danger-500 text-danger-500 text-xs font-mono flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{serverError}</span>
                   </div>
                 )}
 
-                {/* Rating Stars Picker */}
+                {/* Star Rating Evaluation (Accessible) */}
                 <div>
-                  <label className="block text-xs font-mono uppercase text-arch-graphite mb-2 font-medium">
+                  <label className={labelClasses}>
                     Rating Evaluation (1 - 5 Stars)*
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2" role="radiogroup" aria-label="Star Rating">
                     {[1, 2, 3, 4, 5].map((star) => {
                       const filled = hoverRating ? hoverRating >= star : selectedRating >= star;
                       return (
@@ -157,19 +172,28 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
                           onMouseEnter={() => setHoverRating(star)}
                           onMouseLeave={() => setHoverRating(0)}
                           onClick={() => handleRatingClick(star)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleRatingClick(star);
+                            }
+                          }}
                           className="p-1 focus:outline-none transition-transform hover:scale-110"
+                          aria-label={`${star} Stars`}
+                          role="radio"
+                          aria-checked={selectedRating === star}
                         >
                           <Star
                             className={`w-7 h-7 ${
                               filled
-                                ? 'fill-arch-champagne text-arch-champagne'
-                                : 'text-arch-ivoryBorder fill-transparent'
+                                ? 'fill-champagne-500 text-champagne-500'
+                                : 'text-graphite-600 fill-transparent'
                             }`}
                           />
                         </button>
                       );
                     })}
-                    <span className="ml-3 text-xs font-mono font-bold text-arch-copper">
+                    <span className="ml-3 text-xs font-mono font-bold text-champagne-500">
                       {hoverRating || selectedRating} / 5 Stars
                     </span>
                   </div>
@@ -177,16 +201,16 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
 
                 {/* Name */}
                 <div>
-                  <label className="block text-xs font-mono uppercase text-arch-graphite mb-1.5 font-medium">
-                    Client Name or Company Name*
+                  <label className={labelClasses}>
+                    Client Name or Organization*
                   </label>
                   <input
                     {...register('customerName')}
                     placeholder="e.g. S. Venkataraman, Apex Logistics"
-                    className="w-full px-4 py-3 rounded-sm border border-arch-ivoryBorder bg-white text-arch-graphite text-xs font-sans focus:outline-none focus:border-arch-copper"
+                    className={inputClasses}
                   />
                   {errors.customerName && (
-                    <span className="text-[11px] font-mono text-rose-600 mt-1 block">
+                    <span className="text-[11px] font-mono text-danger-500 mt-1 block">
                       {errors.customerName.message}
                     </span>
                   )}
@@ -195,57 +219,59 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
                 {/* Email & Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase text-arch-graphite mb-1.5 font-medium">
+                    <label className={labelClasses}>
                       Email Address (Optional)
                     </label>
                     <input
                       {...register('email')}
                       type="email"
                       placeholder="client@company.com"
-                      className="w-full px-4 py-3 rounded-sm border border-arch-ivoryBorder bg-white text-arch-graphite text-xs font-sans focus:outline-none focus:border-arch-copper"
+                      className={inputClasses}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase text-arch-graphite mb-1.5 font-medium">
+                    <label className={labelClasses}>
                       Phone Number (Optional)
                     </label>
                     <input
                       {...register('phone')}
                       placeholder="+91 98765 43210"
-                      className="w-full px-4 py-3 rounded-sm border border-arch-ivoryBorder bg-white text-arch-graphite text-xs font-sans focus:outline-none focus:border-arch-copper"
+                      className={inputClasses}
                     />
                   </div>
                 </div>
 
-                {/* Review Title */}
+                {/* Review Headline */}
                 <div>
-                  <label className="block text-xs font-mono uppercase text-arch-graphite mb-1.5 font-medium">
-                    Headline Summary*
+                  <label className={labelClasses}>
+                    Review Headline*
                   </label>
                   <input
                     {...register('title')}
-                    placeholder="e.g. Robust goods lift operation in our manufacturing facility"
-                    className="w-full px-4 py-3 rounded-sm border border-arch-ivoryBorder bg-white text-arch-graphite text-xs font-sans focus:outline-none focus:border-arch-copper"
+                    placeholder="e.g. Dependable freight elevator operation in our manufacturing unit"
+                    className={inputClasses}
                   />
                   {errors.title && (
-                    <span className="text-[11px] font-mono text-rose-600 mt-1 block">{errors.title.message}</span>
+                    <span className="text-[11px] font-mono text-danger-500 mt-1 block">
+                      {errors.title.message}
+                    </span>
                   )}
                 </div>
 
                 {/* Review Description */}
                 <div>
-                  <label className="block text-xs font-mono uppercase text-arch-graphite mb-1.5 font-medium">
+                  <label className={labelClasses}>
                     Observations & Performance Feedback*
                   </label>
                   <textarea
                     {...register('description')}
                     rows={4}
                     placeholder="Please detail lift travel smoothness, door operator reliability, installation punctuality, and service support..."
-                    className="w-full px-4 py-3 rounded-sm border border-arch-ivoryBorder bg-white text-arch-graphite text-xs font-sans focus:outline-none focus:border-arch-copper leading-relaxed"
+                    className="w-full p-4 min-h-[140px] text-sm font-sans bg-ink-900/80 border border-graphite-600 rounded-sm text-ivory-100 placeholder:text-silver-400/50 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500 outline-none leading-relaxed transition-colors"
                   />
                   {errors.description && (
-                    <span className="text-[11px] font-mono text-rose-600 mt-1 block">
+                    <span className="text-[11px] font-mono text-danger-500 mt-1 block">
                       {errors.description.message}
                     </span>
                   )}
@@ -253,12 +279,12 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
 
                 {/* Optional Image */}
                 <div>
-                  <label className="block text-xs font-mono uppercase text-arch-graphite mb-1.5 font-medium">
+                  <label className={labelClasses}>
                     Optional Site Photo
                   </label>
                   <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-2 px-4 py-2.5 rounded-sm bg-white border border-arch-ivoryBorder hover:bg-arch-ivoryAlt cursor-pointer text-xs font-mono uppercase">
-                      <Upload className="w-3.5 h-3.5 text-arch-copper" />
+                    <label className="flex items-center gap-2 px-4 py-3 rounded-sm bg-ink-900 border border-graphite-600 hover:border-champagne-500 cursor-pointer text-xs font-mono uppercase tracking-technical text-silver-400 hover:text-ivory-100 transition-colors">
+                      <Upload className="w-4 h-4 text-champagne-500" />
                       <span>{uploadingImage ? 'Uploading...' : 'Attach Image'}</span>
                       <input
                         type="file"
@@ -269,8 +295,8 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
                       />
                     </label>
                     {imagePreview && (
-                      <span className="text-xs font-mono text-emerald-700 flex items-center gap-1">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                        <CheckCircle2 className="w-4 h-4" />
                         Attached
                       </span>
                     )}
@@ -278,20 +304,20 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
                 </div>
 
                 {/* Honeypot */}
-                <input {...register('hp_website')} type="text" className="hidden" tabIndex={-1} />
+                <input {...register('hp_website')} type="text" className="hidden" tabIndex={-1} autoComplete="off" />
 
-                <div className="pt-2 flex items-center justify-end gap-3">
+                <div className="pt-4 flex items-center justify-end gap-3 border-t border-graphite-600/40">
                   <button
                     type="button"
                     onClick={handleModalClose}
-                    className="px-5 py-2.5 rounded-sm border border-arch-ivoryBorder text-xs font-mono uppercase text-arch-slate hover:bg-white"
+                    className="px-5 h-12 rounded-sm border border-graphite-600 text-xs font-mono uppercase tracking-technical text-silver-400 hover:text-ivory-100 hover:bg-graphite-600/30 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting || uploadingImage}
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-sm bg-arch-black text-arch-champagne font-mono text-xs uppercase tracking-architectural hover:bg-arch-graphite disabled:opacity-50 transition-all shadow-sm"
+                    className="inline-flex items-center gap-2 px-8 h-12 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical disabled:opacity-50 transition-all shadow-sm"
                   >
                     {isSubmitting ? (
                       <>
@@ -305,20 +331,20 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({ isOpen, onCl
                 </div>
               </form>
             ) : (
-              <div className="text-center py-8 space-y-4">
-                <div className="w-14 h-14 rounded-full bg-arch-ivoryAlt border border-arch-ivoryBorder text-arch-copper mx-auto flex items-center justify-center">
-                  <CheckCircle2 className="w-8 h-8" />
+              <div className="text-center py-10 space-y-4">
+                <div className="w-16 h-16 rounded-full bg-champagne-500/15 border border-champagne-500 text-champagne-500 mx-auto flex items-center justify-center">
+                  <CheckCircle2 className="w-9 h-9" />
                 </div>
-                <h3 className="font-heading text-2xl font-bold text-arch-black">
+                <h3 className="font-heading text-2xl font-bold text-ivory-100">
                   Feedback Received
                 </h3>
-                <p className="text-xs sm:text-sm text-arch-slate max-w-sm mx-auto leading-relaxed font-light">
-                  Thank you for reviewing HYDRELEX Lift Systems. Your evaluation has been saved with status PENDING and will be published once reviewed by our moderation staff.
+                <p className="text-sm text-silver-400 max-w-sm mx-auto leading-relaxed font-light">
+                  Thank you for reviewing HYDRELEX Lift Systems. Your evaluation has been saved with status PENDING and will be published once verified by engineering moderation.
                 </p>
                 <div className="pt-4">
                   <button
                     onClick={handleModalClose}
-                    className="px-6 py-2.5 rounded-sm bg-arch-black text-white text-xs font-mono uppercase tracking-wider hover:bg-arch-graphite transition-colors"
+                    className="px-8 h-12 rounded-sm bg-champagne-500 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical"
                   >
                     Close Window
                   </button>

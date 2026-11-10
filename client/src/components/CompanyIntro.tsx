@@ -1,137 +1,116 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  ShieldCheck,
-  Compass,
-  Building,
-  Wrench,
-  Check,
-} from 'lucide-react';
+import { ArrowRight, MapPin, FileCheck2, ShieldCheck } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
+import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
+import { ImageWithFallback } from './ui/ImageWithFallback';
 
 export const CompanyIntro: React.FC = () => {
   const { settings } = useSettings();
 
-  const capabilities = [
-    {
-      code: 'CAP-01',
-      title: 'Precision Mechanical Alignment',
-      spec: 'Laser-calibrated vertical guide rails with millimeter plumb tolerance.',
-    },
-    {
-      code: 'CAP-02',
-      title: 'Heavy Payload Structural Chassis',
-      spec: 'High-tensile steel crossheads engineered for continuous industrial loading cycles.',
-    },
-    {
-      code: 'CAP-03',
-      title: 'Multi-Redundant Safety Brakes',
-      spec: 'Overspeed mechanical governors, ARD rescue units, and certified rupture valves.',
-    },
-    {
-      code: 'CAP-04',
-      title: 'Regional Manufacturing In Sriperumbudur',
-      spec: 'Rapid on-site physical support, local spare inventory, and dedicated engineers.',
-    },
-  ];
-
   return (
-    <section id="company-intro" className="w-full bg-arch-ivory text-arch-graphite py-24 sm:py-32 relative overflow-hidden border-b border-arch-ivoryBorder">
-      {/* Subtle blueprint grid overlay */}
-      <div className="absolute inset-0 bg-light-blueprint opacity-60 pointer-events-none" />
-
-      {/* Edge-to-Edge Container */}
-      <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 relative z-10">
+    <section
+      id="company-intro"
+      className="w-full bg-ivory-100 text-graphite-800 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-600/20"
+      style={{ backgroundColor: '#F4EFE6' }}
+    >
+      <div className="w-full px-fluid">
+        {/* 50/50 Edge-to-Edge Architectural Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-center">
-          {/* Left Column: Full-Bleed Architectural Visual Composition (5 cols) */}
+          {/* Left Column: Big Visual Bleeding (5 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative"
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5 relative group"
           >
-            <div className="relative group">
-              {/* Massive Photographic Frame */}
-              <div className="relative aspect-[4/5] rounded-sm overflow-hidden bg-arch-black shadow-architectural border border-arch-ivoryBorder">
-                <img
-                  src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=85"
-                  alt="Precision Hydraulic Lift Engineering Assembly"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-arch-black/85 via-arch-black/20 to-transparent" />
+            <div className="relative rounded-sm overflow-hidden border border-graphite-600/30 shadow-xl bg-graphite-800">
+              <ImageWithFallback
+                alt="HYDRELEX Lift Engineering Assembly in Sriperumbudur"
+                fallbackType="shaft-cross-section"
+                fallbackLabel="SRIPERUMBUDUR ENGINEERING HUB // ELEVATOR CROSS-SECTION"
+                aspectRatioClass="aspect-[4/5]"
+                showOverlay={true}
+              />
 
-                {/* Overlaid Engineering Monograph Card */}
-                <div className="absolute bottom-6 left-6 right-6 p-5 rounded-sm bg-arch-graphite/90 backdrop-blur-md border border-arch-steel/80 text-white space-y-2">
-                  <div className="flex items-center justify-between text-[10px] font-mono tracking-ultra-wide uppercase text-arch-champagne">
-                    <span>OPERATIONS BASE</span>
-                    <span>TAMIL NADU 602015</span>
-                  </div>
-                  <div className="font-heading text-sm font-bold tracking-tight text-arch-bone">
-                    No. B3-G4, Arakonam Road, Mevallurkuppam Village
-                  </div>
-                  <div className="text-[11px] font-mono text-arch-sand/70">
-                    Sriperumbudur Taluk • Heavy Lift & Hydraulic Hub
-                  </div>
+              {/* Overlaid Operations Base Info Card */}
+              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-sm bg-graphite-800/95 border border-graphite-600 text-ivory-100 space-y-2">
+                <div className="flex items-center justify-between text-[10px] font-mono tracking-technical uppercase text-champagne-500">
+                  <span>FACILITY BASE</span>
+                  <span>TAMIL NADU 602015</span>
+                </div>
+                <div className="font-heading text-sm font-bold tracking-tight text-ivory-100">
+                  No. B3-G4, Arakonam Road, Mevallurkuppam Village
+                </div>
+                <div className="text-[11px] font-mono text-silver-400">
+                  Sriperumbudur Taluk • Lift Systems & Engineering Hub
                 </div>
               </div>
-
-              {/* Architectural Framing Accents */}
-              <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-arch-copper pointer-events-none" />
-              <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-arch-champagne pointer-events-none" />
             </div>
+
+            {/* Architectural Champagne Corner Accents */}
+            <div className="absolute -top-2.5 -left-2.5 w-8 h-8 border-t-2 border-l-2 border-champagne-600 pointer-events-none" />
+            <div className="absolute -bottom-2.5 -right-2.5 w-8 h-8 border-b-2 border-r-2 border-champagne-600 pointer-events-none" />
           </motion.div>
 
-          {/* Right Column: Oversized Editorial Typography & Technical Narrative (7 cols) */}
+          {/* Right Column: Oversized Editorial Narrative (7 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 space-y-8"
           >
             <div className="space-y-3">
-              <span className="text-xs font-mono tracking-ultra-wide uppercase text-arch-copper font-semibold block">
+              <TechnicalEyebrow variant="graphite">
                 ABOUT HYDRELEX LIFT SYSTEMS // 01
-              </span>
-              <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-arch-black tracking-tight leading-[1.05]">
-                {settings?.intro_headline || 'Moving Beyond Expectations.'}
+              </TechnicalEyebrow>
+              <h2 className="font-h2-clamp font-extrabold text-graphite-800 tracking-tight leading-[1.05]">
+                {settings?.intro_headline || 'A Way to Reach a Goal.'}
               </h2>
             </div>
 
-            <p className="text-base sm:text-lg text-arch-slate leading-relaxed font-light">
+            <p className="text-lg sm:text-xl text-graphite-600 leading-relaxed font-light font-sans">
               {settings?.intro_text ||
-                'HYDRELEX LIFT SYSTEMS delivers engineering-focused vertical mobility and industrial lifting solutions. Based in Sriperumbudur, Tamil Nadu, we provide durable, precision-engineered elevator systems and hydraulic machinery built for industrial, commercial, and customized structural requirements.'}
+                'HYDRELEX LIFT SYSTEMS delivers engineering-focused vertical mobility and industrial lifting solutions. Based in Sriperumbudur, Tamil Nadu, we engineer durable elevator systems and hydraulic machinery built for industrial, commercial, and customized structural requirements.'}
             </p>
 
-            {/* Asymmetric Technical Grid of 4 Pillars */}
+            {/* Verified Certifications & Scope Highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              {capabilities.map((cap) => (
-                <div
-                  key={cap.code}
-                  className="p-5 rounded-sm bg-white border border-arch-ivoryBorder shadow-sm space-y-2 hover:border-arch-copper/60 transition-colors"
-                >
-                  <div className="flex items-center justify-between font-mono text-[10px] text-arch-copper tracking-wider uppercase">
-                    <span>{cap.code}</span>
-                    <Check className="w-3.5 h-3.5" />
-                  </div>
-                  <h3 className="font-heading text-sm font-bold text-arch-graphite">
-                    {cap.title}
-                  </h3>
-                  <p className="text-xs text-arch-slate leading-relaxed">
-                    {cap.spec}
-                  </p>
+              <div className="p-5 rounded-sm bg-white border border-graphite-600/25 shadow-sm space-y-1.5">
+                <div className="flex items-center gap-2 text-champagne-600 text-xs font-mono uppercase tracking-technical font-semibold">
+                  <FileCheck2 className="w-4 h-4" />
+                  <span>UDYAM REGISTERED</span>
                 </div>
-              ))}
+                <div className="font-mono text-sm font-bold text-graphite-800">
+                  {settings?.udyam_registration || 'UDYAM-TN-08-0090275'}
+                </div>
+                <p className="text-xs text-graphite-600 font-light">
+                  Government of India Ministry of MSME verified enterprise.
+                </p>
+              </div>
+
+              <div className="p-5 rounded-sm bg-white border border-graphite-600/25 shadow-sm space-y-1.5">
+                <div className="flex items-center gap-2 text-champagne-600 text-xs font-mono uppercase tracking-technical font-semibold">
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>GST COMPLIANT</span>
+                </div>
+                <div className="font-mono text-sm font-bold text-graphite-800">
+                  {settings?.gstin || '33BNOPK2159N1ZJ'}
+                </div>
+                <p className="text-xs text-graphite-600 font-light">
+                  Direct commercial tax and trade registration in Tamil Nadu.
+                </p>
+              </div>
             </div>
 
             {/* Action Bar */}
             <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Link
                 to="/about"
-                className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-sm bg-arch-graphite text-white font-mono text-xs font-semibold uppercase tracking-architectural hover:bg-arch-black transition-all shadow-sm"
+                className="group inline-flex items-center gap-3 px-8 h-13 py-3.5 rounded-sm bg-graphite-800 hover:bg-ink-900 text-ivory-100 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 shadow-sm"
               >
                 <span>Read Full Corporate Profile</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -139,7 +118,7 @@ export const CompanyIntro: React.FC = () => {
 
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-arch-copper hover:text-arch-copperDark font-semibold transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-technical text-champagne-600 hover:text-champagne-500 font-bold transition-colors"
               >
                 <span>Explore Technical Services</span>
                 <ArrowRight className="w-3.5 h-3.5" />

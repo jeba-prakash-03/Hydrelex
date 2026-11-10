@@ -1,167 +1,133 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  Shield,
-  Layers,
-  ChevronDown,
-  Compass,
-} from 'lucide-react';
-import { useSettings } from '../context/SettingsContext';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
+import { LiftLineArtSvg } from './ui/LiftLineArtSvg';
 
 export const Hero: React.FC = () => {
-  const { settings } = useSettings();
-
   return (
-    <section className="relative min-h-screen w-full bg-arch-black text-white overflow-hidden flex flex-col justify-between pt-32 sm:pt-36 pb-12">
-      {/* Full-Bleed Architectural Elevator Photography Background */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1541888946425-d0fbb18f15f6?auto=format&fit=crop&w=2560&q=85"
-          alt="Architectural Vertical Elevator Shaft and Precision Glass Lift Engineering"
-          className="w-full h-full object-cover object-center opacity-35 scale-105 transform motion-safe:animate-pulse [animation-duration:14s]"
-        />
-        {/* Architectural Vignette Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-r from-arch-black/95 via-arch-black/75 to-arch-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-arch-black via-transparent to-arch-black/70" />
-        <div className="absolute inset-0 bg-blueprint-grid opacity-15" />
+    <section
+      className="relative w-full min-h-[100svh] bg-ink-900 text-ivory-100 flex flex-col justify-between pt-32 sm:pt-36 pb-10 overflow-hidden"
+      style={{ backgroundColor: '#0E0E0F' }}
+    >
+      {/* Full-Bleed Photographic Composition Background with Fallback */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        {/* Background Visual Canvas with Slow Mount Zoom (1.08 -> 1) */}
+        <motion.div
+          initial={{ scale: 1.08, opacity: 0.8 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full h-full relative"
+        >
+          {/* Deliberate Architectural Line-Art Shaft Silhouette Canvas */}
+          <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2 flex items-center justify-end p-8 lg:p-16 opacity-30">
+            <LiftLineArtSvg
+              type="shaft-cross-section"
+              className="h-[80%] max-h-[700px] w-auto"
+              strokeColor="#B08D57"
+            />
+          </div>
 
-        {/* Vertical Engineering Coordinate Line */}
-        <div className="hidden xl:block absolute left-24 top-0 bottom-0 w-[1px] bg-white/10">
-          <motion.div
-            animate={{ y: ['0vh', '80vh', '0vh'] }}
-            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-full h-24 bg-gradient-to-b from-transparent via-arch-champagne to-transparent shadow-champagne-glow"
+          {/* Heavy Architectural Dark Gradient Overlays (Guarantees WCAG AA Contrast) */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 80% 60% at 20% 40%, rgba(14, 14, 15, 0.4) 0%, rgba(14, 14, 15, 0.95) 100%)',
+            }}
           />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-ink-900/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/90 to-transparent" />
+        </motion.div>
       </div>
 
-      {/* Main Full-Width Editorial Grid */}
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 xl:px-24 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-end">
-          {/* Headline & Manifesto (8 cols) */}
-          <div className="lg:col-span-8 space-y-8">
-            {/* Technical Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 text-xs font-mono tracking-ultra-wide uppercase text-arch-champagne"
-            >
-              <span className="w-2 h-2 rounded-full bg-arch-champagne" />
-              <span>EST. SRIPERUMBUDUR // VERTICAL MOBILITY ENGINEERING</span>
-            </motion.div>
+      {/* Main Full-Width Editorial Content (Mount-Animated) */}
+      <div className="relative z-10 w-full px-fluid my-auto">
+        <div className="max-w-5xl space-y-8">
+          {/* 1. Technical Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <TechnicalEyebrow variant="champagne">
+              VERTICAL MOBILITY ENGINEERING — SRIPERUMBUDUR
+            </TechnicalEyebrow>
+          </motion.div>
 
-            {/* Editorial Headline: THE ART OF VERTICAL MOVEMENT. */}
+          {/* 2. Editorial Headline on Two Lines */}
+          <div className="overflow-hidden">
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading font-extrabold tracking-tight text-white uppercase text-4xl sm:text-6xl md:text-7xl xl:text-8xl 2xl:text-9xl leading-[0.98]"
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-hero-clamp font-extrabold uppercase text-ivory-100 tracking-tight leading-[0.96]"
             >
-              THE ART OF <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-arch-bone via-arch-sand to-arch-champagne">
+              <span>THE ART OF</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-ivory-100 via-silver-400 to-champagne-500">
                 VERTICAL MOVEMENT.
               </span>
             </motion.h1>
-
-            {/* Supporting Text */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-base sm:text-xl text-arch-sand/90 max-w-2xl font-light leading-relaxed font-sans"
-            >
-              Engineering lift solutions that connect spaces, people and possibilities.
-            </motion.p>
-
-            {/* Architectural Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-            >
-              <Link
-                to="/products"
-                className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-sm bg-arch-champagne text-arch-black font-mono text-xs font-bold uppercase tracking-architectural hover:bg-arch-champagneLight transition-all duration-300 shadow-sm"
-              >
-                <span>Explore Our Solutions</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-              </Link>
-
-              <Link
-                to="/contact#consultation"
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-sm bg-arch-charcoal/60 hover:bg-arch-charcoal text-arch-bone font-mono text-xs font-medium uppercase tracking-architectural border border-arch-steel/70 backdrop-blur-md transition-all duration-300"
-              >
-                <span>Request a Consultation</span>
-              </Link>
-            </motion.div>
           </div>
 
-          {/* Right Column: Restrained Engineering Metrics (4 cols) */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="lg:col-span-4 space-y-4"
+          {/* 3. Supporting Text */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="text-base sm:text-xl text-silver-400 font-light max-w-2xl leading-relaxed font-sans"
           >
-            <div className="p-6 sm:p-8 rounded-sm bg-arch-graphite/70 border border-arch-steel/60 backdrop-blur-xl shadow-architectural-dark space-y-6">
-              <div className="flex items-center justify-between text-xs font-mono text-arch-champagne border-b border-arch-steel/50 pb-3">
-                <span className="flex items-center gap-2">
-                  <Compass className="w-3.5 h-3.5" />
-                  SPECIFICATION DIRECTIVE
-                </span>
-                <span className="text-white/40">SRIPERUMBUDUR</span>
-              </div>
+            Engineering lift solutions that connect spaces, people and possibilities.
+          </motion.p>
 
-              <div className="space-y-4 text-xs font-mono">
-                <div className="flex items-start justify-between">
-                  <span className="text-arch-slate">CORE SYSTEMS:</span>
-                  <span className="text-arch-bone text-right font-medium">Passenger • Goods • Hydraulic</span>
-                </div>
-                <div className="flex items-start justify-between">
-                  <span className="text-arch-slate">MAX LOAD RATING:</span>
-                  <span className="text-arch-bone text-right font-medium">Configurable up to 20,000 kg</span>
-                </div>
-                <div className="flex items-start justify-between">
-                  <span className="text-arch-slate">SAFETY ARD:</span>
-                  <span className="text-arch-champagne text-right font-semibold">Standard Integrated Automatic Rescue</span>
-                </div>
-                <div className="flex items-start justify-between">
-                  <span className="text-arch-slate">STANDARDS:</span>
-                  <span className="text-arch-bone text-right font-medium">UDYAM & GST Registered</span>
-                </div>
-              </div>
+          {/* 4. Action Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+          >
+            <Link
+              to="/products"
+              className="group inline-flex items-center justify-center gap-3 px-8 h-14 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 active:scale-[0.98] shadow-sm"
+            >
+              <span>Explore Our Systems</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
 
-              <div className="pt-2 border-t border-arch-steel/50 flex items-center justify-between text-[11px] font-mono text-arch-sand/70">
-                <span>PLANT CODE: 602015</span>
-                <span className="text-arch-champagne font-semibold">100% RELIABILITY</span>
-              </div>
-            </div>
+            <a
+              href="#consultation"
+              className="inline-flex items-center justify-center gap-2.5 px-8 h-14 rounded-sm border border-silver-400/60 hover:border-champagne-500 text-ivory-100 hover:text-champagne-500 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 active:scale-[0.98]"
+            >
+              <span>Request a Consultation</span>
+            </a>
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom Bar: Engineering Coordinates & Scroll Cue (Full Width) */}
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 xl:px-24 pt-8 border-t border-arch-steel/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-arch-slate">
-        <div className="flex items-center gap-6">
-          <span>LAT 13.0125° N</span>
-          <span>•</span>
-          <span>LON 79.9482° E</span>
-          <span className="hidden md:inline">•</span>
-          <span className="hidden md:inline">TAMIL NADU INDUSTRIAL CORRIDOR</span>
+      {/* Subtle Scroll Cue at Bottom */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="relative z-10 w-full px-fluid pt-8 flex items-center justify-between text-xs font-mono text-silver-400/70 border-t border-graphite-600/40"
+      >
+        <div className="flex items-center gap-4 text-[11px] uppercase tracking-wider">
+          <span className="text-champagne-500 font-medium">SRIPERUMBUDUR HUB</span>
+          <span className="hidden sm:inline text-graphite-600">•</span>
+          <span className="hidden sm:inline">TAMIL NADU 602015</span>
         </div>
 
         <a
           href="#company-intro"
-          className="flex items-center gap-2 text-arch-sand hover:text-arch-champagne transition-colors"
+          className="group inline-flex items-center gap-2 text-silver-400 hover:text-champagne-500 transition-colors uppercase tracking-technical text-[11px]"
         >
-          <span className="tracking-architectural uppercase text-[11px]">DISCOVER ARCHITECTURE</span>
-          <ChevronDown className="w-3.5 h-3.5 animate-bounce text-arch-champagne" />
+          <span>Discover Architecture</span>
+          <ChevronDown className="w-4 h-4 text-champagne-500 transition-transform duration-200 group-hover:translate-y-0.5" />
         </a>
-      </div>
+      </motion.div>
     </section>
   );
 };
