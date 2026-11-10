@@ -1,26 +1,43 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 import { ProjectsGallery } from '../components/ProjectsGallery';
+import { TechnicalEyebrow } from '../components/ui/TechnicalEyebrow';
 import { CTASection } from '../components/CTASection';
 
 export const ProjectsPage: React.FC = () => {
   return (
-    <div className="w-full bg-arch-ivory text-arch-graphite overflow-x-hidden">
-      {/* Header Banner (Full Width) */}
-      <section className="w-full bg-arch-black text-white pt-36 pb-20 relative overflow-hidden border-b border-arch-steel/30">
-        <div className="absolute inset-0 bg-blueprint-grid opacity-15" />
-        <div className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 relative z-10 space-y-4">
-          <span className="text-[10px] font-mono tracking-ultra-wide uppercase text-arch-champagne font-semibold block">
+    <div className="w-full bg-ivory-100 text-graphite-800 overflow-x-hidden">
+      {/* 1. Full-Width Dark Header (Guarantees Nav Legibility) */}
+      <section
+        className="w-full bg-ink-900 text-ivory-100 pt-36 pb-20 relative overflow-hidden border-b border-graphite-600/60"
+        style={{ backgroundColor: '#0E0E0F' }}
+      >
+        <div className="w-full px-fluid relative z-10 space-y-4">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 font-mono text-xs text-silver-400">
+            <Link to="/" className="hover:text-champagne-500 transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 text-silver-400/50" />
+            <span className="text-champagne-500">Installation Gallery</span>
+          </div>
+
+          <TechnicalEyebrow variant="champagne">
             GALLERY & INSTALLATION DIRECTORY
-          </span>
-          <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase leading-[1.02]">
+          </TechnicalEyebrow>
+
+          <h1 className="font-h2-clamp font-extrabold tracking-tight uppercase leading-[1.02]">
             Vertical Mobility Projects
           </h1>
-          <p className="text-base sm:text-xl text-arch-sand/80 max-w-3xl font-light leading-relaxed">
+
+          <p className="text-base sm:text-xl text-silver-400 max-w-3xl font-light leading-relaxed">
             Showcasing architectural passenger elevators, industrial freight lifts, and custom hydraulic scissor platforms across South India.
           </p>
         </div>
       </section>
 
+      {/* 2. Asymmetric Gallery with Filter Tabs and Lightbox */}
       <ProjectsGallery />
 
       <CTASection />

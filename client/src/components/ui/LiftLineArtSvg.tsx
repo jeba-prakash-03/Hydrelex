@@ -305,3 +305,4 @@ export const LiftLineArtSvg: React.FC<LiftLineArtSvgProps> = ({
       );
   }
 };
+

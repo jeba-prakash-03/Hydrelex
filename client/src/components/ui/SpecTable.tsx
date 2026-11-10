@@ -163,3 +163,4 @@ export const SpecTable: React.FC<SpecTableProps> = ({
     </div>
   );
 };
+
