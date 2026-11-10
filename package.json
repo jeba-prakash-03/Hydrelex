@@ -1,0 +1,16 @@
+{
+  "name": "hydrelex-lift-systems",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run server\" \"npm run client\"",
+    "build": "npm --prefix server run build && npm --prefix client run build",
+    "migrate": "npm --prefix server run migrate"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "puppeteer": "^24.43.1"
+  }
+}

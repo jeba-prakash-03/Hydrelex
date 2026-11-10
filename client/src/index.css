@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #F9F8F5;
+    color: #18191B;
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Fluid typography definitions */
+  h1, .font-fluid-hero {
+    font-family: theme('fontFamily.heading');
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  h2, .font-fluid-h2 {
+    font-family: theme('fontFamily.heading');
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  h3, .font-fluid-h3 {
+    font-family: theme('fontFamily.heading');
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+}
+
+/* Custom architectural scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0C0D0E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23252A;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A880;
+}
+
+/* Edge-to-edge layout helper: zero margin, fluid side gutters */
+.full-bleed-container {
+  width: 100%;
+  padding-left: clamp(1.25rem, 5vw, 6rem);
+  padding-right: clamp(1.25rem, 5vw, 6rem);
+}
+
+.full-bleed-container-tight {
+  width: 100%;
+  padding-left: clamp(1.25rem, 4vw, 4rem);
+  padding-right: clamp(1.25rem, 4vw, 4rem);
+}
+
+/* Subtle architectural divider line */
+.arch-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(197, 168, 128, 0.3) 30%, rgba(197, 168, 128, 0.3) 70%, transparent 100%);
+}
