@@ -7,48 +7,52 @@ interface LogoProps {
   className?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({ variant = 'dark', showTagline = true, className = '' }) => {
+export const Logo: React.FC<LogoProps> = ({
+  variant = 'light',
+  showTagline = true,
+  className = '',
+}) => {
   const isLight = variant === 'light'; // Light text for dark backgrounds
 
   return (
-    <Link to="/" className={`group inline-flex items-center gap-3.5 select-none ${className}`}>
-      {/* Precision Emblem Mark */}
-      <div className="relative flex items-center justify-center w-10 h-10 rounded-sm bg-arch-black border border-arch-steel/80 group-hover:border-arch-champagne/80 transition-all duration-300 p-1.5 shadow-sm">
+    <Link
+      to="/"
+      className={`group inline-flex items-center gap-3.5 select-none ${className}`}
+      aria-label="HYDRELEX LIFT SYSTEMS Home"
+    >
+      {/* Real Emblem Mark Container */}
+      <div className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-ink-900 border border-graphite-600 group-hover:border-champagne-500 transition-colors duration-300 p-1.5 shrink-0 shadow-sm">
         <img
           src="/logo_transparent.png"
-          alt="HYDRELEX"
-          className="w-full h-full object-contain filter drop-shadow brightness-110"
+          alt="HYDRELEX Emblem"
+          className="w-full h-full object-contain filter brightness-105"
           onError={(e) => {
             (e.target as HTMLElement).style.display = 'none';
           }}
         />
-        {/* Subtle architectural vertical movement tick */}
-        <div className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-arch-champagne rounded-full opacity-80 group-hover:scale-125 transition-transform duration-300" />
+        {/* Architectural indicator point */}
+        <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-champagne-500 rounded-full" />
       </div>
 
       <div className="flex flex-col">
         <div className="flex items-baseline gap-2">
           <span
-            className={`font-heading text-lg tracking-tight font-extrabold transition-colors duration-200 ${
-              isLight ? 'text-arch-bone group-hover:text-arch-champagne' : 'text-arch-graphite group-hover:text-arch-copper'
+            className={`font-heading text-lg sm:text-xl tracking-tight font-extrabold transition-colors duration-200 ${
+              isLight
+                ? 'text-ivory-100 group-hover:text-champagne-500'
+                : 'text-graphite-800 group-hover:text-champagne-600'
             }`}
           >
             HYDRELEX
           </span>
-          <span
-            className={`text-[9px] font-mono tracking-widest uppercase font-semibold px-1.5 py-0.5 rounded-sm ${
-              isLight
-                ? 'bg-white/10 text-arch-champagne border border-white/15'
-                : 'bg-arch-graphite text-arch-champagne border border-arch-graphite'
-            }`}
-          >
+          <span className="text-[9px] font-mono tracking-widest uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-graphite-600/60 text-champagne-500 border border-graphite-600">
             SYSTEMS
           </span>
         </div>
         {showTagline && (
           <span
-            className={`text-[8.5px] font-mono tracking-ultra-wide uppercase mt-0.5 font-medium ${
-              isLight ? 'text-arch-sand/70' : 'text-arch-slate'
+            className={`text-[9px] font-mono tracking-technical uppercase mt-0.5 font-medium ${
+              isLight ? 'text-silver-400' : 'text-graphite-600'
             }`}
           >
             A way to reach a goal

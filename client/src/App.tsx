@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { TrackEnquiryModal } from './components/TrackEnquiryModal';
+import { QuoteModal } from './components/ui/QuoteModal';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -42,7 +43,7 @@ const ProtectedAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-arch-black flex items-center justify-center text-arch-champagne text-xs font-mono">
+      <div className="min-h-screen bg-ink-900 flex items-center justify-center text-champagne-500 text-xs font-mono">
         Verifying administrative credentials...
       </div>
     );
@@ -55,20 +56,27 @@ const ProtectedAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children
   return <>{children}</>;
 };
 
-// Main Public Layout (100% Full Width, Zero Max-Width Restrictions)
+// Main Public Layout (100% Full Width, Edge-to-Edge)
 const PublicLayout: React.FC = () => {
   const [trackModalOpen, setTrackModalOpen] = useState(false);
+  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-between bg-arch-ivory text-arch-graphite overflow-x-hidden">
-      <Navbar onOpenTrackModal={() => setTrackModalOpen(true)} />
+    <div className="min-h-screen w-full flex flex-col justify-between bg-ink-900 text-ivory-100 overflow-x-hidden">
+      <Navbar
+        onOpenTrackModal={() => setTrackModalOpen(true)}
+        onOpenQuoteModal={() => setQuoteModalOpen(true)}
+      />
       <main className="flex-grow w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/systems" element={<ProductsPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/engineering" element={<ServicesPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/gallery" element={<ProjectsPage />} />
           <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -78,6 +86,10 @@ const PublicLayout: React.FC = () => {
       <TrackEnquiryModal
         isOpen={trackModalOpen}
         onClose={() => setTrackModalOpen(false)}
+      />
+      <QuoteModal
+        isOpen={quoteModalOpen}
+        onClose={() => setQuoteModalOpen(false)}
       />
     </div>
   );
