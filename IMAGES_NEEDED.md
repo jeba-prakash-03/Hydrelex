@@ -42,3 +42,4 @@ When real photography is ready, place the corresponding image files in `client/p
 ## 4. Logo Assets (Verified Existing)
 - `client/public/logo_original.png` — Original company emblem and wordmark.
 - `client/public/logo_transparent.png` — High-resolution transparent background logo.
+

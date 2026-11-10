@@ -1,62 +1,58 @@
 /**
- * HYDRELEX LIFT SYSTEMS - Architectural Luxury Design Tokens
- * 
- * Philosophy: Architectural Editorial + Industrial Luxury + Modern Engineering
- * Core Palette: Warm Architectural Ivory, Deep Graphite, Obsidian Matte Black,
- * Brushed Metallic Silver, Restrained Champagne & Copper Accent.
+ * HYDRELEX LIFT SYSTEMS — Design System Tokens
+ *
+ * Visual Direction: Architectural Editorial + Industrial Luxury + Modern Engineering
+ * Core Palette: Matte Obsidian Ink, Deep Graphite, Brushed Silver, Warm Architectural Ivory, Restrained Champagne
  */
 
 export const theme = {
   colors: {
-    // Obsidian & Deep Dark Surfaces
-    black: '#0C0D0E',
-    graphite: '#18191B',
-    charcoal: '#23252A',
-    surfaceDark: '#131416',
-
-    // Brushed Metallic & Slates
-    steel: '#383B42',
-    slate: '#747780',
-    sand: '#C5C3BB',
-    silver: '#DCD9D1',
-    bone: '#EAE8E1',
-
-    // Warm Architectural Ivory & Warm Neutrals
-    ivory: '#F9F8F5',
-    ivoryAlt: '#F3F0E9',
-    ivoryCard: '#FFFFFF',
-    ivoryBorder: '#E3DFD5',
-
-    // Restrained Accents: Champagne & Architectural Copper
-    champagne: '#C5A880',
-    champagneLight: '#E3CCA8',
-    champagneDark: '#997D56',
-    copper: '#C67D5A',
-    copperLight: '#E29774',
-    copperDark: '#9C5837',
+    // Dark surfaces
+    ink: {
+      900: '#0E0E0F', // Matte obsidian black
+    },
+    graphite: {
+      800: '#1C1C1E', // Primary dark surface & solid nav on scroll
+      600: '#3A3A3D', // Secondary dark surface, subtle borders & dark cards
+    },
+    // Metallic mid-tones
+    silver: {
+      400: '#B8BBBE', // Brushed metallic silver, secondary text & hairline borders on dark
+    },
+    // Warm light architectural surfaces
+    ivory: {
+      100: '#F4EFE6', // Warm architectural ivory, light sections
+      50: '#FAF7F1',  // Crisp ivory panel & card background
+    },
+    // Restrained champagne accent
+    champagne: {
+      500: '#B08D57', // Primary accent: CTAs, active highlights, key lines
+      600: '#8F7144', // Accent hover, high-contrast accent text on light ivory
+    },
+    // Accessible error red
+    danger: {
+      500: '#C0463C', // Clear readable error red on both dark and light backgrounds
+    },
   },
 
-  typography: {
-    display: '"Syne", "Space Grotesk", sans-serif',
-    sans: '"Plus Jakarta Sans", "Inter", sans-serif',
-    mono: '"JetBrains Mono", monospace',
+  fonts: {
+    heading: '"Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    body: '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    mono: '"IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace',
   },
 
-  fluidHeading: {
-    hero: 'clamp(2.75rem, 7vw, 6.5rem)',
-    h1: 'clamp(2.25rem, 5vw, 4.25rem)',
-    h2: 'clamp(1.75rem, 3.5vw, 3rem)',
-    h3: 'clamp(1.25rem, 2.2vw, 1.85rem)',
-  },
-
-  layout: {
-    fullWidthPadding: 'px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28 2xl:px-36',
-    gutterPadding: 'py-20 md:py-32',
+  fluid: {
+    heroH1: 'clamp(3rem, 9vw, 9rem)',
+    sectionH2: 'clamp(2rem, 5vw, 4.5rem)',
+    sectionH3: 'clamp(1.25rem, 2.5vw, 2rem)',
+    body: 'clamp(1rem, 1.1vw, 1.125rem)',
+    paddingInline: 'clamp(1.25rem, 4vw, 4rem)',
   },
 
   transitions: {
-    smooth: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    smooth: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     quick: { duration: 0.25, ease: 'easeOut' },
   },
-};
+} as const;
 
+export type Theme = typeof theme;

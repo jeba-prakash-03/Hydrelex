@@ -7,46 +7,49 @@ export default {
   theme: {
     extend: {
       colors: {
-        arch: {
-          black: '#0C0D0E',        // Obsidian matte black
-          graphite: '#18191B',     // Deep graphite
-          charcoal: '#23252A',     // Secondary deep architectural surface
-          surfaceDark: '#131416',  // Pure dark surface
-          steel: '#383B42',        // Muted metallic stroke
-          slate: '#747780',        // Architectural slate text
-          sand: '#C5C3BB',         // Warm sand text on dark
-          silver: '#DCD9D1',       // Brushed metallic silver
-          bone: '#EAE8E1',         // Off-white soft highlight
-          ivory: '#F9F8F5',        // Warm architectural ivory (page bg)
-          ivoryAlt: '#F3F0E9',     // Warm neutral secondary panel
-          ivoryCard: '#FFFFFF',    // Crisp ivory card
-          ivoryBorder: '#E3DFD5',  // Subtle architectural hairline
-          champagne: '#C5A880',    // Restrained champagne gold accent
-          champagneLight: '#E3CCA8',
-          champagneDark: '#997D56',
-          copper: '#C67D5A',       // Architectural copper accent
-          copperLight: '#E29774',
-          copperDark: '#9C5837',
+        ink: {
+          900: '#0E0E0F',
         },
+        graphite: {
+          800: '#1C1C1E',
+          600: '#3A3A3D',
+        },
+        silver: {
+          400: '#B8BBBE',
+        },
+        ivory: {
+          100: '#F4EFE6',
+          50: '#FAF7F1',
+        },
+        champagne: {
+          500: '#B08D57',
+          600: '#8F7144',
+        },
+        danger: {
+          500: '#C0463C',
+        },
+        // Direct theme tokens mapped for easy access
+        'arch-ink': '#0E0E0F',
+        'arch-graphite': '#1C1C1E',
+        'arch-graphite-light': '#3A3A3D',
+        'arch-silver': '#B8BBBE',
+        'arch-ivory': '#F4EFE6',
+        'arch-ivory-light': '#FAF7F1',
+        'arch-champagne': '#B08D57',
+        'arch-champagne-dark': '#8F7144',
       },
       fontFamily: {
-        heading: ['"Syne"', '"Space Grotesk"', 'sans-serif'],
-        sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        heading: ['"Bricolage Grotesque"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'Menlo', 'Consolas', 'monospace'],
       },
       letterSpacing: {
-        'ultra-wide': '0.22em',
-        'architectural': '0.15em',
+        'technical': '0.14em',
+        'architectural': '0.08em',
       },
       backgroundImage: {
-        'blueprint-grid': 'linear-gradient(to right, rgba(197, 168, 128, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(197, 168, 128, 0.08) 1px, transparent 1px)',
-        'light-blueprint': 'linear-gradient(to right, rgba(24, 25, 27, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(24, 25, 27, 0.04) 1px, transparent 1px)',
-        'architectural-gradient': 'linear-gradient(180deg, rgba(12, 13, 14, 0.95) 0%, rgba(24, 25, 27, 0.85) 50%, rgba(12, 13, 14, 0.95) 100%)',
-      },
-      boxShadow: {
-        'architectural': '0 24px 48px -12px rgba(12, 13, 14, 0.08)',
-        'architectural-dark': '0 32px 64px -16px rgba(0, 0, 0, 0.5)',
-        'champagne-glow': '0 0 35px rgba(197, 168, 128, 0.22)',
+        'technical-grid': 'linear-gradient(to right, rgba(176, 141, 87, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(176, 141, 87, 0.05) 1px, transparent 1px)',
+        'technical-grid-light': 'linear-gradient(to right, rgba(28, 28, 30, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(28, 28, 30, 0.035) 1px, transparent 1px)',
       },
     },
   },

@@ -2,41 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ink-900: #0E0E0F;
+  --graphite-800: #1C1C1E;
+  --graphite-600: #3A3A3D;
+  --silver-400: #B8BBBE;
+  --ivory-100: #F4EFE6;
+  --ivory-50: #FAF7F1;
+  --champagne-500: #B08D57;
+  --champagne-600: #8F7144;
+  --danger-500: #C0463C;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   body {
-    background-color: #F9F8F5;
-    color: #18191B;
-    overflow-x: hidden;
+    background-color: var(--ink-900);
+    color: var(--ivory-100);
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    font-family: theme('fontFamily.sans');
   }
 
-  /* Fluid typography definitions */
-  h1, .font-fluid-hero {
-    font-family: theme('fontFamily.heading');
-    letter-spacing: -0.03em;
-    line-height: 1.02;
+  /* Reduced motion accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
+}
 
-  h2, .font-fluid-h2 {
-    font-family: theme('fontFamily.heading');
-    letter-spacing: -0.025em;
-    line-height: 1.1;
-  }
+/* Fluid responsive horizontal gutters across all viewports */
+.px-fluid {
+  padding-left: clamp(1.25rem, 4vw, 4rem);
+  padding-right: clamp(1.25rem, 4vw, 4rem);
+}
 
-  h3, .font-fluid-h3 {
-    font-family: theme('fontFamily.heading');
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
+/* Fluid typography rules */
+.font-hero-clamp {
+  font-family: theme('fontFamily.heading');
+  font-size: clamp(2.75rem, 8.5vw, 8.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.font-h2-clamp {
+  font-family: theme('fontFamily.heading');
+  font-size: clamp(2rem, 4.5vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.font-h3-clamp {
+  font-family: theme('fontFamily.heading');
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.font-eyebrow {
+  font-family: theme('fontFamily.mono');
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 /* Custom architectural scrollbar */
@@ -46,34 +90,20 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0C0D0E;
+  background: var(--ink-900);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #23252A;
-  border-radius: 3px;
+  background: var(--graphite-600);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C5A880;
+  background: var(--champagne-500);
 }
 
-/* Edge-to-edge layout helper: zero margin, fluid side gutters */
-.full-bleed-container {
-  width: 100%;
-  padding-left: clamp(1.25rem, 5vw, 6rem);
-  padding-right: clamp(1.25rem, 5vw, 6rem);
-}
-
-.full-bleed-container-tight {
-  width: 100%;
-  padding-left: clamp(1.25rem, 4vw, 4rem);
-  padding-right: clamp(1.25rem, 4vw, 4rem);
-}
-
-/* Subtle architectural divider line */
-.arch-divider {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgba(197, 168, 128, 0.3) 30%, rgba(197, 168, 128, 0.3) 70%, transparent 100%);
+/* Clean text selection */
+::selection {
+  background-color: var(--champagne-500);
+  color: var(--ink-900);
 }

@@ -16,10 +16,9 @@ import {
   Copy,
   AlertCircle,
   Loader2,
-  ShieldCheck,
-  Compass,
 } from 'lucide-react';
 import { api } from '../lib/api';
+import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
 
 const enquiryFormSchema = z.object({
   fullName: z.string().trim().min(2, 'Full name must be at least 2 characters').max(120),
@@ -58,15 +57,22 @@ const enquiryFormSchema = z.object({
 
 type EnquiryFormData = z.infer<typeof enquiryFormSchema>;
 
-interface EnquiryFormProps {
+export interface EnquiryFormProps {
   initialInterest?: string;
+  themeMode?: 'dark' | 'light';
+  isModal?: boolean;
 }
 
-export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => {
+export const EnquiryForm: React.FC<EnquiryFormProps> = ({
+  initialInterest,
+  themeMode = 'dark',
+  isModal = false,
+}) => {
   const [submittedReference, setSubmittedReference] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
+  const isDark = themeMode === 'dark';
   const todayStr = new Date().toISOString().split('T')[0];
 
   const {
@@ -78,7 +84,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
     resolver: zodResolver(enquiryFormSchema),
     defaultValues: {
       enquiryType: 'New Lift Installation',
-      productServiceInterest: initialInterest || 'Passenger Lifts',
+      productServiceInterest: initialInterest || 'Passenger Lifts (Elevators)',
       preferredDate: todayStr,
       preferredTime: 'Morning (10:00 AM – 1:00 PM)',
     },
@@ -94,13 +100,13 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
           particleCount: 90,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ['#C5A880', '#C67D5A', '#EAE8E1', '#18191B'],
+          colors: ['#B08D57', '#B8BBBE', '#1C1C1E', '#F4EFE6'],
         });
       } else {
         setServerError(res.message || 'Submission failed. Please try again.');
       }
     } catch (err: any) {
-      setServerError(err.message || 'Server error. Please check your connection.');
+      setServerError(err.message || 'Server connection error. Please check your network.');
     }
   };
 
@@ -118,28 +124,58 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
     reset();
   };
 
+  const inputBaseClasses = `w-full h-14 px-4 text-sm font-sans transition-all duration-200 border rounded-sm outline-none placeholder:text-silver-400/50 ${
+    isDark
+      ? 'bg-ink-900/70 border-graphite-600 text-ivory-100 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500'
+      : 'bg-white border-graphite-600/30 text-graphite-800 focus:border-champagne-600 focus:ring-1 focus:ring-champagne-600'
+  }`;
+
+  const labelBaseClasses = `block font-mono text-[11px] uppercase tracking-technical mb-2 font-medium ${
+    isDark ? 'text-silver-400' : 'text-graphite-600'
+  }`;
+
   return (
-    <div className="w-full bg-arch-graphite text-white rounded-sm border border-arch-steel/60 shadow-architectural-dark p-8 sm:p-12 lg:p-16 relative overflow-hidden">
-      {/* Restrained architectural accent line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-arch-champagne via-arch-copper to-arch-steel" />
+    <div
+      className={`w-full rounded-sm transition-colors ${
+        isModal
+          ? 'p-6 sm:p-10 lg:p-12'
+          : `p-6 sm:p-10 lg:p-14 border ${
+              isDark
+                ? 'bg-graphite-800 border-graphite-600 shadow-2xl'
+                : 'bg-ivory-50 border-graphite-600/30 shadow-md'
+            }`
+      }`}
+    >
+      {/* 1px Champagne Top Accent */}
+      {!isModal && (
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-champagne-500/70 to-transparent mb-8" />
+      )}
 
       {!submittedReference ? (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
           <div className="space-y-3">
-            <span className="text-[10px] font-mono tracking-ultra-wide uppercase text-arch-champagne font-semibold block">
+            <TechnicalEyebrow variant={isDark ? 'champagne' : 'graphite'}>
               TECHNICAL CONSULTATION // SRIPERUMBUDUR HUB
-            </span>
-            <h3 className="font-heading text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Initiate Project Consultation
+            </TechnicalEyebrow>
+            <h3
+              className={`font-heading text-3xl sm:text-4xl font-extrabold tracking-tight ${
+                isDark ? 'text-ivory-100' : 'text-graphite-800'
+              }`}
+            >
+              Start Your Project Consultation
             </h3>
-            <p className="text-sm text-arch-sand/80 font-light max-w-2xl leading-relaxed">
-              Submit your architectural shaft parameters or industrial lifting requirements. Our senior vertical mobility engineers will review the civil scope and confirm an appointment.
+            <p
+              className={`text-sm sm:text-base font-light max-w-2xl leading-relaxed ${
+                isDark ? 'text-silver-400' : 'text-graphite-600'
+              }`}
+            >
+              Submit your structural elevator shaft parameters or industrial lifting requirements. Our senior vertical mobility engineers will review the civil scope and confirm an appointment.
             </p>
           </div>
 
           {serverError && (
-            <div className="p-4 rounded-sm bg-rose-500/10 border border-rose-500/30 text-rose-200 text-xs font-mono flex items-center gap-2.5">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <div className="p-4 rounded-sm bg-danger-500/10 border border-danger-500 text-danger-500 text-xs font-mono flex items-center gap-2.5">
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{serverError}</span>
             </div>
           )}
@@ -147,41 +183,44 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
           {/* Section 1: Customer Contact Credentials */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Full Name*
               </label>
               <div className="relative">
                 <input
                   {...register('fullName')}
                   placeholder="e.g. S. Rajendran"
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne transition-colors"
+                  className={inputBaseClasses}
                 />
-                <User className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
               </div>
               {errors.fullName && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">{errors.fullName.message}</span>
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                  {errors.fullName.message}
+                </span>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Telephone / Mobile Number*
               </label>
               <div className="relative">
                 <input
                   {...register('phone')}
-                  placeholder="8939359592 / 9876543210"
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne transition-colors"
+                  type="tel"
+                  placeholder="8939359592"
+                  className={inputBaseClasses}
                 />
-                <Phone className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
               </div>
               {errors.phone && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">{errors.phone.message}</span>
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                  {errors.phone.message}
+                </span>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Corporate Email Address*
               </label>
               <div className="relative">
@@ -189,77 +228,90 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
                   {...register('email')}
                   type="email"
                   placeholder="client@company.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne transition-colors"
+                  className={inputBaseClasses}
                 />
-                <Mail className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
               </div>
               {errors.email && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">{errors.email.message}</span>
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                  {errors.email.message}
+                </span>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Company / Organization (Optional)
               </label>
               <div className="relative">
                 <input
                   {...register('companyName')}
                   placeholder="e.g. Apex Industrial Systems"
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne transition-colors"
+                  className={inputBaseClasses}
                 />
-                <Building className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Installation Site Location*
               </label>
               <div className="relative">
                 <input
                   {...register('location')}
                   placeholder="e.g. SIPCOT Industrial Area, Sriperumbudur / Chennai"
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne transition-colors"
+                  className={inputBaseClasses}
                 />
-                <MapPin className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
               </div>
               {errors.location && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">{errors.location.message}</span>
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                  {errors.location.message}
+                </span>
               )}
             </div>
           </div>
 
-          {/* Section 2: Enquiry Category & Product Interest */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-arch-steel/40">
+          {/* Section 2: Enquiry Category & Equipment of Interest */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-graphite-600/40">
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Enquiry Category*
               </label>
               <select
                 {...register('enquiryType')}
-                className="w-full px-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne"
+                className={`${inputBaseClasses} cursor-pointer`}
               >
-                <option value="New Lift Installation">New Lift Installation</option>
-                <option value="Product Enquiry">Product Enquiry</option>
-                <option value="Maintenance">Preventative Maintenance Contract</option>
-                <option value="Repair">Emergency Repair & Servicing</option>
-                <option value="Business Partnership">Architectural / Civil Partnership</option>
-                <option value="General Enquiry">General Engineering Enquiry</option>
+                <option value="New Lift Installation" className="bg-graphite-800 text-ivory-100">
+                  New Lift Installation
+                </option>
+                <option value="Product Enquiry" className="bg-graphite-800 text-ivory-100">
+                  Product Enquiry
+                </option>
+                <option value="Maintenance" className="bg-graphite-800 text-ivory-100">
+                  Preventative Maintenance Contract
+                </option>
+                <option value="Repair" className="bg-graphite-800 text-ivory-100">
+                  Emergency Repair & Servicing
+                </option>
+                <option value="Business Partnership" className="bg-graphite-800 text-ivory-100">
+                  Architectural / Civil Partnership
+                </option>
+                <option value="General Enquiry" className="bg-graphite-800 text-ivory-100">
+                  General Engineering Enquiry
+                </option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
-                System or Service of Interest*
+              <label className={labelBaseClasses}>
+                Equipment or Service of Interest*
               </label>
               <input
                 {...register('productServiceInterest')}
-                placeholder="e.g. Heavy Goods Lift 3000kg / Passenger Lift 13 Persons"
-                className="w-full px-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne"
+                placeholder="e.g. Heavy Goods Lift / Passenger Elevator"
+                className={inputBaseClasses}
               />
               {errors.productServiceInterest && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
                   {errors.productServiceInterest.message}
                 </span>
               )}
@@ -267,87 +319,96 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
           </div>
 
           {/* Section 3: Consultation Date & Window */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-arch-steel/40">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-graphite-600/40">
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Preferred Consultation Date*
               </label>
-              <div className="relative">
-                <input
-                  {...register('preferredDate')}
-                  type="date"
-                  min={todayStr}
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-mono focus:outline-none focus:border-arch-champagne"
-                />
-                <Calendar className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
-              </div>
+              <input
+                {...register('preferredDate')}
+                type="date"
+                min={todayStr}
+                className={`${inputBaseClasses} font-mono`}
+              />
               {errors.preferredDate && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">{errors.preferredDate.message}</span>
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                  {errors.preferredDate.message}
+                </span>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
-                Preferred Consultation Window*
+              <label className={labelBaseClasses}>
+                Preferred Time Window*
               </label>
-              <div className="relative">
-                <select
-                  {...register('preferredTime')}
-                  className="w-full pl-10 pr-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne"
-                >
-                  <option value="Morning (10:00 AM – 1:00 PM)">Morning (10:00 AM – 1:00 PM)</option>
-                  <option value="Afternoon (1:00 PM – 4:00 PM)">Afternoon (1:00 PM – 4:00 PM)</option>
-                  <option value="Evening (4:00 PM – 6:30 PM)">Evening (4:00 PM – 6:30 PM)</option>
-                  <option value="Flexible / Contact to confirm">Flexible / Call to confirm</option>
-                </select>
-                <Clock className="w-4 h-4 text-arch-slate absolute left-3.5 top-3.5" />
-              </div>
+              <select
+                {...register('preferredTime')}
+                className={`${inputBaseClasses} cursor-pointer`}
+              >
+                <option value="Morning (10:00 AM – 1:00 PM)" className="bg-graphite-800 text-ivory-100">
+                  Morning (10:00 AM – 1:00 PM)
+                </option>
+                <option value="Afternoon (1:00 PM – 4:00 PM)" className="bg-graphite-800 text-ivory-100">
+                  Afternoon (1:00 PM – 4:00 PM)
+                </option>
+                <option value="Evening (4:00 PM – 6:30 PM)" className="bg-graphite-800 text-ivory-100">
+                  Evening (4:00 PM – 6:30 PM)
+                </option>
+                <option value="Flexible / Contact to confirm" className="bg-graphite-800 text-ivory-100">
+                  Flexible / Call to confirm
+                </option>
+              </select>
             </div>
           </div>
 
           {/* Section 4: Project Scope */}
-          <div className="pt-4 border-t border-arch-steel/40 space-y-4">
+          <div className="pt-4 border-t border-graphite-600/40 space-y-4">
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Technical Scope & Structural Description*
               </label>
               <textarea
                 {...register('projectDescription')}
                 rows={4}
                 placeholder="Please outline floor levels, required passenger or cargo payload, pit depth/headroom constraints, and civil construction state..."
-                className="w-full px-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne leading-relaxed"
+                className={`w-full p-4 min-h-[140px] text-sm font-sans transition-all duration-200 border rounded-sm outline-none placeholder:text-silver-400/50 leading-relaxed ${
+                  isDark
+                    ? 'bg-ink-900/70 border-graphite-600 text-ivory-100 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500'
+                    : 'bg-white border-graphite-600/30 text-graphite-800 focus:border-champagne-600 focus:ring-1 focus:ring-champagne-600'
+                }`}
               />
               {errors.projectDescription && (
-                <span className="text-[11px] font-mono text-rose-400 mt-1 block">
+                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
                   {errors.projectDescription.message}
                 </span>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-arch-sand mb-1.5 font-medium">
+              <label className={labelBaseClasses}>
                 Additional Site Conditions / Access Instructions (Optional)
               </label>
               <input
                 {...register('additionalMessage')}
                 placeholder="Gate pass requirements, security protocols, or architect references..."
-                className="w-full px-4 py-3 rounded-sm border border-arch-steel/70 bg-arch-charcoal text-white text-xs font-sans focus:outline-none focus:border-arch-champagne"
+                className={inputBaseClasses}
               />
             </div>
           </div>
 
-          {/* Honeypot */}
-          <input {...register('hp_company_url')} type="text" className="hidden" tabIndex={-1} />
+          {/* Honeypot field */}
+          <input {...register('hp_company_url')} type="text" className="hidden" tabIndex={-1} autoComplete="off" />
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-arch-steel/40">
-            <span className="text-xs font-mono text-arch-sand/60">
-              *Notice: An engineering specialist will contact you directly to confirm the requested time slot.
+          {/* Submission Bar */}
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-graphite-600/40">
+            <span className={`text-xs font-mono ${isDark ? 'text-silver-400/70' : 'text-graphite-600'}`}>
+              *An engineering specialist will contact you directly to confirm the requested time slot.
             </span>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-sm bg-arch-champagne hover:bg-arch-champagneLight text-arch-black font-mono text-xs font-bold uppercase tracking-architectural transition-all shadow-sm active:scale-[0.98] disabled:opacity-50"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 h-14 rounded-sm bg-champagne-500 hover:bg-champagne-600 text-ink-900 font-mono text-xs font-bold uppercase tracking-technical transition-all duration-200 active:scale-[0.98] disabled:opacity-50 shrink-0"
             >
               {isSubmitting ? (
                 <>
@@ -366,34 +427,52 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
       ) : (
         /* Confirmation State */
         <div className="text-center py-12 space-y-6">
-          <div className="w-16 h-16 rounded-full bg-arch-champagne/20 border border-arch-champagne/40 text-arch-champagne mx-auto flex items-center justify-center shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-champagne-500/15 border border-champagne-500 text-champagne-500 mx-auto flex items-center justify-center shadow-sm">
             <CheckCircle2 className="w-9 h-9" />
           </div>
 
           <div className="space-y-2 max-w-lg mx-auto">
-            <span className="text-xs font-mono uppercase tracking-ultra-wide text-arch-champagne font-semibold block">
+            <TechnicalEyebrow variant={isDark ? 'champagne' : 'graphite'}>
               REQUEST RECORDED IN HYDRELEX SYSTEMS
-            </span>
-            <h3 className="font-heading text-3xl sm:text-4xl font-extrabold text-white">
+            </TechnicalEyebrow>
+            <h3
+              className={`font-heading text-3xl sm:text-4xl font-extrabold ${
+                isDark ? 'text-ivory-100' : 'text-graphite-800'
+              }`}
+            >
               Consultation Logged
             </h3>
-            <p className="text-sm text-arch-sand/80 font-light leading-relaxed">
+            <p
+              className={`text-sm font-light leading-relaxed ${
+                isDark ? 'text-silver-400' : 'text-graphite-600'
+              }`}
+            >
               Your appointment request has been persisted to the HYDRELEX operations database and routed to our Sriperumbudur engineering office.
             </p>
           </div>
 
           {/* Reference ID Card */}
-          <div className="max-w-md mx-auto p-6 rounded-sm bg-arch-charcoal border border-arch-steel/70 space-y-3">
-            <div className="text-[10px] font-mono uppercase tracking-ultra-wide text-arch-sand/70">
-              Your Official Tracking Code
+          <div
+            className={`max-w-md mx-auto p-6 rounded-sm border space-y-3 ${
+              isDark
+                ? 'bg-ink-900/80 border-graphite-600'
+                : 'bg-white border-graphite-600/30'
+            }`}
+          >
+            <div
+              className={`text-[10px] font-mono uppercase tracking-technical ${
+                isDark ? 'text-silver-400' : 'text-graphite-600'
+              }`}
+            >
+              Your Official Reference Tracking Code
             </div>
             <div className="flex items-center justify-center gap-3">
-              <span className="font-mono text-2xl sm:text-3xl font-extrabold tracking-widest text-arch-champagne">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold tracking-widest text-champagne-500">
                 {submittedReference}
               </span>
               <button
                 onClick={handleCopy}
-                className="p-2 rounded-sm bg-white/10 hover:bg-white/20 text-arch-champagne transition-colors"
+                className="p-2 rounded-sm bg-graphite-600/50 hover:bg-graphite-600 text-champagne-500 transition-colors"
                 title="Copy Reference Code"
               >
                 <Copy className="w-4 h-4" />
@@ -404,15 +483,23 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialInterest }) => 
                 Reference code copied to clipboard!
               </span>
             )}
-            <p className="text-[11px] font-mono text-arch-sand/60 leading-tight">
-              Keep this reference code to track appointment progress on our website using the Track Consultation portal.
+            <p
+              className={`text-[11px] font-mono leading-tight ${
+                isDark ? 'text-silver-400/80' : 'text-graphite-600'
+              }`}
+            >
+              Keep this reference code to track appointment progress on our website using the Track Consultation feature.
             </p>
           </div>
 
           <div className="pt-4 flex justify-center">
             <button
               onClick={handleNewEnquiry}
-              className="px-6 py-2.5 rounded-sm border border-arch-steel/60 text-xs font-mono uppercase text-arch-sand hover:text-white hover:bg-white/5 transition-colors"
+              className={`px-6 py-3 rounded-sm border text-xs font-mono uppercase transition-colors ${
+                isDark
+                  ? 'border-graphite-600 text-silver-400 hover:text-ivory-100 hover:bg-graphite-600/30'
+                  : 'border-graphite-600/40 text-graphite-800 hover:bg-ivory-100'
+              }`}
             >
               Submit Another Request
             </button>
