@@ -7,7 +7,6 @@ import {
   Clock,
   ShieldCheck,
   FileCheck2,
-  Lock,
   ArrowUpRight,
   Linkedin,
 } from 'lucide-react';
@@ -233,13 +232,6 @@ export const Footer: React.FC = () => {
 
           <div className="flex items-center gap-6">
             <span>Mevallurkuppam • Sriperumbudur</span>
-            <Link
-              to="/admin"
-              className="inline-flex items-center gap-1.5 text-surface-fg hover:text-amber-300 transition-colors"
-            >
-              <Lock className="w-3 h-3 text-amber-500" />
-              <span>Admin Portal</span>
-            </Link>
           </div>
         </div>
 
