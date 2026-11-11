@@ -1,59 +1,78 @@
 /**
- * HYDRELEX LIFT SYSTEMS — Design System Tokens (Vivid Visual Upgrade)
+ * HYDRELEX LIFT SYSTEMS — Design System Tokens (Color-Blocked System)
  *
- * Visual Direction: Architectural Luxury + Heavy Industrial Engineering
- * Palette: Ink-950, Graphite-900, Graphite-700, Brushed Steel-300/100,
- * Warm Architectural Ivory-50/100, Forged Copper-500/400/700, and Ember Glow.
+ * Visual Direction: Architectural Luxury + Industrial Color Blocking
+ * Palette:
+ * - Deep Teal: #0B4F5C, dark #073842, light #1C7C8C
+ * - Copper Orange: #E8782E, hover #FF934A, dark text-safe #B4531A
+ * - Amber Gold: #F6B93B, soft #FFD97A
+ * - Warm Sand: #F6E9D7, #EFD9BC
+ * - Peach Tint: #FFE3CF
+ * - Mint Tint: #D9EEE6
+ * - Ink: #0F1416
+ * - Ivory: #FBF8F2
  */
 
 export const theme = {
   colors: {
-    // Page black & dark surfaces
-    ink: {
-      950: '#0A0A0B', // Pure page black
-      900: '#0E0E0F',
+    // Primary Brand: Deep Teal
+    teal: {
+      900: '#073842', // Dark teal
+      700: '#0B4F5C', // Primary brand deep teal
+      500: '#1C7C8C', // Light teal
     },
-    graphite: {
-      900: '#141416', // Primary dark card/section surface
-      800: '#1C1C1E',
-      700: '#26262A', // Elevated surface, cards, panels
-      600: '#3A3A3D',
-    },
-    // Brushed metallic mid-tones
-    steel: {
-      300: '#C9CDD2', // Brushed steel, secondary text & hairline borders on dark
-      200: '#D8DBDF',
-      100: '#E9EBEE', // Bright brushed metallic highlight
-    },
-    // Warm light architectural surfaces
-    ivory: {
-      50: '#FBF8F2',  // Crisp ivory panel & card background
-      100: '#F2ECE0', // Warm architectural ivory, light sections
-    },
-    // Primary Vivid Forged Copper Accent
+    // Action Accent: Copper Orange
     copper: {
       400: '#FF934A', // Hover/glow state
-      500: '#E8782E', // PRIMARY ACCENT: bright forged copper/amber; CTAs, key words, lines, numerals
+      500: '#E8782E', // Primary action accent: CTAs, active lines, numerals
       600: '#CC6320',
-      700: '#B4531A', // Accent text on ivory (passes WCAG AA contrast)
+      700: '#B4531A', // Dark text-safe copper on sand/mint/ivory (AA contrast)
     },
-    // Glows and highlights
-    ember: {
-      glow: 'rgba(232, 120, 46, 0.35)',
-      subtle: 'rgba(232, 120, 46, 0.15)',
+    // Highlight Accent: Amber Gold
+    amber: {
+      300: '#FFD97A', // Soft amber
+      500: '#F6B93B', // Highlight gold: stars, numerals, key words on teal
+      600: '#D99B26',
     },
-    // Accessible error red
+    // Light Surfaces & Warm Accents
+    sand: {
+      100: '#F6E9D7', // Primary warm sand surface
+      200: '#EFD9BC', // Darker sand / border
+    },
+    peach: {
+      100: '#FFE3CF', // Peach tint surface
+      200: '#FCD2B3',
+    },
+    mint: {
+      100: '#D9EEE6', // Mint tint surface
+      200: '#C2E5D8',
+    },
+    // Dark & Deep Surfaces
+    ink: {
+      950: '#0A0A0B',
+      900: '#0F1416', // Primary deep ink text and dark sections
+      800: '#192024',
+    },
+    // Pure & Architectural Light Surfaces
+    ivory: {
+      50: '#FBF8F2',  // Crisp ivory
+      100: '#F2ECE0',
+    },
+    // Metallic Accents
+    steel: {
+      100: '#E9EBEE',
+      300: '#C9CDD2', // Brushed steel lines and diagrams
+    },
+    // Error & Status
     danger: {
       500: '#C0463C',
     },
-
-    // Backwards-compatible aliases
-    silver: {
-      400: '#C9CDD2',
-    },
-    champagne: {
-      500: '#E8782E',
-      600: '#B4531A',
+    // Compatibility aliases
+    graphite: {
+      900: '#0F1416',
+      800: '#14181A',
+      700: '#1E2529',
+      600: '#3A4447',
     },
   },
 

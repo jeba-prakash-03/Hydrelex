@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { EnquiryForm } from '../EnquiryForm';
+import { Surface } from './Surface';
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -45,14 +46,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-y-auto"
         >
-          {/* Backdrop: Solid dark graphite overlay (no blur artifacts) */}
+          {/* Backdrop: Solid dark overlay (no blur artifacts) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 bg-ink-900/90"
+            className="fixed inset-0 bg-ink-950/95"
           />
 
           {/* Modal Container */}
@@ -61,24 +62,29 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-4xl bg-graphite-800 border border-graphite-600 rounded-sm shadow-2xl z-10 overflow-hidden my-auto"
+            className="relative w-full max-w-4xl z-10 my-auto"
           >
-            {/* Top Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-ink-900/80 text-silver-400 hover:text-ivory-100 border border-graphite-600 transition-colors"
-              aria-label="Close modal"
+            <Surface
+              tone="dark"
+              as="div"
+              className="w-full rounded-sm shadow-2xl border border-[var(--border)] border-t-[4px] border-t-copper-500 overflow-hidden"
             >
-              <X className="w-5 h-5" />
-            </button>
+              {/* Top Close Button */}
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5 font-bold" />
+              </button>
 
-            <div className="max-h-[85vh] overflow-y-auto">
-              <EnquiryForm initialInterest={initialInterest} isModal />
-            </div>
+              <div className="max-h-[85vh] overflow-y-auto">
+                <EnquiryForm initialInterest={initialInterest} themeMode="dark" isModal />
+              </div>
+            </Surface>
           </motion.div>
         </div>
       )}
     </AnimatePresence>
   );
 };
-

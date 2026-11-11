@@ -6,19 +6,13 @@ import confetti from 'canvas-confetti';
 import {
   Send,
   CheckCircle2,
-  Calendar,
-  Clock,
-  Building,
-  User,
-  Phone,
-  Mail,
-  MapPin,
   Copy,
   AlertCircle,
   Loader2,
 } from 'lucide-react';
 import { api } from '../lib/api';
 import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
+import { Surface } from './ui/Surface';
 
 const enquiryFormSchema = z.object({
   fullName: z.string().trim().min(2, 'Full name must be at least 2 characters').max(120),
@@ -100,7 +94,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           particleCount: 90,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ['#B08D57', '#B8BBBE', '#1C1C1E', '#F4EFE6'],
+          colors: ['#0B4F5C', '#E8782E', '#F6B93B', '#FBF8F2'],
         });
       } else {
         setServerError(res.message || 'Submission failed. Please try again.');
@@ -126,24 +120,21 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
 
   const inputBaseClasses = `w-full h-14 px-4 text-sm font-sans transition-all duration-200 border rounded-xs outline-none ${
     isDark
-      ? 'bg-graphite-900/90 border-steel-300/40 text-steel-100 placeholder:text-steel-300/40 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30'
-      : 'bg-white border-steel-300/60 text-graphite-900 placeholder:text-graphite-600/50 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30'
+      ? 'bg-ink-900 border-teal-500/40 text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
+      : 'bg-white border-ink-900/25 text-ink-900 placeholder:text-graphite-600/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
   }`;
 
-  const labelBaseClasses = `block font-sans text-[12px] uppercase tracking-[0.12em] mb-2 font-bold ${
-    isDark ? 'text-steel-300' : 'text-graphite-700'
-  }`;
+  const labelBaseClasses = `block font-sans text-[12px] uppercase tracking-[0.12em] mb-2 font-bold text-surface-fg`;
+  const errorTextClass = isDark ? 'text-amber-300 bg-danger-500/90 px-2 py-0.5 rounded-xs inline-block' : 'text-danger-500 font-semibold';
 
   return (
-    <div
+    <Surface
+      tone={isDark ? 'dark' : 'ivory'}
+      as="div"
       className={`w-full rounded-sm transition-colors ${
         isModal
           ? 'p-6 sm:p-10 lg:p-12'
-          : `p-6 sm:p-10 lg:p-14 border ${
-              isDark
-                ? 'bg-ink-950 border-graphite-700 border-t-4 border-t-copper-500 shadow-2xl'
-                : 'bg-ivory-50 border-graphite-700/20 shadow-md'
-            }`
+          : 'p-6 sm:p-10 lg:p-14 border border-[var(--border)] border-t-[4px] border-t-copper-500 shadow-2xl'
       }`}
     >
       {/* 2px Copper Top Accent */}
@@ -154,27 +145,19 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
       {!submittedReference ? (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
           <div className="space-y-3">
-            <TechnicalEyebrow variant={isDark ? 'copper' : 'graphite'}>
+            <TechnicalEyebrow variant="auto">
               TECHNICAL CONSULTATION // SRIPERUMBUDUR HUB
             </TechnicalEyebrow>
-            <h3
-              className={`font-heading text-3xl sm:text-4xl font-extrabold tracking-tight ${
-                isDark ? 'text-ivory-100' : 'text-graphite-800'
-              }`}
-            >
+            <h3 className="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-heading">
               Start Your Project Consultation
             </h3>
-            <p
-              className={`text-sm sm:text-base font-light max-w-2xl leading-relaxed ${
-                isDark ? 'text-silver-400' : 'text-graphite-600'
-              }`}
-            >
+            <p className="text-sm sm:text-base font-normal max-w-2xl leading-relaxed text-surface-muted">
               Submit your structural elevator shaft parameters or industrial lifting requirements. Our senior vertical mobility engineers will review the civil scope and confirm an appointment.
             </p>
           </div>
 
           {serverError && (
-            <div className="p-4 rounded-sm bg-danger-500/10 border border-danger-500 text-danger-500 text-xs font-mono flex items-center gap-2.5">
+            <div className="p-4 rounded-sm bg-danger-500 text-white text-xs font-mono flex items-center gap-2.5">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{serverError}</span>
             </div>
@@ -186,15 +169,13 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               <label className={labelBaseClasses}>
                 Full Name*
               </label>
-              <div className="relative">
-                <input
-                  {...register('fullName')}
-                  placeholder="e.g. S. Rajendran"
-                  className={inputBaseClasses}
-                />
-              </div>
+              <input
+                {...register('fullName')}
+                placeholder="e.g. S. Rajendran"
+                className={inputBaseClasses}
+              />
               {errors.fullName && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.fullName.message}
                 </span>
               )}
@@ -204,16 +185,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               <label className={labelBaseClasses}>
                 Telephone / Mobile Number*
               </label>
-              <div className="relative">
-                <input
-                  {...register('phone')}
-                  type="tel"
-                  placeholder="8939359592"
-                  className={inputBaseClasses}
-                />
-              </div>
+              <input
+                {...register('phone')}
+                type="tel"
+                placeholder="8939359592"
+                className={inputBaseClasses}
+              />
               {errors.phone && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.phone.message}
                 </span>
               )}
@@ -223,16 +202,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               <label className={labelBaseClasses}>
                 Corporate Email Address*
               </label>
-              <div className="relative">
-                <input
-                  {...register('email')}
-                  type="email"
-                  placeholder="client@company.com"
-                  className={inputBaseClasses}
-                />
-              </div>
+              <input
+                {...register('email')}
+                type="email"
+                placeholder="client@company.com"
+                className={inputBaseClasses}
+              />
               {errors.email && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.email.message}
                 </span>
               )}
@@ -242,28 +219,24 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               <label className={labelBaseClasses}>
                 Company / Organization (Optional)
               </label>
-              <div className="relative">
-                <input
-                  {...register('companyName')}
-                  placeholder="e.g. Apex Industrial Systems"
-                  className={inputBaseClasses}
-                />
-              </div>
+              <input
+                {...register('companyName')}
+                placeholder="e.g. Apex Industrial Systems"
+                className={inputBaseClasses}
+              />
             </div>
 
             <div className="sm:col-span-2">
               <label className={labelBaseClasses}>
                 Installation Site Location*
               </label>
-              <div className="relative">
-                <input
-                  {...register('location')}
-                  placeholder="e.g. SIPCOT Industrial Area, Sriperumbudur / Chennai"
-                  className={inputBaseClasses}
-                />
-              </div>
+              <input
+                {...register('location')}
+                placeholder="e.g. SIPCOT Industrial Area, Sriperumbudur / Chennai"
+                className={inputBaseClasses}
+              />
               {errors.location && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.location.message}
                 </span>
               )}
@@ -271,7 +244,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           </div>
 
           {/* Section 2: Enquiry Category & Equipment of Interest */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-graphite-600/40">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-[var(--border)]">
             <div>
               <label className={labelBaseClasses}>
                 Enquiry Category*
@@ -280,22 +253,22 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 {...register('enquiryType')}
                 className={`${inputBaseClasses} cursor-pointer`}
               >
-                <option value="New Lift Installation" className="bg-graphite-800 text-ivory-100">
+                <option value="New Lift Installation" className="bg-ink-900 text-ivory-50">
                   New Lift Installation
                 </option>
-                <option value="Product Enquiry" className="bg-graphite-800 text-ivory-100">
+                <option value="Product Enquiry" className="bg-ink-900 text-ivory-50">
                   Product Enquiry
                 </option>
-                <option value="Maintenance" className="bg-graphite-800 text-ivory-100">
+                <option value="Maintenance" className="bg-ink-900 text-ivory-50">
                   Preventative Maintenance Contract
                 </option>
-                <option value="Repair" className="bg-graphite-800 text-ivory-100">
+                <option value="Repair" className="bg-ink-900 text-ivory-50">
                   Emergency Repair & Servicing
                 </option>
-                <option value="Business Partnership" className="bg-graphite-800 text-ivory-100">
+                <option value="Business Partnership" className="bg-ink-900 text-ivory-50">
                   Architectural / Civil Partnership
                 </option>
-                <option value="General Enquiry" className="bg-graphite-800 text-ivory-100">
+                <option value="General Enquiry" className="bg-ink-900 text-ivory-50">
                   General Engineering Enquiry
                 </option>
               </select>
@@ -311,7 +284,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 className={inputBaseClasses}
               />
               {errors.productServiceInterest && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.productServiceInterest.message}
                 </span>
               )}
@@ -319,7 +292,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           </div>
 
           {/* Section 3: Consultation Date & Window */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-graphite-600/40">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-[var(--border)]">
             <div>
               <label className={labelBaseClasses}>
                 Preferred Consultation Date*
@@ -331,7 +304,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 className={`${inputBaseClasses} font-mono`}
               />
               {errors.preferredDate && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.preferredDate.message}
                 </span>
               )}
@@ -345,16 +318,16 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 {...register('preferredTime')}
                 className={`${inputBaseClasses} cursor-pointer`}
               >
-                <option value="Morning (10:00 AM – 1:00 PM)" className="bg-graphite-800 text-ivory-100">
+                <option value="Morning (10:00 AM – 1:00 PM)" className="bg-ink-900 text-ivory-50">
                   Morning (10:00 AM – 1:00 PM)
                 </option>
-                <option value="Afternoon (1:00 PM – 4:00 PM)" className="bg-graphite-800 text-ivory-100">
+                <option value="Afternoon (1:00 PM – 4:00 PM)" className="bg-ink-900 text-ivory-50">
                   Afternoon (1:00 PM – 4:00 PM)
                 </option>
-                <option value="Evening (4:00 PM – 6:30 PM)" className="bg-graphite-800 text-ivory-100">
+                <option value="Evening (4:00 PM – 6:30 PM)" className="bg-ink-900 text-ivory-50">
                   Evening (4:00 PM – 6:30 PM)
                 </option>
-                <option value="Flexible / Contact to confirm" className="bg-graphite-800 text-ivory-100">
+                <option value="Flexible / Contact to confirm" className="bg-ink-900 text-ivory-50">
                   Flexible / Call to confirm
                 </option>
               </select>
@@ -362,7 +335,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           </div>
 
           {/* Section 4: Project Scope */}
-          <div className="pt-4 border-t border-graphite-600/40 space-y-4">
+          <div className="pt-4 border-t border-[var(--border)] space-y-4">
             <div>
               <label className={labelBaseClasses}>
                 Technical Scope & Structural Description*
@@ -371,14 +344,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 {...register('projectDescription')}
                 rows={4}
                 placeholder="Please outline floor levels, required passenger or cargo payload, pit depth/headroom constraints, and civil construction state..."
-                className={`w-full p-4 min-h-[140px] text-sm font-sans transition-all duration-200 border rounded-sm outline-none placeholder:text-silver-400/50 leading-relaxed ${
+                className={`w-full p-4 min-h-[140px] text-sm font-sans transition-all duration-200 border rounded-sm outline-none leading-relaxed ${
                   isDark
-                    ? 'bg-ink-900/70 border-graphite-600 text-ivory-100 focus:border-champagne-500 focus:ring-1 focus:ring-champagne-500'
-                    : 'bg-white border-graphite-600/30 text-graphite-800 focus:border-champagne-600 focus:ring-1 focus:ring-champagne-600'
+                    ? 'bg-ink-900 border-teal-500/40 text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
+                    : 'bg-white border-ink-900/25 text-ink-900 placeholder:text-graphite-600/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
                 }`}
               />
               {errors.projectDescription && (
-                <span className="text-[11px] font-mono text-danger-500 mt-1.5 block">
+                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.projectDescription.message}
                 </span>
               )}
@@ -400,8 +373,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <input {...register('hp_company_url')} type="text" className="hidden" tabIndex={-1} autoComplete="off" />
 
           {/* Submission Bar */}
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-graphite-600/40">
-            <span className={`text-xs font-mono ${isDark ? 'text-silver-400/70' : 'text-graphite-600'}`}>
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-[var(--border)]">
+            <span className="text-xs font-mono text-surface-muted">
               *An engineering specialist will contact you directly to confirm the requested time slot.
             </span>
 
@@ -427,47 +400,29 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
       ) : (
         /* Confirmation State */
         <div className="text-center py-12 space-y-6">
-          <div className="w-16 h-16 rounded-full bg-copper-500/15 border border-copper-500 text-copper-500 mx-auto flex items-center justify-center shadow-copper-glow">
+          <div className="w-16 h-16 rounded-full bg-copper-500/15 border border-copper-500 text-surface-accent mx-auto flex items-center justify-center shadow-copper-glow">
             <CheckCircle2 className="w-9 h-9" />
           </div>
 
           <div className="space-y-2 max-w-lg mx-auto">
-            <TechnicalEyebrow variant={isDark ? 'copper' : 'graphite'}>
+            <TechnicalEyebrow variant="auto">
               REQUEST RECORDED IN HYDRELEX SYSTEMS
             </TechnicalEyebrow>
-            <h3
-              className={`font-heading text-3xl sm:text-4xl font-extrabold ${
-                isDark ? 'text-steel-100' : 'text-graphite-900'
-              }`}
-            >
+            <h3 className="font-heading text-3xl sm:text-4xl font-extrabold text-surface-heading">
               Consultation Logged
             </h3>
-            <p
-              className={`text-sm font-light leading-relaxed ${
-                isDark ? 'text-steel-300' : 'text-graphite-700'
-              }`}
-            >
+            <p className="text-sm font-normal leading-relaxed text-surface-muted">
               Your appointment request has been persisted to the HYDRELEX operations database and routed to our Sriperumbudur engineering office.
             </p>
           </div>
 
           {/* Reference ID Card */}
-          <div
-            className={`max-w-md mx-auto p-6 rounded-sm border space-y-3 ${
-              isDark
-                ? 'bg-graphite-900 border-graphite-700'
-                : 'bg-white border-graphite-700/30'
-            }`}
-          >
-            <div
-              className={`text-[11px] font-sans uppercase tracking-[0.12em] font-bold ${
-                isDark ? 'text-steel-300' : 'text-graphite-700'
-              }`}
-            >
+          <div className="max-w-md mx-auto p-6 rounded-sm border border-[var(--border)] bg-surface-elevated space-y-3">
+            <div className="text-[11px] font-sans uppercase tracking-[0.12em] font-bold text-surface-muted">
               Your Official Reference Tracking Code
             </div>
             <div className="flex items-center justify-center gap-3">
-              <span className="font-mono text-2xl sm:text-3xl font-extrabold tracking-widest text-copper-500">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold tracking-widest text-surface-accent">
                 {submittedReference}
               </span>
               <button
@@ -483,11 +438,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 Reference code copied to clipboard!
               </span>
             )}
-            <p
-              className={`text-[11px] font-sans leading-tight ${
-                isDark ? 'text-steel-300/80' : 'text-graphite-600'
-              }`}
-            >
+            <p className="text-[11px] font-sans leading-tight text-surface-muted">
               Keep this reference code to track appointment progress on our website using the Track Consultation feature.
             </p>
           </div>
@@ -495,17 +446,13 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <div className="pt-4 flex justify-center">
             <button
               onClick={handleNewEnquiry}
-              className={`px-6 py-3 rounded-sm border text-xs font-sans font-bold uppercase tracking-[0.12em] transition-colors ${
-                isDark
-                  ? 'border-graphite-700 text-steel-300 hover:text-steel-100 hover:bg-graphite-700/50'
-                  : 'border-graphite-700/40 text-graphite-900 hover:bg-ivory-100'
-              }`}
+              className="px-6 py-3 rounded-sm border border-[var(--border)] text-surface-fg hover:bg-copper-500/15 text-xs font-sans font-bold uppercase tracking-[0.12em] transition-colors"
             >
               Submit Another Request
             </button>
           </div>
         </div>
       )}
-    </div>
+    </Surface>
   );
 };

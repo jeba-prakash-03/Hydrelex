@@ -2,34 +2,38 @@ import React from 'react';
 
 interface TechnicalEyebrowProps {
   children: React.ReactNode;
-  variant?: 'copper' | 'steel' | 'graphite' | 'muted';
+  variant?: 'copper' | 'amber' | 'teal' | 'graphite' | 'steel' | 'auto';
   hasIndicator?: boolean;
   className?: string;
 }
 
 export const TechnicalEyebrow: React.FC<TechnicalEyebrowProps> = ({
   children,
-  variant = 'copper',
+  variant = 'auto',
   hasIndicator = true,
   className = '',
 }) => {
   const variantStyles = {
-    copper: 'text-copper-500',
+    auto: 'text-surface-accent',
+    copper: 'text-copper-700',
+    amber: 'text-amber-500',
+    teal: 'text-teal-700',
+    graphite: 'text-ink-900',
     steel: 'text-steel-300',
-    graphite: 'text-copper-700', // High-contrast on light ivory
-    muted: 'text-steel-300/80',
   };
 
   const dotStyles = {
-    copper: 'bg-copper-500 shadow-[0_0_8px_rgba(232,120,46,0.8)]',
+    auto: 'bg-surface-accent shadow-sm',
+    copper: 'bg-copper-700',
+    amber: 'bg-amber-500 shadow-[0_0_8px_rgba(246,185,59,0.8)]',
+    teal: 'bg-teal-700',
+    graphite: 'bg-ink-900',
     steel: 'bg-steel-300',
-    graphite: 'bg-copper-700',
-    muted: 'bg-steel-300/60',
   };
 
   return (
     <div
-      className={`inline-flex items-center gap-2.5 font-sans text-[12.5px] sm:text-[13px] tracking-[0.12em] uppercase font-semibold select-none ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center gap-2.5 font-sans text-[12.5px] sm:text-[13px] tracking-[0.12em] uppercase font-bold select-none ${variantStyles[variant]} ${className}`}
     >
       {hasIndicator && (
         <span

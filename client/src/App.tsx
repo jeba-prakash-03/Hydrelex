@@ -6,6 +6,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { TrackEnquiryModal } from './components/TrackEnquiryModal';
 import { QuoteModal } from './components/ui/QuoteModal';
+import { Surface } from './components/ui/Surface';
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -28,11 +29,16 @@ import { AdminServicesPage } from './pages/admin/AdminServicesPage';
 import { AdminProjectsPage } from './pages/admin/AdminProjectsPage';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 
-// Scroll to top on navigation
+// Scroll to top on navigation & anti-invisible-text safety reveal
 function ScrollToTop() {
   const { pathname } = useLocation();
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    document.documentElement.classList.remove('animations-complete');
+    const timer = setTimeout(() => {
+      document.documentElement.classList.add('animations-complete');
+    }, 1500);
+    return () => clearTimeout(timer);
   }, [pathname]);
   return null;
 }
@@ -43,7 +49,7 @@ const ProtectedAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-ink-900 flex items-center justify-center text-champagne-500 text-xs font-mono">
+      <div className="min-h-screen bg-ink-900 flex items-center justify-center text-amber-500 text-xs font-mono">
         Verifying administrative credentials...
       </div>
     );
@@ -62,7 +68,7 @@ const PublicLayout: React.FC = () => {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-between bg-ink-900 text-ivory-100 overflow-x-hidden">
+    <Surface tone="dark" as="div" className="min-h-screen w-full flex flex-col justify-between overflow-x-hidden">
       <Navbar
         onOpenTrackModal={() => setTrackModalOpen(true)}
         onOpenQuoteModal={() => setQuoteModalOpen(true)}
@@ -91,7 +97,7 @@ const PublicLayout: React.FC = () => {
         isOpen={quoteModalOpen}
         onClose={() => setQuoteModalOpen(false)}
       />
-    </div>
+    </Surface>
   );
 };
 

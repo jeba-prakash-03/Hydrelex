@@ -1,5 +1,6 @@
 import React from 'react';
 import { TechnicalEyebrow } from './TechnicalEyebrow';
+import { Surface } from './Surface';
 
 export interface SystemSpecItem {
   id: string;
@@ -73,38 +74,28 @@ export const SpecTable: React.FC<SpecTableProps> = ({
   const isDark = themeMode === 'dark';
 
   return (
-    <div className={`w-full overflow-hidden ${className}`}>
+    <Surface tone={isDark ? 'dark' : 'sand'} as="div" className={`w-full overflow-hidden rounded-sm p-6 sm:p-8 border border-[var(--border)] ${className}`}>
       <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <TechnicalEyebrow variant={isDark ? 'copper' : 'graphite'}>
+          <TechnicalEyebrow variant="auto">
             ENGINEERING SPECIFICATION MATRIX
           </TechnicalEyebrow>
-          <h3
-            className={`font-heading text-2xl sm:text-3xl font-extrabold tracking-tight mt-2 ${
-              isDark ? 'text-steel-100' : 'text-graphite-900'
-            }`}
-          >
+          <h3 className="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight mt-2 text-surface-heading">
             System Comparison & Civil Scope
           </h3>
         </div>
-        <span
-          className={`font-mono text-xs ${
-            isDark ? 'text-steel-300/80' : 'text-graphite-600'
-          }`}
-        >
+        <span className="font-mono text-xs text-surface-muted">
           *Parameters engineered strictly per individual site survey
         </span>
       </div>
 
       {/* Responsive Architectural Matrix Table */}
-      <div className="w-full overflow-x-auto border border-graphite-700 rounded-sm shadow-elevated-card">
+      <div className="w-full overflow-x-auto border border-[var(--border)] rounded-sm shadow-elevated-card">
         <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr
-              className={`border-b text-[11px] font-sans tracking-[0.14em] uppercase font-bold ${
-                isDark
-                  ? 'bg-graphite-900 border-graphite-700 text-steel-300'
-                  : 'bg-ivory-50 border-graphite-700/20 text-graphite-900'
+              className={`border-b border-[var(--border)] text-[11px] font-sans tracking-[0.14em] uppercase font-bold ${
+                isDark ? 'bg-teal-900 text-amber-300' : 'bg-white text-ink-900'
               }`}
             >
               <th className="py-4 px-5">System Code</th>
@@ -115,44 +106,30 @@ export const SpecTable: React.FC<SpecTableProps> = ({
               <th className="py-4 px-5 text-right">Engineering Status</th>
             </tr>
           </thead>
-          <tbody
-            className={`divide-y text-xs font-sans ${
-              isDark
-                ? 'divide-graphite-700/50 bg-graphite-700/40 text-steel-100'
-                : 'divide-graphite-700/20 bg-white text-graphite-900'
-            }`}
-          >
+          <tbody className="divide-y divide-[var(--border)] text-xs font-sans">
             {defaultSpecs.map((spec) => (
               <tr
                 key={spec.id}
                 className={`transition-colors duration-150 ${
-                  isDark ? 'hover:bg-graphite-600/30' : 'hover:bg-ivory-100/60'
+                  isDark ? 'hover:bg-ink-800 bg-ink-900' : 'hover:bg-white/60 bg-ivory-50'
                 }`}
               >
-                <td className="py-4 px-5 font-mono text-[11px] text-copper-500 font-bold whitespace-nowrap">
+                <td className="py-4 px-5 font-mono text-[11px] text-surface-accent font-bold whitespace-nowrap">
                   {spec.id}
                 </td>
-                <td className="py-4 px-5 font-heading text-sm font-bold whitespace-nowrap">
+                <td className="py-4 px-5 font-heading text-sm font-bold text-surface-heading whitespace-nowrap">
                   {spec.name}
                 </td>
-                <td
-                  className={`py-4 px-5 font-light ${
-                    isDark ? 'text-steel-300' : 'text-graphite-700'
-                  }`}
-                >
+                <td className="py-4 px-5 font-normal text-surface-muted">
                   {spec.application}
                 </td>
-                <td className="py-4 px-5 font-mono text-[11px] whitespace-nowrap">
+                <td className="py-4 px-5 font-mono text-[11px] text-surface-fg whitespace-nowrap">
                   {spec.drive}
                 </td>
-                <td
-                  className={`py-4 px-5 font-light ${
-                    isDark ? 'text-steel-300' : 'text-graphite-700'
-                  }`}
-                >
+                <td className="py-4 px-5 font-normal text-surface-muted">
                   {spec.scope}
                 </td>
-                <td className="py-4 px-5 text-right font-mono text-[11px] text-copper-500 whitespace-nowrap font-bold">
+                <td className="py-4 px-5 text-right font-mono text-[11px] text-surface-accent whitespace-nowrap font-bold">
                   {spec.status}
                 </td>
               </tr>
@@ -160,7 +137,7 @@ export const SpecTable: React.FC<SpecTableProps> = ({
           </tbody>
         </table>
       </div>
-    </div>
+    </Surface>
   );
 };
 

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronRight, Check, ShieldCheck, Wrench, RefreshCw, Cpu } from 'lucide-react';
+import { ArrowRight, Check, ShieldCheck, Wrench, RefreshCw, Cpu } from 'lucide-react';
 import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
 import { LiftLineArtSvg } from './ui/LiftLineArtSvg';
+import { Surface } from './ui/Surface';
 
 interface ServiceItem {
   number: string;
@@ -12,6 +13,10 @@ interface ServiceItem {
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   deliverables: string[];
+  accentLeftBorder: string;
+  badgeBg: string;
+  badgeText: string;
+  iconColor: string;
 }
 
 const servicesList: ServiceItem[] = [
@@ -20,6 +25,10 @@ const servicesList: ServiceItem[] = [
     title: 'New Installation & Turnkey Erection',
     category: 'CIVIL INTEGRATION',
     icon: Wrench,
+    accentLeftBorder: 'border-l-teal-700',
+    badgeBg: 'bg-teal-700',
+    badgeText: 'text-ivory-50',
+    iconColor: 'text-teal-700',
     description:
       'Complete mechanical and electrical erection of passenger, goods, and panoramic elevators from civil plumb survey to final commissioning.',
     deliverables: [
@@ -33,6 +42,10 @@ const servicesList: ServiceItem[] = [
     title: 'Preventative Maintenance & AMC Contracts',
     category: 'LIFECYCLE OPERATIONS',
     icon: ShieldCheck,
+    accentLeftBorder: 'border-l-copper-500',
+    badgeBg: 'bg-copper-500',
+    badgeText: 'text-ink-900',
+    iconColor: 'text-copper-700',
     description:
       'Scheduled preventive inspections, multi-point lubrication, and emergency breakdown attendance by factory-trained vertical transport technicians.',
     deliverables: [
@@ -46,6 +59,10 @@ const servicesList: ServiceItem[] = [
     title: 'Inverter Modernization & Electrical Retrofits',
     category: 'EFFICIENCY UPGRADES',
     icon: Cpu,
+    accentLeftBorder: 'border-l-amber-500',
+    badgeBg: 'bg-amber-500',
+    badgeText: 'text-ink-900',
+    iconColor: 'text-copper-700',
     description:
       'Upgrading older relay-based or inefficient elevator drives with advanced microprocessor controllers and energy-efficient VVVF frequency inverters.',
     deliverables: [
@@ -59,6 +76,10 @@ const servicesList: ServiceItem[] = [
     title: 'Custom Engineering & Hydraulic Adaptation',
     category: 'BESPOKE FABRICATION',
     icon: RefreshCw,
+    accentLeftBorder: 'border-l-teal-900',
+    badgeBg: 'bg-teal-900',
+    badgeText: 'text-amber-300',
+    iconColor: 'text-teal-700',
     description:
       'Specialized engineering for non-standard shafts, shallow pit depth allowances, zero overhead machine room restrictions, and heavy industrial scissor mechanisms.',
     deliverables: [
@@ -73,20 +94,21 @@ export const ServicesSection: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState<number>(0);
 
   return (
-    <section
+    <Surface
+      tone="mint"
+      as="section"
       id="services"
-      className="w-full bg-gradient-to-br from-ivory-50 via-steel-100/40 to-ivory-100 text-graphite-900 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-700/20"
-      style={{ backgroundColor: '#FBF8F2' }}
+      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-[var(--border)]"
     >
       {/* Background Architectural Grid */}
-      <div className="absolute inset-0 bg-technical-grid opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-technical-grid-light opacity-40 pointer-events-none" />
 
       {/* Oversized Outlined Numeral 03 Cropped Behind Section */}
       <div
         aria-hidden="true"
-        className="absolute -top-12 right-6 sm:right-16 text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
+        className="absolute top-4 sm:top-6 right-6 sm:right-16 text-[88px] sm:text-[130px] lg:text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-20"
         style={{
-          WebkitTextStroke: '1.5px #B4531A',
+          WebkitTextStroke: '2px #073842',
           color: 'transparent',
         }}
       >
@@ -98,17 +120,17 @@ export const ServicesSection: React.FC = () => {
           {/* Left Column: Sticky Heading + Architectural Line-Art Cross-Section (5 cols) */}
           <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
             <div className="space-y-4">
-              <TechnicalEyebrow variant="graphite">
+              <TechnicalEyebrow variant="copper">
                 ENGINEERING & LIFECYCLE SERVICES // 03
               </TechnicalEyebrow>
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold text-graphite-900 tracking-tight leading-[1.08]">
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold text-surface-heading tracking-tight leading-[1.08]">
                 Precision Turnkey{' '}
-                <span className="text-copper-700 underline decoration-copper-500/40 underline-offset-8">
+                <span className="text-copper-700 underline decoration-copper-500/50 underline-offset-8">
                   Execution
                 </span>
                 .
               </h2>
-              <p className="text-base sm:text-lg text-graphite-700 font-light leading-relaxed">
+              <p className="text-base sm:text-lg text-surface-fg font-normal leading-relaxed">
                 From initial civil plumb survey in Tamil Nadu to lifetime preventive maintenance, our certified vertical mobility specialists oversee full equipment integrity.
               </p>
             </div>
@@ -119,38 +141,38 @@ export const ServicesSection: React.FC = () => {
             </div>
 
             {/* Hand-Drawn Architectural Shaft Cross-Section Diagram */}
-            <div className="p-6 rounded-sm bg-white border border-graphite-700/20 shadow-elevated-card space-y-4">
-              <div className="flex items-center justify-between font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-copper-700 border-b border-graphite-700/15 pb-3">
+            <Surface tone="light" as="div" className="p-6 rounded-sm border border-[var(--border)] shadow-elevated-card space-y-4">
+              <div className="flex items-center justify-between font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-copper-700 border-b border-[var(--border)] pb-3">
                 <span className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-copper-500 inline-block" />
                   ELEVATOR SHAFT CROSS-SECTION
                 </span>
-                <span className="font-mono text-xs text-graphite-700">CAD-SEC.01</span>
+                <span className="font-mono text-xs text-surface-fg font-bold">CAD-SEC.01</span>
               </div>
-              <div className="h-64 sm:h-72 w-full flex items-center justify-center p-3 bg-graphite-900 rounded-sm overflow-hidden">
+              <div className="h-64 sm:h-72 w-full flex items-center justify-center p-3 bg-teal-900 rounded-sm overflow-hidden">
                 <LiftLineArtSvg
                   type="shaft-cross-section"
                   className="h-full w-auto"
-                  strokeColor="#E8782E"
+                  strokeColor="#F6B93B"
                 />
               </div>
-              <div className="text-[11px] font-mono text-graphite-600 text-center">
+              <div className="text-[11px] font-mono text-surface-muted font-medium text-center">
                 *Laser-calibrated vertical plumb alignment with progressive safety gear
               </div>
-            </div>
+            </Surface>
 
             <div className="pt-2">
               <Link
                 to="/contact#consultation"
-                className="group inline-flex items-center gap-3 px-8 h-12 py-3 rounded-sm bg-graphite-900 hover:bg-ink-950 text-steel-100 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 shadow-elevated-card hover:shadow-copper-glow"
+                className="group inline-flex items-center gap-3 px-8 h-12 py-3 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 shadow-md hover:shadow-copper-glow"
               >
                 <span>Book Engineering Consultation</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-copper-500" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Numbered List (01-04) of Services with Hover Highlight (7 cols) */}
+          {/* Right Column: Numbered List (01-04) of Services with Color Left Bars & Badges (7 cols) */}
           <div className="lg:col-span-7 space-y-5">
             {servicesList.map((service, idx) => {
               const isActive = activeIdx === idx;
@@ -161,49 +183,54 @@ export const ServicesSection: React.FC = () => {
                   key={service.number}
                   initial={{ opacity: 1, y: 0 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
+                  viewport={{ once: true, amount: 0.05, margin: '0px 0px -10% 0px' }}
                   transition={{ duration: 0.5, delay: idx * 0.06 }}
                   onMouseEnter={() => setActiveIdx(idx)}
-                  className={`p-6 sm:p-8 rounded-sm transition-all duration-300 border cursor-pointer ${
-                    isActive
-                      ? 'bg-white border-l-4 border-l-copper-500 border-t-graphite-700/20 border-r-graphite-700/20 border-b-graphite-700/20 shadow-elevated-card'
-                      : 'bg-white/75 border border-graphite-700/20 hover:bg-white hover:border-l-4 hover:border-l-copper-500/70'
-                  }`}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-sm font-bold text-copper-700">
-                        [{service.number}]
-                      </span>
-                      <h3 className="font-heading text-xl sm:text-2xl font-bold text-graphite-900 flex items-center gap-2">
-                        <IconComp className="w-5 h-5 text-copper-700" />
-                        <span>{service.title}</span>
-                      </h3>
-                    </div>
-                    <span className="text-[11px] font-sans font-bold tracking-[0.12em] uppercase text-copper-700 bg-copper-500/10 px-2.5 py-1 rounded-xs border border-copper-700/20 shrink-0">
-                      {service.category}
-                    </span>
-                  </div>
-
-                  <p className="text-sm sm:text-base text-graphite-700 font-light leading-relaxed mb-4">
-                    {service.description}
-                  </p>
-
-                  {/* Key Deliverables */}
-                  <div className="pt-3 border-t border-graphite-700/15 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans text-graphite-900">
-                    {service.deliverables.map((item, dIdx) => (
-                      <div key={dIdx} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-copper-700 shrink-0 mt-0.5" />
-                        <span className="font-medium text-graphite-800">{item}</span>
+                  <Surface
+                    tone="light"
+                    as="div"
+                    className={`p-6 sm:p-8 rounded-sm transition-all duration-300 border border-[var(--border)] border-l-[6px] ${service.accentLeftBorder} cursor-pointer ${
+                      isActive ? 'shadow-elevated-card bg-white' : 'bg-white/95 hover:bg-white shadow-sm'
+                    }`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                      <div className="flex items-center gap-3.5">
+                        <span
+                          className={`font-mono text-xs font-extrabold px-2.5 py-1 rounded-xs shrink-0 ${service.badgeBg} ${service.badgeText}`}
+                        >
+                          {service.number}
+                        </span>
+                        <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-surface-heading flex items-center gap-2.5">
+                          <IconComp className={`w-5 h-5 shrink-0 ${service.iconColor}`} />
+                          <span>{service.title}</span>
+                        </h3>
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-[11px] font-sans font-bold tracking-[0.12em] uppercase text-surface-accent bg-sand-100 px-3 py-1 rounded-xs border border-sand-200 shrink-0 w-fit">
+                        {service.category}
+                      </span>
+                    </div>
+
+                    <p className="text-sm sm:text-base text-surface-fg font-normal leading-relaxed mb-4">
+                      {service.description}
+                    </p>
+
+                    {/* Key Deliverables */}
+                    <div className="pt-3 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-sans">
+                      {service.deliverables.map((item, dIdx) => (
+                        <div key={dIdx} className="flex items-start gap-2">
+                          <Check className={`w-4 h-4 shrink-0 mt-0.5 ${service.iconColor}`} />
+                          <span className="font-semibold text-surface-fg">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </Surface>
                 </motion.div>
               );
             })}
           </div>
         </div>
       </div>
-    </section>
+    </Surface>
   );
 };

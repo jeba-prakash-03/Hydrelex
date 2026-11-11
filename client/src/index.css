@@ -1,20 +1,156 @@
 @tailwind base;
 @tailwind components;
+
+/* -------------------------------------------------------------
+ * SURFACE TONE SYSTEM: Placed between @tailwind components &
+ * @tailwind utilities so custom tokens are NEVER tree-shaken and
+ * Tailwind utilities (e.g. bg-white, text-amber-300) cleanly win.
+ * ------------------------------------------------------------- */
+[data-surface-tone="teal"],
+.surface-teal {
+  --bg: #0B4F5C;
+  --bg-elevated: #073842;
+  --fg: #FBF8F2;
+  --fg-muted: #D9EEE6;
+  --heading: #FFFFFF;
+  --accent-text: #F6B93B;
+  --border: rgba(217, 238, 230, 0.28);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="dark"],
+.surface-dark {
+  --bg: #0F1416;
+  --bg-elevated: #192024;
+  --fg: #FBF8F2;
+  --fg-muted: #C9CDD2;
+  --heading: #FFFFFF;
+  --accent-text: #FF934A;
+  --border: rgba(255, 255, 255, 0.14);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="sand"],
+.surface-sand {
+  --bg: #F6E9D7;
+  --bg-elevated: #FFFFFF;
+  --fg: #0F1416;
+  --fg-muted: #333D40;
+  --heading: #0F1416;
+  --accent-text: #9A3F0D;
+  --border: rgba(15, 20, 22, 0.18);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="mint"],
+.surface-mint {
+  --bg: #D9EEE6;
+  --bg-elevated: #FFFFFF;
+  --fg: #0F1416;
+  --fg-muted: #243531;
+  --heading: #073842;
+  --accent-text: #9A3F0D;
+  --border: rgba(11, 79, 92, 0.22);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="peach"],
+.surface-peach {
+  --bg: #FFE3CF;
+  --bg-elevated: #FFFFFF;
+  --fg: #0F1416;
+  --fg-muted: #3B2E24;
+  --heading: #0F1416;
+  --accent-text: #9A3F0D;
+  --border: rgba(232, 120, 46, 0.25);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="copper"],
+.surface-copper {
+  --bg: #E8782E;
+  --bg-elevated: #D0641E;
+  --fg: #0F1416;
+  --fg-muted: #21140E;
+  --heading: #0F1416;
+  --accent-text: #0F1416;
+  --border: rgba(15, 20, 22, 0.25);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="amber"],
+.surface-amber {
+  --bg: #F6B93B;
+  --bg-elevated: #EAA824;
+  --fg: #0F1416;
+  --fg-muted: #281E08;
+  --heading: #0F1416;
+  --accent-text: #073842;
+  --border: rgba(15, 20, 22, 0.22);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+[data-surface-tone="ivory"],
+[data-surface-tone="light"],
+.surface-ivory,
+.surface-light {
+  --bg: #FBF8F2;
+  --bg-elevated: #FFFFFF;
+  --fg: #0F1416;
+  --fg-muted: #333D40;
+  --heading: #0F1416;
+  --accent-text: #9A3F0D;
+  --border: rgba(15, 20, 22, 0.16);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
 @tailwind utilities;
 
 :root {
-  --ink-950: #0A0A0B;
-  --graphite-900: #141416;
-  --graphite-700: #26262A;
-  --steel-300: #C9CDD2;
-  --steel-100: #E9EBEE;
-  --ivory-50: #FBF8F2;
-  --ivory-100: #F2ECE0;
+  --teal-900: #073842;
+  --teal-700: #0B4F5C;
+  --teal-500: #1C7C8C;
   --copper-500: #E8782E;
   --copper-400: #FF934A;
-  --copper-700: #B4531A;
-  --ember-glow: rgba(232, 120, 46, 0.35);
+  --copper-700: #9A3F0D;
+  --amber-500: #F6B93B;
+  --amber-300: #FFD97A;
+  --sand-100: #F6E9D7;
+  --sand-200: #EFD9BC;
+  --peach-100: #FFE3CF;
+  --mint-100: #D9EEE6;
+  --ink-950: #0A0A0B;
+  --ink-900: #0F1416;
+  --ivory-50: #FBF8F2;
+  --ivory-100: #F2ECE0;
+  --steel-300: #C9CDD2;
+  --steel-100: #E9EBEE;
+
+  /* Default Surface Variables (Dark Base) */
+  --bg: #0F1416;
+  --bg-elevated: #192024;
+  --fg: #FBF8F2;
+  --fg-muted: #C9CDD2;
+  --heading: #FFFFFF;
+  --accent-text: #FF934A;
+  --border: rgba(255, 255, 255, 0.14);
 }
+
+/* Explicit Surface Utility Helpers (retained unpurged after utilities) */
+.text-surface-fg { color: var(--fg); }
+.text-surface-muted { color: var(--fg-muted); }
+.text-surface-heading { color: var(--heading); }
+.text-surface-accent { color: var(--accent-text); }
+.border-surface { border-color: var(--border); }
+.bg-surface-elevated { background-color: var(--bg-elevated); }
 
 @layer base {
   html {
@@ -26,7 +162,7 @@
   }
 
   body {
-    background-color: var(--ink-950);
+    background-color: var(--ink-900);
     color: var(--ivory-50);
     width: 100%;
     margin: 0;
@@ -44,6 +180,15 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Anti-Invisible-Text Safety Net: Forces Reveal */
+.animations-complete [data-reveal],
+.animations-complete [style*="opacity: 0"],
+.animations-complete [style*="opacity:0"] {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
 }
 
 /* Fluid responsive horizontal gutters across all viewports */
@@ -86,7 +231,7 @@
   text-transform: uppercase;
 }
 
-/* Subtle Film-Grain Texture for Dark Surfaces */
+/* Subtle Film-Grain Texture */
 .bg-grain {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
 }
@@ -145,7 +290,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--graphite-700);
+  background: var(--teal-700);
   border-radius: 2px;
 }
 
@@ -153,7 +298,7 @@
   background: var(--copper-500);
 }
 
-/* Clean text selection in copper */
+/* Clean text selection */
 ::selection {
   background-color: var(--copper-500);
   color: var(--ink-950);

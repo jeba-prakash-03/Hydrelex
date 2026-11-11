@@ -21,29 +21,29 @@ export const HeroLiftShaftAnimated: React.FC<{ className?: string }> = ({
 
   return (
     <div className={`relative w-full h-full flex items-center justify-center select-none ${className}`}>
-      {/* 1. Soft Copper Ember Glow behind the lift shaft */}
+      {/* 1. Soft Amber & Copper Radial Glow behind the lift shaft on deep teal */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle at 60% 45%, rgba(232, 120, 46, 0.22) 0%, rgba(232, 120, 46, 0.05) 50%, transparent 80%)',
+            'radial-gradient(circle at 60% 45%, rgba(246, 185, 59, 0.25) 0%, rgba(232, 120, 46, 0.15) 35%, transparent 75%)',
         }}
       />
 
       {/* 2. Digital Floor Indicator HUD at Top-Right */}
-      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-30 bg-ink-950/90 border border-copper-500/80 p-3 sm:p-4 rounded-sm shadow-[0_0_20px_rgba(232,120,46,0.3)] flex items-center gap-3">
-        <div className="w-2.5 h-2.5 rounded-full bg-copper-500 animate-pulse shadow-[0_0_8px_#E8782E]" />
+      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-30 bg-teal-900 border border-amber-500/80 p-3 sm:p-4 rounded-sm shadow-[0_0_20px_rgba(246,185,59,0.3)] flex items-center gap-3">
+        <div className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_#F6B93B]" />
         <div>
-          <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-steel-300">
+          <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-mint-100">
             FLOOR LEVEL
           </div>
-          <div className="font-mono text-2xl sm:text-3xl font-extrabold text-copper-500 leading-none mt-0.5">
+          <div className="font-mono text-2xl sm:text-3xl font-extrabold text-amber-500 leading-none mt-0.5">
             0{currentFloor}
           </div>
         </div>
-        <div className="border-l border-graphite-700 pl-3 font-mono text-[10px] text-steel-300/80">
-          <div>VELOCITY: <span className="text-copper-400">1.75 m/s</span></div>
-          <div>STATUS: <span className="text-emerald-400">ACTIVE</span></div>
+        <div className="border-l border-teal-500/40 pl-3 font-mono text-[10px] text-mint-100">
+          <div>VELOCITY: <span className="text-amber-300 font-bold">1.75 m/s</span></div>
+          <div>STATUS: <span className="text-mint-100 font-bold">ACTIVE</span></div>
         </div>
       </div>
 
@@ -55,28 +55,28 @@ export const HeroLiftShaftAnimated: React.FC<{ className?: string }> = ({
         className="w-full h-full max-h-[820px] object-contain"
       >
         <defs>
-          {/* Copper Glow Filter */}
+          {/* Amber/Copper Glow Filter */}
           <filter id="copperGlow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="8" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
           {/* Cabin Door Light Beam Gradient */}
           <linearGradient id="doorLightBeam" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#E8782E" stopOpacity="0.8" />
-            <stop offset="50%" stopColor="#FF934A" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#E8782E" stopOpacity="0.0" />
+            <stop offset="0%" stopColor="#F6B93B" stopOpacity="0.85" />
+            <stop offset="50%" stopColor="#E8782E" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#0B4F5C" stopOpacity="0.0" />
           </linearGradient>
         </defs>
 
-        {/* Structural Shaft Tower Columns */}
-        <line x1="80" y1="30" x2="80" y2="760" stroke="#C9CDD2" strokeWidth="2" strokeDasharray="10 5" />
-        <line x1="440" y1="30" x2="440" y2="760" stroke="#C9CDD2" strokeWidth="2" strokeDasharray="10 5" />
+        {/* Structural Shaft Tower Columns (Steel) */}
+        <line x1="80" y1="30" x2="80" y2="760" stroke="#C9CDD2" strokeWidth="2" strokeDasharray="10 5" opacity="0.8" />
+        <line x1="440" y1="30" x2="440" y2="760" stroke="#C9CDD2" strokeWidth="2" strokeDasharray="10 5" opacity="0.8" />
 
         {/* Guide Rails (Machined Steel T-Profile) */}
         <line x1="130" y1="30" x2="130" y2="760" stroke="#E9EBEE" strokeWidth="2.5" />
         <line x1="390" y1="30" x2="390" y2="760" stroke="#E9EBEE" strokeWidth="2.5" />
-        {/* Counterweight Rail */}
-        <line x1="415" y1="30" x2="415" y2="760" stroke="#E8782E" strokeWidth="1.5" strokeDasharray="4 2" />
+        {/* Counterweight Rail (Amber) */}
+        <line x1="415" y1="30" x2="415" y2="760" stroke="#F6B93B" strokeWidth="1.5" strokeDasharray="4 2" />
 
         {/* Floor Slabs with Floor Labels (G, 1, 2, 3, 4) */}
         {[

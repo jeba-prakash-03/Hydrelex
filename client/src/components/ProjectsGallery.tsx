@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../types';
 import { api } from '../lib/api';
-import { Eye, MapPin, X, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { Eye, MapPin, X, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
 import { ImageWithFallback } from './ui/ImageWithFallback';
 import { LiftType } from './ui/LiftLineArtSvg';
+import { Surface, SurfaceTone } from './ui/Surface';
 
-// Initial baseline projects so gallery renders beautifully if database table is empty
 const baselineGalleryProjects: Project[] = [
   {
     id: 101,
@@ -94,6 +94,20 @@ function getCategoryFallbackType(category: string): LiftType {
   return 'passenger';
 }
 
+const CHIP_STYLES = [
+  { activeBg: 'bg-teal-700 text-ivory-50', inactiveBorder: 'border-teal-700/40 hover:bg-teal-700/10 text-ink-900', dot: 'bg-teal-700' },
+  { activeBg: 'bg-copper-500 text-ink-950', inactiveBorder: 'border-copper-700/40 hover:bg-copper-500/10 text-ink-900', dot: 'bg-copper-500' },
+  { activeBg: 'bg-amber-500 text-ink-950', inactiveBorder: 'border-amber-600/40 hover:bg-amber-500/15 text-ink-900', dot: 'bg-amber-500' },
+  { activeBg: 'bg-ink-900 text-amber-300', inactiveBorder: 'border-ink-900/30 hover:bg-ink-900/10 text-ink-900', dot: 'bg-ink-900' },
+];
+
+const CARD_TONES: Array<{ tone: SurfaceTone; badgeBg: string; badgeText: string; stroke: string; borderTop: string }> = [
+  { tone: 'teal', badgeBg: 'bg-amber-500', badgeText: 'text-ink-950', stroke: '#F6B93B', borderTop: 'border-t-amber-500' },
+  { tone: 'dark', badgeBg: 'bg-copper-500', badgeText: 'text-ink-950', stroke: '#E8782E', borderTop: 'border-t-copper-500' },
+  { tone: 'sand', badgeBg: 'bg-teal-700', badgeText: 'text-ivory-50', stroke: '#073842', borderTop: 'border-t-teal-700' },
+  { tone: 'mint', badgeBg: 'bg-copper-700', badgeText: 'text-ivory-50', stroke: '#0B4F5C', borderTop: 'border-t-copper-700' },
+];
+
 export const ProjectsGallery: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>(baselineGalleryProjects);
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
@@ -120,7 +134,6 @@ export const ProjectsGallery: React.FC = () => {
       ? projects
       : projects.filter((p) => p.category === selectedCategory);
 
-  // Keyboard navigation for Lightbox
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!activeModalProject) return;
@@ -148,20 +161,21 @@ export const ProjectsGallery: React.FC = () => {
   }, [handleKeyDown]);
 
   return (
-    <section
+    <Surface
+      tone="ivory"
+      as="section"
       id="projects"
-      className="w-full bg-gradient-to-br from-ivory-50 via-steel-100/40 to-ivory-100 text-graphite-900 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-700/20"
-      style={{ backgroundColor: '#FBF8F2' }}
+      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-[var(--border)]"
     >
       {/* Background Architectural Grid Overlay */}
-      <div className="absolute inset-0 bg-technical-grid opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-technical-grid-light opacity-40 pointer-events-none" />
 
       {/* Oversized Outlined Numeral 05 Cropped Behind Section */}
       <div
         aria-hidden="true"
-        className="absolute -top-12 left-6 sm:left-16 text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
+        className="absolute top-4 sm:top-6 left-6 sm:left-16 text-[88px] sm:text-[130px] lg:text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-20"
         style={{
-          WebkitTextStroke: '1.5px #B4531A',
+          WebkitTextStroke: '2px #0B4F5C',
           color: 'transparent',
         }}
       >
@@ -170,62 +184,68 @@ export const ProjectsGallery: React.FC = () => {
 
       <div className="w-full px-fluid relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-8 border-b border-graphite-700/20 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-8 border-b border-[var(--border)] pb-8">
           <div className="space-y-4 max-w-3xl">
-            <TechnicalEyebrow variant="graphite">
+            <TechnicalEyebrow variant="teal">
               PORTFOLIO SHOWCASE // 05
             </TechnicalEyebrow>
-            <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold text-graphite-900 tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold text-surface-heading tracking-tight leading-tight">
               Selected{' '}
-              <span className="text-copper-700 underline decoration-copper-500/40 underline-offset-8">
+              <span className="text-copper-700 underline decoration-copper-500/50 underline-offset-8">
                 Installations
               </span>
             </h2>
-            <p className="text-base sm:text-lg text-graphite-700 font-light leading-relaxed">
+            <p className="text-base sm:text-lg text-surface-fg font-normal leading-relaxed">
               Examine vertical mobility systems, heavy industrial cargo platforms, and bespoke architectural installations executed across Tamil Nadu.
             </p>
           </div>
 
-          <div className="text-xs font-sans text-graphite-700 p-4 rounded-sm bg-white border border-graphite-700/20 max-w-md shadow-sm">
-            <strong className="text-graphite-900 block mb-1 uppercase tracking-[0.12em] text-[11px] font-bold">
+          <Surface tone="sand" as="div" className="text-xs font-sans p-4 rounded-sm border border-sand-200 max-w-md shadow-sm">
+            <strong className="text-surface-heading block mb-1 uppercase tracking-[0.12em] text-[11px] font-bold">
               Engineering Notice:
             </strong>
-            Installation records marked with Sample Reference illustrate architectural geometry and will be refreshed with live commissioning photography.
-          </div>
+            <span className="text-surface-fg">
+              Installation records marked with Sample Reference illustrate architectural geometry and will be refreshed with live commissioning photography.
+            </span>
+          </Surface>
         </div>
 
-        {/* Category Filters with Copper Indicator Chips */}
+        {/* Colored Category Chips */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-12">
-          {categories.map((cat) => {
+          {categories.map((cat, idx) => {
             const isActive = selectedCategory === cat;
+            const style = CHIP_STYLES[idx % CHIP_STYLES.length];
             return (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`relative px-5 py-2.5 rounded-sm text-[12px] font-sans font-bold uppercase tracking-[0.14em] transition-all duration-200 select-none ${
+                className={`relative px-5 py-2.5 rounded-sm text-[12px] font-sans font-bold uppercase tracking-[0.14em] transition-all duration-200 select-none inline-flex items-center gap-2 border ${
                   isActive
-                    ? 'text-ink-950 bg-copper-500 shadow-copper-glow font-bold'
-                    : 'text-graphite-800 bg-white hover:bg-copper-500/10 border border-graphite-700/25 hover:border-copper-700/40'
+                    ? `${style.activeBg} border-transparent shadow-md`
+                    : `bg-white ${style.inactiveBorder}`
                 }`}
               >
+                {!isActive && <span className={`w-2 h-2 rounded-full ${style.dot}`} />}
                 <span>{cat}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Asymmetric Proportional Grid (Large Tiles) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+        {/* Balanced Asymmetric Proportional Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
           {filteredProjects.map((project, idx) => {
             const fallbackType = getCategoryFallbackType(project.category);
+            const cardStyle = CARD_TONES[idx % CARD_TONES.length];
 
-            // Asymmetric proportions across 12 columns
-            const spanClass =
-              idx % 3 === 0
-                ? 'md:col-span-7 aspect-[16/10]'
-                : idx % 3 === 1
-                ? 'md:col-span-5 aspect-[4/3]'
-                : 'md:col-span-6 aspect-[16/10]';
+            // Pair rows cleanly across 12 columns: odd trailing card expands full row
+            const isOddTrailing =
+              filteredProjects.length % 2 === 1 && idx === filteredProjects.length - 1;
+            const spanClass = isOddTrailing
+              ? 'md:col-span-12 min-h-[340px] md:min-h-[400px]'
+              : idx % 4 === 0 || idx % 4 === 3
+              ? 'md:col-span-7 min-h-[340px] md:min-h-[420px]'
+              : 'md:col-span-5 min-h-[340px] md:min-h-[420px]';
 
             return (
               <motion.div
@@ -234,64 +254,70 @@ export const ProjectsGallery: React.FC = () => {
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: (idx % 3) * 0.05 }}
-                onClick={() => setActiveModalProject(project)}
-                className={`group relative rounded-sm overflow-hidden bg-graphite-900 border border-graphite-700 border-t-[2.5px] border-t-copper-500 shadow-elevated-card hover:shadow-copper-glow hover:border-copper-500/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-end p-6 sm:p-8 cursor-pointer ${spanClass}`}
+                className={`${spanClass} flex`}
               >
-                {/* Image with Fallback */}
-                <div className="absolute inset-0 w-full h-full opacity-65 group-hover:opacity-85 transition-opacity duration-300">
-                  <ImageWithFallback
-                    src={project.cover_image}
-                    alt={project.title}
-                    fallbackType={fallbackType}
-                    fallbackLabel={project.category}
-                    aspectRatioClass="h-full w-full"
-                    showOverlay={true}
-                  />
-                </div>
-
-                {/* Top Tags with Copper Category Chip */}
-                <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-xs z-10">
-                  <span className="px-3 py-1 rounded-xs bg-copper-500 text-ink-950 text-[10px] font-sans font-bold uppercase tracking-[0.14em] shadow-sm">
-                    {project.category}
-                  </span>
-                  {project.is_sample && (
-                    <span className="px-2 py-0.5 rounded-xs bg-graphite-700/90 text-steel-300 text-[9.5px] uppercase tracking-wider font-semibold border border-graphite-600">
-                      Sample Reference
-                    </span>
-                  )}
-                </div>
-
-                {/* Bottom Text Content (Animated Slide-Up on Hover with Copper Underline) */}
-                <div className="relative z-10 space-y-2 text-steel-100">
-                  {/* Copper Underline Indicator */}
-                  <div className="w-8 h-[2px] bg-copper-500 transition-all duration-300 group-hover:w-20" />
-
-                  <h3 className="font-heading text-2xl font-bold group-hover:text-copper-400 transition-colors">
-                    {project.title.replace(' [Sample Placeholder]', '')}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm text-steel-300 font-light line-clamp-2 max-w-lg leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="pt-2 flex items-center justify-between border-t border-graphite-600/50 text-xs text-steel-300">
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-copper-500 shrink-0" />
-                      <span className="truncate">{project.location}</span>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-copper-500 uppercase tracking-[0.12em] text-[11px] font-bold group-hover:text-copper-400">
-                      <span>Inspect</span>
-                      <Eye className="w-3.5 h-3.5" />
-                    </span>
+                <Surface
+                  tone={cardStyle.tone}
+                  as="div"
+                  onClick={() => setActiveModalProject(project)}
+                  className={`group w-full rounded-sm overflow-hidden border border-[var(--border)] border-t-[4px] ${cardStyle.borderTop} shadow-elevated-card hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-end p-6 sm:p-8 cursor-pointer`}
+                >
+                  {/* Image with Fallback */}
+                  <div className="absolute inset-0 w-full h-full opacity-25 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
+                    <ImageWithFallback
+                      src={project.cover_image}
+                      alt={project.title}
+                      fallbackType={fallbackType}
+                      aspectRatioClass="h-full w-full"
+                      transparentBg={true}
+                      strokeColor={cardStyle.stroke}
+                      showOverlay={true}
+                    />
                   </div>
-                </div>
+
+                  {/* Top Tags */}
+                  <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-xs z-10">
+                    <span className={`px-3 py-1 rounded-xs text-[10px] font-sans font-bold uppercase tracking-[0.14em] shadow-sm ${cardStyle.badgeBg} ${cardStyle.badgeText}`}>
+                      {project.category}
+                    </span>
+                    {project.is_sample && (
+                      <span className="px-2.5 py-0.5 rounded-xs bg-ink-900 text-ivory-50 text-[10px] uppercase tracking-wider font-semibold">
+                        Sample Reference
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Bottom Text Content */}
+                  <div className="relative z-10 space-y-2 pt-20">
+                    <div className="w-8 h-[3px] bg-copper-500 transition-all duration-300 group-hover:w-20" />
+
+                    <h3 className="font-heading text-2xl font-extrabold text-surface-heading leading-tight">
+                      {project.title.replace(' [Sample Placeholder]', '')}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-surface-fg font-normal line-clamp-2 max-w-lg leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <div className="pt-2 flex items-center justify-between gap-3 border-t border-[var(--border)] text-xs text-surface-muted font-medium">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <MapPin className="w-3.5 h-3.5 text-surface-accent shrink-0" />
+                        <span className="truncate">{project.location}</span>
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-surface-accent uppercase tracking-[0.12em] text-[11px] font-bold shrink-0 whitespace-nowrap">
+                        <span>Inspect</span>
+                        <Eye className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Surface>
               </motion.div>
             );
           })}
         </div>
       </div>
 
-      {/* Lightbox Modal with Copper Close Button & Actions */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
         {activeModalProject && (
           <div
@@ -299,90 +325,89 @@ export const ProjectsGallery: React.FC = () => {
             aria-modal="true"
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-y-auto"
           >
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveModalProject(null)}
-              className="fixed inset-0 bg-ink-950/95"
+              className="fixed inset-0 bg-ink-950/90"
             />
 
-            {/* Modal Body */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-4xl bg-graphite-900 text-steel-100 rounded-sm shadow-2xl border border-graphite-700 overflow-hidden z-10 my-8"
+              className="relative w-full max-w-4xl z-10 my-8"
             >
-              {/* Copper Close Button */}
-              <button
-                onClick={() => setActiveModalProject(null)}
-                className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5 font-bold" />
-              </button>
-
-              {/* Visual Banner */}
-              <div className="relative h-72 sm:h-80 w-full bg-ink-950 overflow-hidden">
-                <ImageWithFallback
-                  src={activeModalProject.cover_image}
-                  alt={activeModalProject.title}
-                  fallbackType={getCategoryFallbackType(activeModalProject.category)}
-                  fallbackLabel={activeModalProject.category}
-                  aspectRatioClass="h-full w-full"
-                  showOverlay={true}
-                />
-                <div className="absolute bottom-6 left-6 right-6 text-steel-100 space-y-2 z-10">
-                  <span className="text-[11px] font-sans uppercase tracking-[0.14em] px-3 py-1 rounded-xs bg-copper-500 text-ink-950 font-bold">
-                    {activeModalProject.category}
-                  </span>
-                  <h3 className="font-heading text-3xl font-extrabold tracking-tight">
-                    {activeModalProject.title.replace(' [Sample Placeholder]', '')}
-                  </h3>
-                </div>
-              </div>
-
-              {/* Details Content */}
-              <div className="p-6 sm:p-8 space-y-4">
-                {activeModalProject.specifications && (
-                  <div className="p-4 rounded-sm bg-ink-950 border border-graphite-700 text-xs font-mono text-steel-100">
-                    <strong className="text-copper-500">ENGINEERING SCOPE:</strong>{' '}
-                    {activeModalProject.specifications}
-                  </div>
-                )}
-
-                <p className="text-sm text-steel-300 leading-relaxed font-light font-sans">
-                  {activeModalProject.description}
-                </p>
-
-                <div className="flex items-center gap-2 text-xs font-sans text-steel-300 pt-2 border-t border-graphite-700/60">
-                  <MapPin className="w-4 h-4 text-copper-500" />
-                  <span>{activeModalProject.location}</span>
-                </div>
-              </div>
-
-              {/* Modal Footer with Actions */}
-              <div className="p-6 bg-ink-950 border-t border-graphite-700 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <span className="text-xs font-sans text-steel-300/80">
-                  Use Esc or Arrow Keys to navigate
-                </span>
-
-                <Link
-                  to="/contact#consultation"
+              <Surface tone="dark" as="div" className="rounded-sm shadow-2xl border border-teal-500/30 overflow-hidden">
+                <button
                   onClick={() => setActiveModalProject(null)}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] shadow-copper-glow"
+                  className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
+                  aria-label="Close modal"
                 >
-                  <span>Request Similar Consultation</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
+                  <X className="w-5 h-5 font-bold" />
+                </button>
+
+                <Surface tone="teal" as="div" className="relative h-72 sm:h-80 w-full overflow-hidden">
+                  <div className="absolute inset-0 opacity-30">
+                    <ImageWithFallback
+                      src={activeModalProject.cover_image}
+                      alt={activeModalProject.title}
+                      fallbackType={getCategoryFallbackType(activeModalProject.category)}
+                      aspectRatioClass="h-full w-full"
+                      transparentBg={true}
+                      strokeColor="#F6B93B"
+                      showOverlay={true}
+                    />
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6 space-y-2 z-10">
+                    <span className="text-[11px] font-sans uppercase tracking-[0.14em] px-3 py-1 rounded-xs bg-amber-500 text-ink-950 font-bold">
+                      {activeModalProject.category}
+                    </span>
+                    <h3 className="font-heading text-3xl font-extrabold tracking-tight text-surface-heading">
+                      {activeModalProject.title.replace(' [Sample Placeholder]', '')}
+                    </h3>
+                  </div>
+                </Surface>
+
+                <div className="p-6 sm:p-8 space-y-4">
+                  {activeModalProject.specifications && (
+                    <div className="p-4 rounded-sm bg-teal-900/50 border border-teal-500/30 text-xs font-mono text-surface-fg">
+                      <strong className="text-amber-500">ENGINEERING SCOPE:</strong>{' '}
+                      {activeModalProject.specifications}
+                    </div>
+                  )}
+
+                  <p className="text-sm text-surface-muted leading-relaxed font-normal font-sans">
+                    {activeModalProject.description}
+                  </p>
+
+                  <div className="flex items-center gap-2 text-xs font-sans text-surface-muted pt-2 border-t border-[var(--border)]">
+                    <MapPin className="w-4 h-4 text-amber-500" />
+                    <span>{activeModalProject.location}</span>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-ink-950 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <span className="text-xs font-sans text-surface-muted">
+                    Use Esc or Arrow Keys to navigate
+                  </span>
+
+                  <Link
+                    to="/contact#consultation"
+                    onClick={() => setActiveModalProject(null)}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] shadow-copper-glow"
+                  >
+                    <span>Request Similar Consultation</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </Surface>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-    </section>
+    </Surface>
   );
 };

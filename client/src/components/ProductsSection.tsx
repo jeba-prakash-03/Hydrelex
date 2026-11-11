@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Product } from '../types';
 import { api } from '../lib/api';
 import { TechnicalEyebrow } from './ui/TechnicalEyebrow';
 import { ImageWithFallback } from './ui/ImageWithFallback';
 import { LiftType } from './ui/LiftLineArtSvg';
 import { ProductDetailModal } from './ProductDetailModal';
+import { Surface, SurfaceTone } from './ui/Surface';
 
 // Baseline fallback product records matching the 6 verified systems from Section 13
 const baselineProducts: Product[] = [
@@ -167,11 +168,71 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
 
   const displayedProducts = limit ? products.slice(0, limit) : products;
 
+  const TILE_THEMES: Array<{
+    tone: SurfaceTone;
+    stroke: string;
+    badgeBg: string;
+    badgeText: string;
+    numStroke: string;
+    barColor: string;
+  }> = [
+    {
+      tone: 'teal',
+      stroke: '#F6B93B',
+      badgeBg: 'bg-teal-900',
+      badgeText: 'text-amber-300',
+      numStroke: '#F6B93B',
+      barColor: 'bg-amber-500',
+    },
+    {
+      tone: 'copper',
+      stroke: '#0F1416',
+      badgeBg: 'bg-ink-900',
+      badgeText: 'text-amber-300',
+      numStroke: '#0F1416',
+      barColor: 'bg-ink-900',
+    },
+    {
+      tone: 'mint',
+      stroke: '#073842',
+      badgeBg: 'bg-teal-700',
+      badgeText: 'text-ivory-50',
+      numStroke: '#0B4F5C',
+      barColor: 'bg-teal-700',
+    },
+    {
+      tone: 'amber',
+      stroke: '#0F1416',
+      badgeBg: 'bg-ink-900',
+      badgeText: 'text-amber-300',
+      numStroke: '#0F1416',
+      barColor: 'bg-teal-900',
+    },
+    {
+      tone: 'sand',
+      stroke: '#B4531A',
+      badgeBg: 'bg-copper-700',
+      badgeText: 'text-ivory-50',
+      numStroke: '#B4531A',
+      barColor: 'bg-copper-700',
+    },
+    {
+      tone: 'peach',
+      stroke: '#B4531A',
+      badgeBg: 'bg-ink-900',
+      badgeText: 'text-copper-400',
+      numStroke: '#B4531A',
+      barColor: 'bg-copper-700',
+    },
+  ];
+
   return (
-    <section
+    <Surface
+      tone="dark"
+      as="section"
       id="products"
-      className="w-full bg-graphite-900 text-steel-100 py-24 sm:py-32 relative overflow-hidden border-b border-graphite-700"
-      style={{ backgroundColor: '#141416' }}
+      hasNoise
+      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-[var(--border)]"
     >
       {/* Background Architectural Grid */}
       <div className="absolute inset-0 bg-technical-grid opacity-25 pointer-events-none" />
@@ -179,7 +240,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
       {/* Oversized Outlined Numeral 02 Cropped Behind Section */}
       <div
         aria-hidden="true"
-        className="absolute -top-12 left-4 sm:left-12 text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-10"
+        className="absolute top-4 sm:top-6 left-4 sm:left-12 text-[88px] sm:text-[130px] lg:text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
         style={{
           WebkitTextStroke: '1.5px #E8782E',
           color: 'transparent',
@@ -190,22 +251,22 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
 
       <div className="w-full px-fluid relative z-10">
         {showTitle && (
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 border-b border-graphite-700 pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 border-b border-[var(--border)] pb-8">
             <div className="space-y-4 max-w-3xl">
-              <TechnicalEyebrow variant="copper">
+              <TechnicalEyebrow variant="amber">
                 ENGINEERED LIFT ARCHITECTURE // 02
               </TechnicalEyebrow>
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold tracking-tight text-steel-100 leading-tight">
-                Vertical Mobility <span className="text-copper-500">Systems</span>
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold tracking-tight text-surface-heading leading-tight">
+                Vertical Mobility <span className="text-copper-400">Systems</span>
               </h2>
-              <p className="text-base sm:text-lg text-steel-300 font-light max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-surface-muted font-light max-w-2xl leading-relaxed">
                 Six engineered vertical transportation classifications manufactured for industrial endurance, architectural distinction, and certified structural safety.
               </p>
             </div>
 
             <Link
               to="/products"
-              className="group inline-flex items-center gap-2 font-sans text-[13px] font-bold uppercase tracking-[0.12em] text-copper-500 hover:text-copper-400 transition-colors shrink-0"
+              className="group inline-flex items-center gap-2 font-sans text-[13px] font-bold uppercase tracking-[0.12em] text-amber-300 hover:text-copper-400 transition-colors shrink-0"
             >
               <span>Explore All 6 Systems</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -213,19 +274,13 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
           </div>
         )}
 
-        {/* Asymmetric Proportional Full-Width Grid (6 Systems) */}
+        {/* Asymmetric Proportional Full-Width Grid (6 Multi-Color Systems) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
           {displayedProducts.map((product, idx) => {
             const fallbackType = getFallbackType(product);
             const numStr = `0${idx + 1}`;
+            const tileTheme = TILE_THEMES[idx % TILE_THEMES.length];
 
-            // Asymmetric CSS grid areas and proportions across 12 columns:
-            // 0: md:col-span-7 (Large Wide)
-            // 1: md:col-span-5 (Tall Portrait)
-            // 2: md:col-span-4
-            // 3: md:col-span-4
-            // 4: md:col-span-4
-            // 5: md:col-span-12 (Full-bleed panoramic feature card)
             let colSpan = 'md:col-span-4';
             let minHeightClass = 'min-h-[420px]';
 
@@ -245,69 +300,79 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                 key={product.id || product.slug}
                 initial={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
+                viewport={{ once: true, amount: 0.05, margin: '0px 0px -10% 0px' }}
                 transition={{ duration: 0.5, delay: (idx % 3) * 0.06 }}
-                onClick={() => setSelectedProduct(product)}
-                className={`group relative rounded-sm overflow-hidden bg-graphite-700 border border-graphite-600/50 border-t-[2.5px] border-t-copper-500 shadow-elevated-card hover:shadow-copper-glow hover:border-copper-500/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-6 sm:p-8 cursor-pointer select-none ${colSpan} ${minHeightClass}`}
+                className={`${colSpan} flex`}
               >
-                {/* Background Line-Art Illustration or Real Image */}
-                <div className="absolute inset-0 w-full h-full opacity-60 group-hover:opacity-85 transition-opacity duration-300 pointer-events-none">
-                  <ImageWithFallback
-                    src={product.image_url}
-                    alt={product.title}
-                    fallbackType={fallbackType}
-                    fallbackLabel={`SYSTEM REF // ${numStr}`}
-                    aspectRatioClass="h-full w-full"
-                    showOverlay={true}
-                  />
-                </div>
+                <Surface
+                  tone={tileTheme.tone}
+                  as="div"
+                  onClick={() => setSelectedProduct(product)}
+                  className={`group w-full rounded-sm overflow-hidden border border-[var(--border)] shadow-elevated-card hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-6 sm:p-8 cursor-pointer select-none ${minHeightClass}`}
+                >
+                  {/* Background Line-Art Illustration */}
+                  <div className="absolute inset-0 w-full h-full opacity-25 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
+                    <ImageWithFallback
+                      src={product.image_url}
+                      alt={product.title}
+                      fallbackType={fallbackType}
+                      aspectRatioClass="h-full w-full"
+                      transparentBg={true}
+                      strokeColor={tileTheme.stroke}
+                      showOverlay={false}
+                    />
+                  </div>
 
-                {/* Top Row: Oversized Outlined Numeral + Category Chip */}
-                <div className="relative z-10 flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 rounded-xs bg-ink-950/85 text-copper-500 font-sans text-[11px] font-bold uppercase tracking-[0.15em] border border-copper-500/30">
-                      {product.category}
-                    </span>
-                    <span className="hidden sm:inline font-mono text-[11px] text-steel-300/80">
-                      SYS-{numStr}
+                  {/* Top Row: Oversized Outlined Numeral + Category Chip */}
+                  <div className="relative z-10 flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`px-3 py-1 rounded-xs font-sans text-[11px] font-bold uppercase tracking-[0.15em] ${tileTheme.badgeBg} ${tileTheme.badgeText}`}
+                      >
+                        {product.category}
+                      </span>
+                      <span className="hidden sm:inline font-mono text-[11px] text-surface-fg font-bold opacity-85">
+                        SYS-{numStr}
+                      </span>
+                    </div>
+
+                    {/* Oversized Outlined Numeral */}
+                    <span
+                      aria-hidden="true"
+                      className="text-4xl sm:text-5xl font-heading font-black select-none pointer-events-none leading-none opacity-65 group-hover:opacity-100 transition-opacity"
+                      style={{
+                        WebkitTextStroke: `1.5px ${tileTheme.numStroke}`,
+                        color: 'transparent',
+                      }}
+                    >
+                      {numStr}
                     </span>
                   </div>
 
-                  {/* Oversized Outlined Numeral */}
-                  <span
-                    className="text-4xl sm:text-5xl font-heading font-black select-none pointer-events-none leading-none opacity-40 group-hover:opacity-90 transition-opacity"
-                    style={{
-                      WebkitTextStroke: '1px #E8782E',
-                      color: 'transparent',
-                    }}
-                  >
-                    {numStr}
-                  </span>
-                </div>
+                  {/* Bottom Content Area */}
+                  <div className="relative z-10 space-y-3 pt-14 sm:pt-20">
+                    {/* Accent Bar */}
+                    <div className={`w-10 h-[3px] ${tileTheme.barColor} transition-all duration-300 group-hover:w-24`} />
 
-                {/* Bottom Content Area */}
-                <div className="relative z-10 space-y-3 pt-12 sm:pt-16">
-                  {/* Copper Accent Bar */}
-                  <div className="w-10 h-[2.5px] bg-copper-500 transition-all duration-300 group-hover:w-24 group-hover:bg-copper-400" />
+                    <h3 className="font-heading text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-surface-heading leading-tight">
+                      {product.title}
+                    </h3>
 
-                  <h3 className="font-heading text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-steel-100 group-hover:text-copper-400 transition-colors leading-tight">
-                    {product.title}
-                  </h3>
+                    <p className="text-sm text-surface-fg font-normal line-clamp-2 max-w-xl leading-relaxed">
+                      {product.short_description}
+                    </p>
 
-                  <p className="text-sm text-steel-300 font-light line-clamp-2 max-w-xl leading-relaxed">
-                    {product.short_description}
-                  </p>
-
-                  <div className="pt-3 flex items-center justify-between border-t border-graphite-600/60 text-xs font-sans">
-                    <span className="inline-flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-copper-500 group-hover:text-copper-400 transition-colors">
-                      <span>Explore System</span>
-                      <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
-                    <span className="font-mono text-steel-300/70 text-[11px]">
-                      {product.drive_system || 'Custom Engineered'}
-                    </span>
+                    <div className="pt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-[var(--border)] text-xs font-sans">
+                      <span className="inline-flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-surface-accent transition-transform group-hover:translate-x-1 shrink-0 whitespace-nowrap">
+                        <span>Explore System</span>
+                        <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </span>
+                      <span className="font-mono text-surface-muted font-medium text-[11px] leading-snug">
+                        {product.drive_system || 'Custom Engineered'}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Surface>
               </motion.div>
             );
           })}
@@ -319,6 +384,6 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
       />
-    </section>
+    </Surface>
   );
 };
