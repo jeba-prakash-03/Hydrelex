@@ -181,17 +181,18 @@ export const AdminServicesPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <div
             onClick={() => setEditingService(null)}
-            className="fixed inset-0 bg-brand-navy/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-brand-navy/85"
           />
 
-          <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-brand-silver overflow-hidden z-10 my-8">
-            <div className="p-5 border-b border-brand-silver flex items-center justify-between bg-brand-navy text-white">
+          <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-brand-silver overflow-hidden z-10 my-4 sm:my-8">
+            <div className="p-4 sm:p-5 border-b border-brand-silver flex items-center justify-between bg-brand-navy text-white">
               <h3 className="font-heading text-lg font-bold">
                 {isNew ? 'New Service' : `Edit: ${editingService.title}`}
               </h3>
               <button
                 onClick={() => setEditingService(null)}
-                className="p-1 rounded-lg bg-white/10 hover:bg-white/20 text-white"
+                aria-label="Close service editor"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 text-white"
               >
                 <X className="w-5 h-5" />
               </button>

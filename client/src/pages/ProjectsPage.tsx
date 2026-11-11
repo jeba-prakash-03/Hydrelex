@@ -13,13 +13,14 @@ export const ProjectsPage: React.FC = () => {
       <Surface
         tone="amber"
         as="section"
-        className="w-full pt-36 pb-20 relative overflow-hidden border-b border-ink-900/20 bg-gradient-to-br from-amber-500 via-amber-500 to-copper-500"
+        className="w-full pt-28 pb-12 lg:pt-36 lg:pb-20 relative overflow-hidden border-b border-ink-900/20 bg-gradient-to-br from-amber-500 via-amber-500 to-copper-500"
       >
         <div className="w-full px-fluid relative z-10 space-y-4">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 font-sans text-xs text-surface-fg font-semibold">
             <Link to="/" className="hover:underline">
               Home
+              
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-surface-fg" />
             <span className="bg-ink-900 text-amber-300 px-2.5 py-0.5 rounded-xs font-bold">
@@ -31,7 +32,7 @@ export const ProjectsPage: React.FC = () => {
             GALLERY & INSTALLATION DIRECTORY
           </TechnicalEyebrow>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-heading font-black tracking-tight text-surface-heading uppercase leading-[1.02]">
+          <h1 className="text-[clamp(1.85rem,7.5vw,2.75rem)] lg:text-[56px] font-heading font-black tracking-tight text-surface-heading uppercase leading-[1.02]">
             Vertical Mobility{' '}
             <span className="inline-block bg-teal-900 text-amber-300 px-3 py-0.5 rounded-xs">
               Projects

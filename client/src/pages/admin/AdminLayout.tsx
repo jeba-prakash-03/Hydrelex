@@ -119,11 +119,12 @@ export const AdminLayout: React.FC = () => {
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-ink-900 border-b border-graphite-600 px-4 py-3 flex items-center justify-between text-ivory-100">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-ink-900 border-b border-graphite-600 px-4 py-2.5 flex items-center justify-between text-ivory-100">
         <Logo variant="light" showTagline={false} />
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 rounded-sm bg-graphite-800 text-ivory-100"
+          aria-label={sidebarOpen ? 'Close admin navigation menu' : 'Open admin navigation menu'}
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-sm bg-graphite-800 text-ivory-100"
         >
           {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -139,18 +140,22 @@ export const AdminLayout: React.FC = () => {
 
       {/* Mobile Drawer */}
       <div
-        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-ink-900 text-ivory-100 transform transition-transform duration-300 flex flex-col justify-between ${
+        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-ink-900 text-ivory-100 transform transition-transform duration-300 flex flex-col justify-between ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div>
-          <div className="p-5 border-b border-graphite-600 flex items-center justify-between">
+          <div className="p-4 sm:p-5 border-b border-graphite-600 flex items-center justify-between">
             <Logo variant="light" showTagline={false} />
-            <button onClick={() => setSidebarOpen(false)} className="text-silver-400">
+            <button
+              onClick={() => setSidebarOpen(false)}
+              aria-label="Close admin drawer"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-silver-400 hover:text-ivory-100"
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
-          <div className="py-4 px-3 space-y-1">
+          <div className="py-4 px-3 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive =
@@ -162,13 +167,13 @@ export const AdminLayout: React.FC = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center gap-3 px-3.5 py-2.5 rounded-sm text-xs font-mono uppercase tracking-wider ${
+                  className={`flex items-center gap-3 px-3.5 min-h-[44px] rounded-sm text-xs font-mono uppercase tracking-wider ${
                     isActive
                       ? 'bg-graphite-800 text-copper-500 font-bold'
                       : 'text-silver-400 hover:text-ivory-100 hover:bg-graphite-800/40'
                   }`}
                 >
-                  <Icon className="w-4 h-4 text-copper-500" />
+                  <Icon className="w-4 h-4 text-copper-500 shrink-0" />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -179,7 +184,7 @@ export const AdminLayout: React.FC = () => {
         <div className="p-4 border-t border-graphite-600">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-sm bg-danger-500/15 text-danger-500 text-xs font-mono uppercase"
+            className="w-full min-h-[44px] flex items-center justify-center gap-2 px-3 py-2 rounded-sm bg-danger-500/15 text-danger-500 text-xs font-mono uppercase"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
@@ -189,7 +194,7 @@ export const AdminLayout: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto pt-16 lg:pt-0 bg-ivory-50">
-        <div className="p-6 sm:p-10 lg:p-12 w-full">
+        <div className="p-4 sm:p-8 lg:p-12 w-full">
           <Outlet />
         </div>
       </main>

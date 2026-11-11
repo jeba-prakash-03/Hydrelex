@@ -14,7 +14,11 @@ import { Logo } from './Logo';
 import { useSettings } from '../context/SettingsContext';
 import { Surface } from './ui/Surface';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  reserveMobileBarSpace?: boolean;
+}
+
+export const Footer: React.FC<FooterProps> = ({ reserveMobileBarSpace = true }) => {
   const { settings } = useSettings();
   const currentYear = new Date().getFullYear();
 
@@ -28,8 +32,12 @@ export const Footer: React.FC = () => {
       }}
     >
       {/* Main Full-Width Footer Content */}
-      <div className="w-full px-fluid pt-20 pb-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-14 mb-16">
+      <div
+        className={`w-full px-fluid pt-14 lg:pt-20 ${
+          reserveMobileBarSpace ? 'pb-24 lg:pb-12' : 'pb-12'
+        } relative z-10`}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-14 mb-12 lg:mb-16">
           {/* Brand & Verified Registrations (4 cols) */}
           <div className="lg:col-span-4 space-y-6">
             <Logo variant="light" />
@@ -62,7 +70,7 @@ export const Footer: React.FC = () => {
                   href={settings.social_linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-xs bg-ink-900 border border-[var(--border)] flex items-center justify-center text-surface-fg hover:text-amber-300 hover:border-amber-500 transition-colors shadow-sm"
+                  className="w-11 h-11 lg:w-9 lg:h-9 rounded-xs bg-ink-900 border border-[var(--border)] flex items-center justify-center text-surface-fg hover:text-amber-300 hover:border-amber-500 transition-colors shadow-sm"
                   aria-label="HYDRELEX LinkedIn Profile"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -76,7 +84,7 @@ export const Footer: React.FC = () => {
             <div className="font-sans text-[12px] uppercase tracking-[0.14em] text-amber-500 font-bold">
               DIRECTORY
             </div>
-            <ul className="space-y-2.5 font-sans text-[13px]">
+            <ul className="space-y-2 lg:space-y-2.5 font-sans text-base lg:text-[13px] [&_a]:min-h-[44px] [&_a]:inline-flex [&_a]:items-center lg:[&_a]:min-h-0 lg:[&_a]:inline">
               <li>
                 <Link to="/" className="text-surface-muted hover:text-amber-300 transition-colors">
                   Home
@@ -120,7 +128,7 @@ export const Footer: React.FC = () => {
             <div className="font-sans text-[12px] uppercase tracking-[0.14em] text-amber-500 font-bold">
               SYSTEMS CATALOGUE
             </div>
-            <ul className="space-y-2.5 font-sans text-[13px]">
+            <ul className="space-y-2 lg:space-y-2.5 font-sans text-base lg:text-[13px] [&_a]:min-h-[44px] [&_a]:inline-flex [&_a]:items-center lg:[&_a]:min-h-0 lg:[&_a]:inline">
               <li>
                 <Link
                   to="/products"
@@ -197,11 +205,11 @@ export const Footer: React.FC = () => {
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-copper-400 shrink-0" />
                 <div>
-                  <a href={`tel:${settings?.phone_primary || '8939359592'}`} className="text-surface-fg hover:text-amber-300 font-mono">
+                  <a href={`tel:${settings?.phone_primary || '8939359592'}`} className="text-surface-fg hover:text-amber-300 font-mono inline-flex items-center min-h-[44px] lg:min-h-0">
                     +91 {settings?.phone_primary || '8939359592'}
                   </a>
                   <span className="mx-1.5 text-surface-muted">/</span>
-                  <a href={`tel:${settings?.phone_secondary || '9789397504'}`} className="text-surface-fg hover:text-amber-300 font-mono">
+                  <a href={`tel:${settings?.phone_secondary || '9789397504'}`} className="text-surface-fg hover:text-amber-300 font-mono inline-flex items-center min-h-[44px] lg:min-h-0">
                     +91 {settings?.phone_secondary || '9789397504'}
                   </a>
                 </div>
@@ -209,14 +217,14 @@ export const Footer: React.FC = () => {
 
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-copper-400 shrink-0" />
-                <a href={`mailto:${settings?.email || 'info@hydrelex.com'}`} className="text-surface-fg hover:text-amber-300 font-mono">
+                <a href={`mailto:${settings?.email || 'info@hydrelex.com'}`} className="text-surface-fg hover:text-amber-300 font-mono inline-flex items-center min-h-[44px] lg:min-h-0">
                   {settings?.email || 'info@hydrelex.com'}
                 </a>
               </div>
 
               <div className="flex items-start gap-2.5 pt-1">
                 <Clock className="w-4 h-4 text-copper-400 shrink-0 mt-0.5" />
-                <div className="text-[11px] text-surface-muted leading-relaxed">
+                <div className="text-xs lg:text-[11px] text-surface-muted leading-relaxed">
                   {settings?.business_hours || 'Monday – Saturday: 9:00 AM – 6:30 PM (Sunday Closed)'}
                 </div>
               </div>

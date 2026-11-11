@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -62,6 +62,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
   themeMode = 'dark',
   isModal = false,
 }) => {
+  const uid = useId();
   const [submittedReference, setSubmittedReference] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -118,7 +119,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
     reset();
   };
 
-  const inputBaseClasses = `w-full h-14 px-4 text-sm font-sans transition-all duration-200 border rounded-xs outline-none ${
+  const inputBaseClasses = `w-full min-h-[52px] h-14 px-4 text-base lg:text-sm font-sans transition-all duration-200 border rounded-xs outline-none ${
     isDark
       ? 'bg-ink-900 border-teal-500/40 text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
       : 'bg-white border-ink-900/25 text-ink-900 placeholder:text-graphite-600/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
@@ -133,8 +134,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
       as="div"
       className={`w-full rounded-sm transition-colors ${
         isModal
-          ? 'p-6 sm:p-10 lg:p-12'
-          : 'p-6 sm:p-10 lg:p-14 border border-[var(--border)] border-t-[4px] border-t-copper-500 shadow-2xl'
+          ? 'p-5 sm:p-10 lg:p-12'
+          : 'p-5 sm:p-10 lg:p-14 border border-[var(--border)] border-t-[4px] border-t-copper-500 shadow-2xl'
       }`}
     >
       {/* 2px Copper Top Accent */}
@@ -144,14 +145,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
 
       {!submittedReference ? (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
-          <div className="space-y-3">
+          <div className="space-y-3 pr-10 sm:pr-0">
             <TechnicalEyebrow variant="auto">
               TECHNICAL CONSULTATION // SRIPERUMBUDUR HUB
             </TechnicalEyebrow>
-            <h3 className="font-heading text-3xl sm:text-4xl font-extrabold tracking-tight text-surface-heading">
+            <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-surface-heading">
               Start Your Project Consultation
             </h3>
-            <p className="text-sm sm:text-base font-normal max-w-2xl leading-relaxed text-surface-muted">
+            <p className="text-base font-normal max-w-2xl leading-relaxed text-surface-muted">
               Submit your structural elevator shaft parameters or industrial lifting requirements. Our senior vertical mobility engineers will review the civil scope and confirm an appointment.
             </p>
           </div>
@@ -164,79 +165,94 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           )}
 
           {/* Section 1: Customer Contact Credentials */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-fullName`} className={labelBaseClasses}>
                 Full Name*
               </label>
               <input
+                id={`${uid}-fullName`}
+                type="text"
+                autoComplete="name"
                 {...register('fullName')}
                 placeholder="e.g. S. Rajendran"
                 className={inputBaseClasses}
               />
               {errors.fullName && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.fullName.message}
                 </span>
               )}
             </div>
 
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-phone`} className={labelBaseClasses}>
                 Telephone / Mobile Number*
               </label>
               <input
+                id={`${uid}-phone`}
                 {...register('phone')}
                 type="tel"
+                inputMode="tel"
+                autoComplete="tel"
                 placeholder="8939359592"
                 className={inputBaseClasses}
               />
               {errors.phone && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.phone.message}
                 </span>
               )}
             </div>
 
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-email`} className={labelBaseClasses}>
                 Corporate Email Address*
               </label>
               <input
+                id={`${uid}-email`}
                 {...register('email')}
                 type="email"
+                inputMode="email"
+                autoComplete="email"
                 placeholder="client@company.com"
                 className={inputBaseClasses}
               />
               {errors.email && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.email.message}
                 </span>
               )}
             </div>
 
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-companyName`} className={labelBaseClasses}>
                 Company / Organization (Optional)
               </label>
               <input
+                id={`${uid}-companyName`}
+                type="text"
+                autoComplete="organization"
                 {...register('companyName')}
                 placeholder="e.g. Apex Industrial Systems"
                 className={inputBaseClasses}
               />
             </div>
 
-            <div className="sm:col-span-2">
-              <label className={labelBaseClasses}>
+            <div className="lg:col-span-2">
+              <label htmlFor={`${uid}-location`} className={labelBaseClasses}>
                 Installation Site Location*
               </label>
               <input
+                id={`${uid}-location`}
+                type="text"
+                autoComplete="street-address"
                 {...register('location')}
                 placeholder="e.g. SIPCOT Industrial Area, Sriperumbudur / Chennai"
                 className={inputBaseClasses}
               />
               {errors.location && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.location.message}
                 </span>
               )}
@@ -244,12 +260,13 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           </div>
 
           {/* Section 2: Enquiry Category & Equipment of Interest */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-[var(--border)]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 pt-4 border-t border-[var(--border)]">
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-enquiryType`} className={labelBaseClasses}>
                 Enquiry Category*
               </label>
               <select
+                id={`${uid}-enquiryType`}
                 {...register('enquiryType')}
                 className={`${inputBaseClasses} cursor-pointer`}
               >
@@ -275,16 +292,18 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             </div>
 
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-productServiceInterest`} className={labelBaseClasses}>
                 Equipment or Service of Interest*
               </label>
               <input
+                id={`${uid}-productServiceInterest`}
+                type="text"
                 {...register('productServiceInterest')}
                 placeholder="e.g. Heavy Goods Lift / Passenger Elevator"
                 className={inputBaseClasses}
               />
               {errors.productServiceInterest && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.productServiceInterest.message}
                 </span>
               )}
@@ -292,29 +311,31 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           </div>
 
           {/* Section 3: Consultation Date & Window */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-[var(--border)]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 pt-4 border-t border-[var(--border)]">
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-preferredDate`} className={labelBaseClasses}>
                 Preferred Consultation Date*
               </label>
               <input
+                id={`${uid}-preferredDate`}
                 {...register('preferredDate')}
                 type="date"
                 min={todayStr}
                 className={`${inputBaseClasses} font-mono`}
               />
               {errors.preferredDate && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.preferredDate.message}
                 </span>
               )}
             </div>
 
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-preferredTime`} className={labelBaseClasses}>
                 Preferred Time Window*
               </label>
               <select
+                id={`${uid}-preferredTime`}
                 {...register('preferredTime')}
                 className={`${inputBaseClasses} cursor-pointer`}
               >
@@ -337,31 +358,34 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           {/* Section 4: Project Scope */}
           <div className="pt-4 border-t border-[var(--border)] space-y-4">
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-projectDescription`} className={labelBaseClasses}>
                 Technical Scope & Structural Description*
               </label>
               <textarea
+                id={`${uid}-projectDescription`}
                 {...register('projectDescription')}
                 rows={4}
                 placeholder="Please outline floor levels, required passenger or cargo payload, pit depth/headroom constraints, and civil construction state..."
-                className={`w-full p-4 min-h-[140px] text-sm font-sans transition-all duration-200 border rounded-sm outline-none leading-relaxed ${
+                className={`w-full p-4 min-h-[140px] text-base lg:text-sm font-sans transition-all duration-200 border rounded-sm outline-none leading-relaxed ${
                   isDark
                     ? 'bg-ink-900 border-teal-500/40 text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
                     : 'bg-white border-ink-900/25 text-ink-900 placeholder:text-graphite-600/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/40'
                 }`}
               />
               {errors.projectDescription && (
-                <span className={`text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
+                <span className={`text-xs lg:text-[11px] font-mono mt-1.5 block ${errorTextClass}`}>
                   {errors.projectDescription.message}
                 </span>
               )}
             </div>
 
             <div>
-              <label className={labelBaseClasses}>
+              <label htmlFor={`${uid}-additionalMessage`} className={labelBaseClasses}>
                 Additional Site Conditions / Access Instructions (Optional)
               </label>
               <input
+                id={`${uid}-additionalMessage`}
+                type="text"
                 {...register('additionalMessage')}
                 placeholder="Gate pass requirements, security protocols, or architect references..."
                 className={inputBaseClasses}
@@ -370,7 +394,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           </div>
 
           {/* Honeypot field */}
-          <input {...register('hp_company_url')} type="text" className="hidden" tabIndex={-1} autoComplete="off" />
+          <input {...register('hp_company_url')} type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
           {/* Submission Bar */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-[var(--border)]">
@@ -381,7 +405,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 h-14 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 active:scale-[0.98] disabled:opacity-50 shrink-0 shadow-copper-glow hover:shadow-[0_0_28px_rgba(232,120,46,0.6)]"
+              className="w-full sm:w-auto min-h-[52px] inline-flex items-center justify-center gap-3 px-10 h-14 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-sm lg:text-[13px] font-bold uppercase tracking-[0.12em] transition-all duration-200 active:scale-[0.98] disabled:opacity-50 shrink-0 shadow-copper-glow hover:shadow-[0_0_28px_rgba(232,120,46,0.6)]"
             >
               {isSubmitting ? (
                 <>
@@ -411,14 +435,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             <h3 className="font-heading text-3xl sm:text-4xl font-extrabold text-surface-heading">
               Consultation Logged
             </h3>
-            <p className="text-sm font-normal leading-relaxed text-surface-muted">
+            <p className="text-base lg:text-sm font-normal leading-relaxed text-surface-muted">
               Your appointment request has been persisted to the HYDRELEX operations database and routed to our Sriperumbudur engineering office.
             </p>
           </div>
 
           {/* Reference ID Card */}
           <div className="max-w-md mx-auto p-6 rounded-sm border border-[var(--border)] bg-surface-elevated space-y-3">
-            <div className="text-[11px] font-sans uppercase tracking-[0.12em] font-bold text-surface-muted">
+            <div className="text-xs lg:text-[11px] font-sans uppercase tracking-[0.12em] font-bold text-surface-muted">
               Your Official Reference Tracking Code
             </div>
             <div className="flex items-center justify-center gap-3">
@@ -427,7 +451,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               </span>
               <button
                 onClick={handleCopy}
-                className="p-2 rounded-sm bg-copper-500 text-ink-950 hover:bg-copper-400 transition-colors shadow-sm"
+                aria-label="Copy Reference Code"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-sm bg-copper-500 text-ink-950 hover:bg-copper-400 transition-colors shadow-sm"
                 title="Copy Reference Code"
               >
                 <Copy className="w-4 h-4" />
@@ -438,7 +463,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 Reference code copied to clipboard!
               </span>
             )}
-            <p className="text-[11px] font-sans leading-tight text-surface-muted">
+            <p className="text-xs lg:text-[11px] font-sans leading-tight text-surface-muted">
               Keep this reference code to track appointment progress on our website using the Track Consultation feature.
             </p>
           </div>
@@ -446,7 +471,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <div className="pt-4 flex justify-center">
             <button
               onClick={handleNewEnquiry}
-              className="px-6 py-3 rounded-sm border border-[var(--border)] text-surface-fg hover:bg-copper-500/15 text-xs font-sans font-bold uppercase tracking-[0.12em] transition-colors"
+              className="min-h-[48px] px-6 py-3 rounded-sm border border-[var(--border)] text-surface-fg hover:bg-copper-500/15 text-xs font-sans font-bold uppercase tracking-[0.12em] transition-colors"
             >
               Submit Another Request
             </button>

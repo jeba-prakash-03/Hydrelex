@@ -12,7 +12,7 @@ export const CTASection: React.FC = () => {
     <Surface
       tone="copper"
       as="section"
-      className="w-full py-24 sm:py-32 relative overflow-hidden border-t-[4px] border-t-teal-900 shadow-2xl bg-gradient-to-br from-copper-500 via-copper-500 to-amber-500"
+      className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-32 relative overflow-hidden border-t-[4px] border-t-teal-900 shadow-2xl bg-gradient-to-br from-copper-500 via-copper-500 to-amber-500"
     >
       <div className="absolute inset-0 bg-technical-grid-light opacity-20 pointer-events-none" />
 

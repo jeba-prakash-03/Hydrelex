@@ -29,6 +29,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   const isInvalidUrl =
     !src ||
     src.includes('unsplash.com') ||
+    src.startsWith('/public/') ||
     src.startsWith('http://') ||
     src.startsWith('https://') ||
     src.trim() === '';
@@ -62,7 +63,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
             <LiftLineArtSvg type={fallbackType} strokeColor={resolvedStroke} />
           </div>
           {fallbackLabel && (
-            <div className="mt-2 font-sans text-[11px] tracking-[0.14em] uppercase text-[var(--fg-muted)] font-bold border-t border-[var(--border)] pt-1.5 px-3">
+            <div className="mt-2 font-sans text-xs lg:text-[11px] tracking-[0.1em] lg:tracking-[0.14em] uppercase text-[var(--fg-muted)] font-bold border-t border-[var(--border)] pt-1.5 px-3">
               {fallbackLabel}
             </div>
           )}

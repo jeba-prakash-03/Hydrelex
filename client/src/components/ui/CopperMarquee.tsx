@@ -40,12 +40,27 @@ export const CopperMarquee: React.FC<CopperMarqueeProps> = ({
     teal: 'bg-copper-500',
   };
 
+  const shortMobileItems = displayItems.slice(0, 4);
+
   return (
     <div
-      className={`w-full py-3 overflow-hidden select-none relative z-20 border-y font-sans font-bold text-xs sm:text-sm tracking-[0.14em] uppercase ${toneClasses[tone]} ${className}`}
+      className={`w-full py-3 overflow-hidden select-none relative z-20 border-y font-sans font-bold text-xs sm:text-sm tracking-[0.08em] lg:tracking-[0.14em] uppercase ${toneClasses[tone]} ${className}`}
       aria-hidden="true"
     >
-      <div className="animate-marquee whitespace-nowrap flex items-center">
+      {/* Mobile / Tablet (<1024px): compact lightweight strip without continuous animation */}
+      <div className="flex lg:hidden flex-wrap items-center justify-center gap-x-3 gap-y-1.5 px-4 text-xs">
+        {shortMobileItems.map((item, idx) => (
+          <span key={`mob-${idx}`} className="inline-flex items-center gap-3 whitespace-nowrap">
+            <span>{item}</span>
+            {idx < shortMobileItems.length - 1 && (
+              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${dotClasses[tone]}`} />
+            )}
+          </span>
+        ))}
+      </div>
+
+      {/* Desktop (>=1024px): unchanged infinite marquee */}
+      <div className="hidden lg:flex animate-marquee whitespace-nowrap items-center">
         {/* Sequence 1 */}
         <div className="flex items-center gap-8 shrink-0">
           {displayItems.map((item, idx) => (

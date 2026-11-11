@@ -25,6 +25,10 @@ export const Logo: React.FC<LogoProps> = ({
         <img
           src="/logo_emblem.png"
           alt="HYDRELEX Emblem"
+          width={44}
+          height={44}
+          loading="eager"
+          decoding="async"
           className="w-full h-full object-contain filter brightness-110"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
@@ -48,13 +52,13 @@ export const Logo: React.FC<LogoProps> = ({
           >
             HYDRELEX
           </span>
-          <span className="text-[9px] font-sans tracking-widest uppercase font-bold px-1.5 py-0.5 rounded-xs bg-teal-900 text-amber-300 border border-amber-500/40">
+          <span className="text-xs lg:text-[9px] font-sans tracking-wider lg:tracking-widest uppercase font-bold px-1.5 py-0.5 rounded-xs bg-teal-900 text-amber-300 border border-amber-500/40">
             SYSTEMS
           </span>
         </div>
         {showTagline && (
           <span
-            className={`text-[9px] font-sans tracking-[0.14em] uppercase mt-0.5 font-bold ${
+            className={`text-xs lg:text-[9px] font-sans tracking-[0.04em] lg:tracking-[0.14em] uppercase mt-0.5 font-bold ${
               isLight ? 'text-mint-100' : 'text-teal-900'
             }`}
           >

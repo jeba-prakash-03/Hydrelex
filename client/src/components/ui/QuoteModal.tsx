@@ -72,13 +72,13 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               {/* Top Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5 font-bold" />
               </button>
 
-              <div className="max-h-[85vh] overflow-y-auto">
+              <div className="max-h-[92dvh] lg:max-h-[85vh] overflow-y-auto">
                 <EnquiryForm initialInterest={initialInterest} themeMode="dark" isModal />
               </div>
             </Surface>

@@ -271,13 +271,13 @@ export const AdminEnquiriesPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <div
             onClick={() => setSelectedEnquiry(null)}
-            className="fixed inset-0 bg-brand-navy/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-brand-navy/85"
           />
 
-          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-brand-silver overflow-hidden z-10 my-8">
-            <div className="p-6 border-b border-brand-silver flex items-center justify-between bg-brand-navy text-white">
+          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-brand-silver overflow-hidden z-10 my-4 sm:my-8">
+            <div className="p-4 sm:p-6 border-b border-brand-silver flex items-center justify-between bg-brand-navy text-white">
               <div>
-                <span className="text-[10px] font-mono uppercase text-brand-accent tracking-widest font-semibold">
+                <span className="text-xs lg:text-[10px] font-mono uppercase text-brand-accent tracking-widest font-semibold">
                   ENQUIRY RECORD
                 </span>
                 <h3 className="font-heading text-xl font-bold font-mono">
@@ -286,7 +286,8 @@ export const AdminEnquiriesPage: React.FC = () => {
               </div>
               <button
                 onClick={() => setSelectedEnquiry(null)}
-                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white"
+                aria-label="Close enquiry modal"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 text-white"
               >
                 <X className="w-5 h-5" />
               </button>

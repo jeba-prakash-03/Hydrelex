@@ -27,7 +27,7 @@ const baselineProducts: Product[] = [
       'Automatic Rescue Device (ARD) interface',
       'Customizable cabin wall finishes and spot lighting',
     ],
-    image_url: '/public/images/product-passenger.webp',
+    image_url: '',
     is_active: true,
     display_order: 1,
   },
@@ -46,7 +46,7 @@ const baselineProducts: Product[] = [
       'Collapsible gate or heavy power-operated door options',
       'Overload detection safety threshold',
     ],
-    image_url: '/public/images/product-freight.webp',
+    image_url: '',
     is_active: true,
     display_order: 2,
   },
@@ -65,7 +65,7 @@ const baselineProducts: Product[] = [
       'Emergency manual lowering valve',
       'Quiet hydraulic power unit with multi-stage pump',
     ],
-    image_url: '/public/images/product-hydraulic.webp',
+    image_url: '',
     is_active: true,
     display_order: 3,
   },
@@ -84,7 +84,7 @@ const baselineProducts: Product[] = [
       'Dual heavy-duty displacement cylinders',
       'Maintenance lock struts for certified inspection safety',
     ],
-    image_url: '/public/images/product-scissor.webp',
+    image_url: '',
     is_active: true,
     display_order: 4,
   },
@@ -103,7 +103,7 @@ const baselineProducts: Product[] = [
       'Custom ceiling and floor illumination schemes',
       'Whisper-quiet guide shoe alignment',
     ],
-    image_url: '/public/images/product-panoramic.webp',
+    image_url: '',
     is_active: true,
     display_order: 5,
   },
@@ -122,7 +122,7 @@ const baselineProducts: Product[] = [
       'Micro-level floor leveling accuracy',
       'Full safety switch circuit renewal',
     ],
-    image_url: '/public/images/product-inverter.webp',
+    image_url: '',
     is_active: true,
     display_order: 6,
   },
@@ -232,7 +232,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
       as="section"
       id="products"
       hasNoise
-      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-[var(--border)]"
+      className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-32 relative overflow-hidden border-b border-[var(--border)]"
     >
       {/* Background Architectural Grid */}
       <div className="absolute inset-0 bg-technical-grid opacity-25 pointer-events-none" />
@@ -240,7 +240,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
       {/* Oversized Outlined Numeral 02 Cropped Behind Section */}
       <div
         aria-hidden="true"
-        className="absolute top-4 sm:top-6 left-4 sm:left-12 text-[88px] sm:text-[130px] lg:text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
+        className="hidden sm:block absolute top-4 sm:top-6 left-4 sm:left-12 text-[88px] sm:text-[130px] lg:text-[18vw] font-heading font-black select-none pointer-events-none leading-none opacity-15"
         style={{
           WebkitTextStroke: '1.5px #E8782E',
           color: 'transparent',
@@ -251,7 +251,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
 
       <div className="w-full px-fluid relative z-10">
         {showTitle && (
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 border-b border-[var(--border)] pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-16 gap-6 lg:gap-8 border-b border-[var(--border)] pb-6 lg:pb-8">
             <div className="space-y-4 max-w-3xl">
               <TechnicalEyebrow variant="amber">
                 ENGINEERED LIFT ARCHITECTURE // 02
@@ -259,14 +259,14 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
               <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-heading font-extrabold tracking-tight text-surface-heading leading-tight">
                 Vertical Mobility <span className="text-copper-400">Systems</span>
               </h2>
-              <p className="text-base sm:text-lg text-surface-muted font-light max-w-2xl leading-relaxed">
+              <p className="text-base lg:text-lg text-surface-muted font-light max-w-2xl leading-relaxed">
                 Six engineered vertical transportation classifications manufactured for industrial endurance, architectural distinction, and certified structural safety.
               </p>
             </div>
 
             <Link
               to="/products"
-              className="group inline-flex items-center gap-2 font-sans text-[13px] font-bold uppercase tracking-[0.12em] text-amber-300 hover:text-copper-400 transition-colors shrink-0"
+              className="group inline-flex items-center gap-2 font-sans text-sm lg:text-[13px] font-bold uppercase tracking-[0.12em] text-amber-300 hover:text-copper-400 transition-colors shrink-0 min-h-[44px] lg:min-h-0"
             >
               <span>Explore All 6 Systems</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -275,24 +275,24 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
         )}
 
         {/* Asymmetric Proportional Full-Width Grid (6 Multi-Color Systems) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           {displayedProducts.map((product, idx) => {
             const fallbackType = getFallbackType(product);
             const numStr = `0${idx + 1}`;
             const tileTheme = TILE_THEMES[idx % TILE_THEMES.length];
 
-            let colSpan = 'md:col-span-4';
-            let minHeightClass = 'min-h-[420px]';
+            let colSpan = 'lg:col-span-4';
+            let minHeightClass = 'min-h-[280px] sm:min-h-[320px] lg:min-h-[420px]';
 
             if (idx === 0) {
-              colSpan = 'md:col-span-7';
-              minHeightClass = 'min-h-[460px] sm:min-h-[500px]';
+              colSpan = 'lg:col-span-7';
+              minHeightClass = 'min-h-[300px] sm:min-h-[340px] lg:min-h-[500px]';
             } else if (idx === 1) {
-              colSpan = 'md:col-span-5';
-              minHeightClass = 'min-h-[460px] sm:min-h-[500px]';
+              colSpan = 'lg:col-span-5';
+              minHeightClass = 'min-h-[300px] sm:min-h-[340px] lg:min-h-[500px]';
             } else if (idx === 5) {
-              colSpan = 'md:col-span-12';
-              minHeightClass = 'min-h-[380px]';
+              colSpan = 'lg:col-span-12';
+              minHeightClass = 'min-h-[280px] sm:min-h-[320px] lg:min-h-[380px]';
             }
 
             return (
@@ -307,11 +307,19 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                 <Surface
                   tone={tileTheme.tone}
                   as="div"
+                  role="button"
+                  tabIndex={0}
                   onClick={() => setSelectedProduct(product)}
-                  className={`group w-full rounded-sm overflow-hidden border border-[var(--border)] shadow-elevated-card hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-6 sm:p-8 cursor-pointer select-none ${minHeightClass}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedProduct(product);
+                    }
+                  }}
+                  className={`group w-full rounded-sm overflow-hidden border border-[var(--border)] shadow-elevated-card hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-6 sm:p-8 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper-500 ${minHeightClass}`}
                 >
                   {/* Background Line-Art Illustration */}
-                  <div className="absolute inset-0 w-full h-full opacity-25 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
+                  <div className="hidden sm:block absolute inset-0 w-full h-full opacity-25 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none">
                     <ImageWithFallback
                       src={product.image_url}
                       alt={product.title}
@@ -324,14 +332,14 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                   </div>
 
                   {/* Top Row: Oversized Outlined Numeral + Category Chip */}
-                  <div className="relative z-10 flex items-start justify-between">
+                  <div className="relative z-10 flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <span
-                        className={`px-3 py-1 rounded-xs font-sans text-[11px] font-bold uppercase tracking-[0.15em] ${tileTheme.badgeBg} ${tileTheme.badgeText}`}
+                        className={`px-3 py-1 rounded-xs font-sans text-xs lg:text-[11px] font-bold uppercase tracking-[0.15em] ${tileTheme.badgeBg} ${tileTheme.badgeText}`}
                       >
                         {product.category}
                       </span>
-                      <span className="hidden sm:inline font-mono text-[11px] text-surface-fg font-bold opacity-85">
+                      <span className="hidden sm:inline font-mono text-xs lg:text-[11px] text-surface-fg font-bold opacity-85">
                         SYS-{numStr}
                       </span>
                     </div>
@@ -350,7 +358,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                   </div>
 
                   {/* Bottom Content Area */}
-                  <div className="relative z-10 space-y-3 pt-14 sm:pt-20">
+                  <div className="relative z-10 space-y-3 pt-10 lg:pt-20">
                     {/* Accent Bar */}
                     <div className={`w-10 h-[3px] ${tileTheme.barColor} transition-all duration-300 group-hover:w-24`} />
 
@@ -358,16 +366,16 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                       {product.title}
                     </h3>
 
-                    <p className="text-sm text-surface-fg font-normal line-clamp-2 max-w-xl leading-relaxed">
+                    <p className="text-base lg:text-sm text-surface-fg font-normal line-clamp-3 lg:line-clamp-2 max-w-xl leading-relaxed">
                       {product.short_description}
                     </p>
 
                     <div className="pt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-[var(--border)] text-xs font-sans">
-                      <span className="inline-flex items-center gap-1.5 font-bold uppercase tracking-[0.12em] text-surface-accent transition-transform group-hover:translate-x-1 shrink-0 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 min-h-[44px] lg:min-h-0 font-bold uppercase tracking-[0.12em] text-surface-accent transition-transform group-hover:translate-x-1 shrink-0 whitespace-nowrap">
                         <span>Explore System</span>
                         <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
-                      <span className="font-mono text-surface-muted font-medium text-[11px] leading-snug">
+                      <span className="font-mono text-surface-muted font-medium text-xs lg:text-[11px] leading-snug">
                         {product.drive_system || 'Custom Engineered'}
                       </span>
                     </div>

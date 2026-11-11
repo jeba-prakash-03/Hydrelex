@@ -68,7 +68,7 @@ export const HomePage: React.FC = () => {
         tone="amber"
         as="section"
         id="consultation"
-        className="w-full py-24 sm:py-32 relative overflow-hidden border-t border-amber-600/30 shadow-2xl bg-gradient-to-br from-amber-500 via-amber-500 to-copper-500"
+        className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-32 relative overflow-hidden border-t border-amber-600/30 shadow-2xl bg-gradient-to-br from-amber-500 via-amber-500 to-copper-500"
       >
         {/* Subtle Decorative Technical Overlay */}
         <div className="absolute inset-0 bg-technical-grid-light opacity-20 pointer-events-none" />
@@ -90,7 +90,7 @@ export const HomePage: React.FC = () => {
             {/* Left Column: Headline & Verified Facility Coordinates in Ink Box (5 cols) */}
             <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
               <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xs bg-ink-900 text-amber-300 font-sans text-[11px] font-bold uppercase tracking-[0.16em] shadow-lg">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xs bg-ink-900 text-amber-300 font-sans text-xs lg:text-[11px] font-bold uppercase tracking-[0.16em] shadow-lg">
                   <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                   INITIATE PROJECT // CONSULTATION
                 </div>
@@ -106,7 +106,7 @@ export const HomePage: React.FC = () => {
 
               {/* Verified Contact Details Box (Solid Dark Ink Surface for Maximum Contrast) */}
               <Surface tone="dark" as="div" className="p-6 sm:p-8 rounded-sm border border-teal-500/20 shadow-2xl space-y-6">
-                <div className="font-sans text-[11px] uppercase tracking-[0.15em] text-amber-500 font-bold border-b border-[var(--border)] pb-3 flex items-center justify-between">
+                <div className="font-sans text-xs lg:text-[11px] uppercase tracking-[0.15em] text-amber-500 font-bold border-b border-[var(--border)] pb-3 flex items-center justify-between">
                   <span>HEADQUARTERS & MANUFACTURING HUB</span>
                   <span className="font-mono text-surface-muted">TN-602015</span>
                 </div>
@@ -127,14 +127,14 @@ export const HomePage: React.FC = () => {
                     <div>
                       <a
                         href={`tel:${settings?.phone_primary || '8939359592'}`}
-                        className="hover:text-amber-300 text-surface-fg font-mono font-bold text-sm"
+                        className="hover:text-amber-300 text-surface-fg font-mono font-bold text-sm inline-flex items-center min-h-[44px] lg:min-h-0"
                       >
                         +91 {settings?.phone_primary || '8939359592'}
                       </a>
                       <span className="mx-2 text-surface-muted">/</span>
                       <a
                         href={`tel:${settings?.phone_secondary || '9789397504'}`}
-                        className="hover:text-amber-300 text-surface-fg font-mono font-bold text-sm"
+                        className="hover:text-amber-300 text-surface-fg font-mono font-bold text-sm inline-flex items-center min-h-[44px] lg:min-h-0"
                       >
                         +91 {settings?.phone_secondary || '9789397504'}
                       </a>
@@ -145,7 +145,7 @@ export const HomePage: React.FC = () => {
                     <Mail className="w-4 h-4 text-copper-400 shrink-0" />
                     <a
                       href={`mailto:${settings?.email || 'info@hydrelex.com'}`}
-                      className="hover:text-amber-300 text-surface-fg font-mono"
+                      className="hover:text-amber-300 text-surface-fg font-mono inline-flex items-center min-h-[44px] lg:min-h-0"
                     >
                       {settings?.email || 'info@hydrelex.com'}
                     </a>
@@ -153,14 +153,14 @@ export const HomePage: React.FC = () => {
 
                   <div className="flex items-start gap-3 pt-1">
                     <Clock className="w-4 h-4 text-copper-400 shrink-0 mt-0.5" />
-                    <div className="text-surface-muted leading-relaxed text-[11px]">
+                    <div className="text-surface-muted leading-relaxed text-xs lg:text-[11px]">
                       {settings?.business_hours || 'Monday – Saturday: 9:00 AM – 6:30 PM (Sunday Closed)'}
                     </div>
                   </div>
                 </div>
 
                 {/* Verified Reg Badges */}
-                <div className="pt-4 border-t border-[var(--border)] flex flex-wrap gap-2 text-[10px] font-mono">
+                <div className="pt-4 border-t border-[var(--border)] flex flex-wrap gap-2 text-xs lg:text-[10px] font-mono">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-teal-900 border border-teal-500/30 text-surface-fg">
                     <FileCheck2 className="w-3.5 h-3.5 text-amber-500" />
                     UDYAM: {settings?.udyam_registration || 'UDYAM-TN-08-0090275'}

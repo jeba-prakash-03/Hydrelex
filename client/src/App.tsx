@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import { SettingsProvider } from './context/SettingsContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { TrackEnquiryModal } from './components/TrackEnquiryModal';
 import { QuoteModal } from './components/ui/QuoteModal';
+import { MobileActionBar } from './components/MobileActionBar';
 import { Surface } from './components/ui/Surface';
 
 // Public Pages
@@ -16,6 +18,7 @@ import { ServicesPage } from './pages/ServicesPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ReviewsPage } from './pages/ReviewsPage';
 import { ContactPage } from './pages/ContactPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 // Admin Pages
 import { AdminLayout } from './pages/admin/AdminLayout';
@@ -64,16 +67,22 @@ const ProtectedAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children
 
 // Main Public Layout (100% Full Width, Edge-to-Edge)
 const PublicLayout: React.FC = () => {
+  const { pathname } = useLocation();
   const [trackModalOpen, setTrackModalOpen] = useState(false);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const hideMobileActionBar =
+    mobileMenuOpen || quoteModalOpen || trackModalOpen || pathname === '/contact';
 
   return (
-    <Surface tone="dark" as="div" className="min-h-screen w-full flex flex-col justify-between overflow-x-hidden">
+    <Surface tone="dark" as="div" className="min-h-screen w-full flex flex-col justify-between overflow-x-clip">
       <Navbar
         onOpenTrackModal={() => setTrackModalOpen(true)}
         onOpenQuoteModal={() => setQuoteModalOpen(true)}
+        onMobileMenuOpenChange={setMobileMenuOpen}
       />
-      <main className="flex-grow w-full overflow-x-hidden">
+      <main className="flex-grow w-full overflow-x-clip">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -85,10 +94,14 @@ const PublicLayout: React.FC = () => {
           <Route path="/gallery" element={<ProjectsPage />} />
           <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer />
+      <Footer reserveMobileBarSpace={pathname !== '/contact'} />
+      <MobileActionBar
+        hidden={hideMobileActionBar}
+        onOpenQuoteModal={() => setQuoteModalOpen(true)}
+      />
       <TrackEnquiryModal
         isOpen={trackModalOpen}
         onClose={() => setTrackModalOpen(false)}
@@ -103,38 +116,45 @@ const PublicLayout: React.FC = () => {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <SettingsProvider>
-        <AuthProvider>
-          <Routes>
-            {/* Admin Login Route */}
-            <Route path="/admin/login" element={<AdminLoginPage />} />
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
+        <ScrollToTop />
+        <SettingsProvider>
+          <AuthProvider>
+            <Routes>
+              {/* Admin Login Route */}
+              <Route path="/admin/login" element={<AdminLoginPage />} />
 
-            {/* Protected Admin Routes */}
-            <Route
-              path="/admin"
-              element={
-                <ProtectedAdminRoute>
-                  <AdminLayout />
-                </ProtectedAdminRoute>
-              }
-            >
-              <Route index element={<AdminDashboardPage />} />
-              <Route path="enquiries" element={<AdminEnquiriesPage />} />
-              <Route path="appointments" element={<AdminAppointmentsPage />} />
-              <Route path="reviews" element={<AdminReviewsPage />} />
-              <Route path="products" element={<AdminProductsPage />} />
-              <Route path="services" element={<AdminServicesPage />} />
-              <Route path="projects" element={<AdminProjectsPage />} />
-              <Route path="settings" element={<AdminSettingsPage />} />
-            </Route>
+              {/* Protected Admin Routes */}
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedAdminRoute>
+                    <AdminLayout />
+                  </ProtectedAdminRoute>
+                }
+              >
+                <Route index element={<AdminDashboardPage />} />
+                <Route path="enquiries" element={<AdminEnquiriesPage />} />
+                <Route path="appointments" element={<AdminAppointmentsPage />} />
+                <Route path="reviews" element={<AdminReviewsPage />} />
+                <Route path="products" element={<AdminProductsPage />} />
+                <Route path="services" element={<AdminServicesPage />} />
+                <Route path="projects" element={<AdminProjectsPage />} />
+                <Route path="settings" element={<AdminSettingsPage />} />
+              </Route>
 
-            {/* Public Layout Routes */}
-            <Route path="/*" element={<PublicLayout />} />
-          </Routes>
-        </AuthProvider>
-      </SettingsProvider>
-    </BrowserRouter>
+              {/* Public Layout Routes */}
+              <Route path="/*" element={<PublicLayout />} />
+            </Routes>
+          </AuthProvider>
+        </SettingsProvider>
+      </BrowserRouter>
+    </MotionConfig>
   );
 }

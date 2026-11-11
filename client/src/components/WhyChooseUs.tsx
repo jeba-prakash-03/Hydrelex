@@ -79,7 +79,7 @@ export const WhyChooseUs: React.FC = () => {
         04
       </div>
 
-      <div className="w-full px-fluid py-24 sm:py-32 relative z-10">
+      <div className="w-full px-fluid py-[clamp(3rem,6vw,5rem)] lg:py-32 relative z-10">
         {/* Section Header in Deep Ink on Full-Bleed Copper */}
         <div className="max-w-3xl mb-20 space-y-4">
           <TechnicalEyebrow variant="graphite">
@@ -116,7 +116,7 @@ export const WhyChooseUs: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.05, margin: '0px 0px -10% 0px' }}
                   transition={{ duration: 0.5, delay: idx * 0.08 }}
-                  className={isOffset ? 'md:mt-10' : ''}
+                  className={isOffset ? 'lg:mt-10' : ''}
                 >
                   <Surface
                     tone="dark"
@@ -139,7 +139,7 @@ export const WhyChooseUs: React.FC = () => {
                       <div className="flex items-center justify-between border-b border-[var(--border)] pb-4">
                         <div className="flex items-center gap-2.5 text-amber-500">
                           <Icon className="w-5 h-5 shrink-0" />
-                          <span className="font-sans text-[11px] uppercase tracking-[0.14em] font-bold">
+                          <span className="font-sans text-xs lg:text-[11px] uppercase tracking-[0.14em] font-bold">
                             {pillar.tagline}
                           </span>
                         </div>
@@ -152,7 +152,7 @@ export const WhyChooseUs: React.FC = () => {
                         {pillar.title}
                       </h3>
 
-                      <p className="text-sm sm:text-base text-surface-muted font-normal leading-relaxed">
+                      <p className="text-base text-surface-muted font-normal leading-relaxed">
                         {pillar.description}
                       </p>
                     </div>

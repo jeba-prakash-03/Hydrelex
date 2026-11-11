@@ -40,7 +40,7 @@ export const CustomerReviews: React.FC = () => {
       tone="teal"
       as="section"
       id="reviews"
-      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-teal-700 via-teal-700 to-teal-900"
+      className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-32 relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-teal-700 via-teal-700 to-teal-900"
     >
       {/* Background Architectural Grid Overlay */}
       <div className="absolute inset-0 bg-technical-grid opacity-20 pointer-events-none" />
@@ -79,7 +79,7 @@ export const CustomerReviews: React.FC = () => {
                   <div className="font-heading text-2xl font-bold text-surface-heading leading-none">
                     {stats.averageRating}
                   </div>
-                  <div className="text-[10px] font-mono text-surface-muted uppercase mt-1">
+                  <div className="text-xs lg:text-[10px] font-mono text-surface-muted uppercase mt-1">
                     {stats.totalReviews} {stats.totalReviews === 1 ? 'Review' : 'Reviews'}
                   </div>
                 </div>
@@ -173,7 +173,7 @@ export const CustomerReviews: React.FC = () => {
                       <span className="text-surface-heading font-bold block text-base font-sans">
                         {featuredReview.customer_name}
                       </span>
-                      <span className="text-amber-500 text-[11px] font-sans uppercase tracking-[0.14em] font-semibold">
+                      <span className="text-amber-500 text-xs lg:text-[11px] font-sans uppercase tracking-[0.14em] font-semibold">
                         Verified HYDRELEX Client
                       </span>
                     </div>
@@ -187,7 +187,7 @@ export const CustomerReviews: React.FC = () => {
 
             {/* Secondary Reviews Grid */}
             {secondaryReviews.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+              <div className="flex lg:grid lg:grid-cols-3 overflow-x-auto lg:overflow-visible snap-x snap-mandatory gap-4 lg:gap-6 pt-4 pb-2 no-scrollbar [&>*]:shrink-0 [&>*]:w-[84vw] sm:[&>*]:w-[400px] lg:[&>*]:w-auto [&>*]:snap-start">
                 {secondaryReviews.map((rev) => (
                   <motion.div
                     key={rev.id}
@@ -210,7 +210,7 @@ export const CustomerReviews: React.FC = () => {
                             />
                           ))}
                         </div>
-                        <span className="text-[10px] font-mono text-surface-muted">
+                        <span className="text-xs lg:text-[10px] font-mono text-surface-muted">
                           {formatDate(rev.created_at)}
                         </span>
                       </div>
@@ -228,7 +228,7 @@ export const CustomerReviews: React.FC = () => {
                       <span className="font-sans font-semibold text-surface-heading">
                         {rev.customer_name}
                       </span>
-                      <span className="text-amber-500 text-[10px] uppercase tracking-[0.12em] font-semibold">
+                      <span className="text-amber-500 text-xs lg:text-[10px] uppercase tracking-[0.12em] font-semibold">
                         Verified
                       </span>
                     </div>

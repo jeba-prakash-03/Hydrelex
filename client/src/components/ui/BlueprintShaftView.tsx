@@ -1,8 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Surface } from './Surface';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 export const BlueprintShaftView: React.FC = () => {
+  const prefersReduced = useReducedMotion();
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const shouldAnimate = isDesktop && !prefersReduced;
   return (
     <Surface
       tone="teal"
@@ -31,15 +35,17 @@ export const BlueprintShaftView: React.FC = () => {
       />
 
       {/* Technical Header Callout */}
-      <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 flex items-center gap-3">
-        <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-        <span className="font-sans text-[11px] font-bold uppercase tracking-[0.15em] text-surface-muted">
-          FIG 1.0 // HOISTWAY STRUCTURAL CROSS-SECTION
-        </span>
-      </div>
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3 lg:mb-0">
+        <div className="lg:absolute lg:top-6 lg:left-6 z-10 flex items-center gap-2.5 sm:gap-3">
+          <div className={`w-2 h-2 rounded-full bg-amber-500 shrink-0 ${shouldAnimate ? 'animate-pulse' : ''}`} />
+          <span className="font-sans text-xs lg:text-[11px] font-bold uppercase tracking-[0.15em] text-surface-muted">
+            FIG 1.0 // HOISTWAY STRUCTURAL CROSS-SECTION
+          </span>
+        </div>
 
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 font-mono text-[10px] text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-xs bg-ink-900/90 font-bold">
-        CAD REF: HYD-S700
+        <div className="lg:absolute lg:top-6 lg:right-6 z-10 font-mono text-xs lg:text-[10px] text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-xs bg-ink-900/90 font-bold shrink-0">
+          CAD REF: HYD-S700
+        </div>
       </div>
 
       {/* Main Vector Cross-Section SVG */}
@@ -118,15 +124,23 @@ export const BlueprintShaftView: React.FC = () => {
 
         {/* Animated Traveling Cabin between floors */}
         <motion.g
-          animate={{
-            y: [0, -110, -110, -220, -220, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            times: [0, 0.25, 0.45, 0.7, 0.85, 1],
-          }}
+          animate={
+            shouldAnimate
+              ? {
+                  y: [0, -110, -110, -220, -220, 0],
+                }
+              : undefined
+          }
+          transition={
+            shouldAnimate
+              ? {
+                  duration: 12,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  times: [0, 0.25, 0.45, 0.7, 0.85, 1],
+                }
+              : undefined
+          }
         >
           <rect
             x="175"
@@ -189,11 +203,11 @@ export const BlueprintShaftView: React.FC = () => {
       </svg>
 
       {/* Bottom Architectural Operations Stamp */}
-      <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-10 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-teal-500/40 bg-ink-900/95 px-4 py-2 rounded-xs">
-        <div className="text-[10px] font-sans font-semibold uppercase tracking-[0.12em] text-mint-100">
+      <div className="lg:absolute lg:bottom-6 lg:left-6 lg:right-6 mt-4 lg:mt-0 z-10 flex flex-wrap items-center justify-between gap-2 sm:gap-3 pt-3 border-t border-teal-500/40 bg-ink-900/95 px-4 py-2.5 rounded-xs">
+        <div className="text-xs lg:text-[10px] font-sans font-semibold uppercase tracking-[0.12em] text-mint-100">
           ENGINEERING FACILITY: SRIPERUMBUDUR HUB
         </div>
-        <div className="text-[10px] font-mono text-amber-300 font-bold">
+        <div className="text-xs lg:text-[10px] font-mono text-amber-300 font-bold">
           MEVALLURKUPPAM // TN-602015
         </div>
       </div>

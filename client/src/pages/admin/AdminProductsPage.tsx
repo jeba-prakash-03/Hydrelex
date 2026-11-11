@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, Check, X, Upload, Layers } from 'lucide-react';
 import { api } from '../../lib/api';
 import { Product } from '../../types';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
 
 export const AdminProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -41,7 +42,7 @@ export const AdminProductsPage: React.FC = () => {
       speed: '',
       drive_system: '',
       features: [],
-      image_url: 'https://images.unsplash.com/photo-1541888946425-d0fbb18f15f6?auto=format&fit=crop&w=1200&q=80',
+      image_url: '',
       is_active: true,
       display_order: products.length + 1,
     });
@@ -171,12 +172,14 @@ export const AdminProductsPage: React.FC = () => {
           >
             <div className="space-y-3">
               <div className="relative h-44 rounded-xl overflow-hidden bg-brand-charcoal">
-                <img
+                <ImageWithFallback
                   src={prod.image_url}
                   alt={prod.title}
-                  className="w-full h-full object-cover"
+                  fallbackType="passenger"
+                  aspectRatioClass="w-full h-full"
+                  showOverlay={false}
                 />
-                <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-navy/90 text-white font-mono text-[10px] uppercase">
+                <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-navy/90 text-white font-mono text-[10px] uppercase z-10">
                   {prod.category}
                 </span>
                 {!prod.is_active && (
@@ -225,7 +228,7 @@ export const AdminProductsPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <div
             onClick={() => setEditingProduct(null)}
-            className="fixed inset-0 bg-brand-navy/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-brand-navy/85"
           />
 
           <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-brand-silver overflow-hidden z-10 my-8">

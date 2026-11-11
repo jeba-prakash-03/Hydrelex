@@ -15,7 +15,7 @@ export const CompanyIntro: React.FC = () => {
       tone="sand"
       as="section"
       id="company-intro"
-      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-sand-200"
+      className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-32 relative overflow-hidden border-b border-sand-200"
     >
       {/* Background Architectural Scale Grid Overlay */}
       <div className="absolute inset-0 bg-technical-grid-light opacity-40 pointer-events-none" />
@@ -79,7 +79,7 @@ export const CompanyIntro: React.FC = () => {
               <div className="border border-sand-200 bg-white shadow-sm px-4 py-2.5 rounded-sm inline-flex items-center gap-2.5 transition-colors hover:border-copper-700">
                 <FileCheck2 className="w-4 h-4 text-copper-700 shrink-0" />
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-copper-700">
+                  <span className="text-xs lg:text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-copper-700">
                     UDYAM MSME VERIFIED
                   </span>
                   <span className="font-mono text-xs font-bold text-ink-900">
@@ -91,7 +91,7 @@ export const CompanyIntro: React.FC = () => {
               <div className="border border-sand-200 bg-white shadow-sm px-4 py-2.5 rounded-sm inline-flex items-center gap-2.5 transition-colors hover:border-copper-700">
                 <ShieldCheck className="w-4 h-4 text-copper-700 shrink-0" />
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-copper-700">
+                  <span className="text-xs lg:text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-copper-700">
                     GST TAX REGISTERED
                   </span>
                   <span className="font-mono text-xs font-bold text-ink-900">
@@ -103,7 +103,7 @@ export const CompanyIntro: React.FC = () => {
               <div className="border border-sand-200 bg-white shadow-sm px-4 py-2.5 rounded-sm inline-flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-teal-700 shrink-0" />
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-teal-700">
+                  <span className="text-xs lg:text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-teal-700">
                     LOCATION
                   </span>
                   <span className="font-sans text-xs font-semibold text-ink-900">

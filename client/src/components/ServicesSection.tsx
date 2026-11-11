@@ -98,7 +98,7 @@ export const ServicesSection: React.FC = () => {
       tone="mint"
       as="section"
       id="services"
-      className="w-full py-24 sm:py-32 relative overflow-hidden border-b border-[var(--border)]"
+      className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-32 relative overflow-hidden border-b border-[var(--border)]"
     >
       {/* Background Architectural Grid */}
       <div className="absolute inset-0 bg-technical-grid-light opacity-40 pointer-events-none" />
@@ -142,7 +142,7 @@ export const ServicesSection: React.FC = () => {
 
             {/* Hand-Drawn Architectural Shaft Cross-Section Diagram */}
             <Surface tone="light" as="div" className="p-6 rounded-sm border border-[var(--border)] shadow-elevated-card space-y-4">
-              <div className="flex items-center justify-between font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-copper-700 border-b border-[var(--border)] pb-3">
+              <div className="flex items-center justify-between font-sans text-xs lg:text-[11px] font-bold uppercase tracking-[0.14em] text-copper-700 border-b border-[var(--border)] pb-3">
                 <span className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-copper-500 inline-block" />
                   ELEVATOR SHAFT CROSS-SECTION
@@ -156,7 +156,7 @@ export const ServicesSection: React.FC = () => {
                   strokeColor="#F6B93B"
                 />
               </div>
-              <div className="text-[11px] font-mono text-surface-muted font-medium text-center">
+              <div className="text-xs lg:text-[11px] font-mono text-surface-muted font-medium text-center">
                 *Laser-calibrated vertical plumb alignment with progressive safety gear
               </div>
             </Surface>
@@ -206,12 +206,12 @@ export const ServicesSection: React.FC = () => {
                           <span>{service.title}</span>
                         </h3>
                       </div>
-                      <span className="text-[11px] font-sans font-bold tracking-[0.12em] uppercase text-surface-accent bg-sand-100 px-3 py-1 rounded-xs border border-sand-200 shrink-0 w-fit">
+                      <span className="text-xs lg:text-[11px] font-sans font-bold tracking-[0.12em] uppercase text-surface-accent bg-sand-100 px-3 py-1 rounded-xs border border-sand-200 shrink-0 w-fit">
                         {service.category}
                       </span>
                     </div>
 
-                    <p className="text-sm sm:text-base text-surface-fg font-normal leading-relaxed mb-4">
+                    <p className="text-base text-surface-fg font-normal leading-relaxed mb-4">
                       {service.description}
                     </p>
 

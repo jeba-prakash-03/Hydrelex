@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, X, Upload, MapPin, Tag } from 'lucide-react';
 import { api } from '../../lib/api';
 import { Project } from '../../types';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
 
 export const AdminProjectsPage: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -36,7 +37,7 @@ export const AdminProjectsPage: React.FC = () => {
       location: 'Sriperumbudur, Tamil Nadu',
       specifications: '',
       description: '',
-      cover_image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
+      cover_image: '',
       is_sample: false,
       display_order: projects.length + 1,
     });
@@ -141,12 +142,14 @@ export const AdminProjectsPage: React.FC = () => {
           >
             <div className="space-y-3">
               <div className="relative h-44 rounded-xl overflow-hidden bg-brand-charcoal">
-                <img
+                <ImageWithFallback
                   src={proj.cover_image}
                   alt={proj.title}
-                  className="w-full h-full object-cover"
+                  fallbackType="passenger"
+                  aspectRatioClass="w-full h-full"
+                  showOverlay={false}
                 />
-                <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-navy/90 text-white font-mono text-[10px] uppercase">
+                <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-brand-navy/90 text-white font-mono text-[10px] uppercase z-10">
                   {proj.category}
                 </span>
                 {proj.is_sample && (
@@ -196,7 +199,7 @@ export const AdminProjectsPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <div
             onClick={() => setEditingProject(null)}
-            className="fixed inset-0 bg-brand-navy/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-brand-navy/85"
           />
 
           <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-brand-silver overflow-hidden z-10 my-8">

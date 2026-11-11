@@ -200,10 +200,38 @@
 /* Fluid typography rules */
 .font-hero-clamp {
   font-family: theme('fontFamily.heading');
-  font-size: clamp(3rem, 8.5vw, 8.5rem);
-  line-height: 0.94;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
   font-weight: 800;
+}
+
+@media (min-width: 1024px) {
+  .font-hero-clamp {
+    font-size: clamp(3rem, 8.5vw, 8.5rem);
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Mobile keyboard clearance & horizontal snap helpers */
+input, select, textarea {
+  scroll-margin-bottom: 120px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .bg-grain {
+    background-image: none !important;
+  }
 }
 
 .font-h2-clamp {

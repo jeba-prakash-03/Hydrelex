@@ -14,7 +14,7 @@ export const ProductsPage: React.FC = () => {
       <Surface
         tone="copper"
         as="section"
-        className="w-full pt-36 pb-20 relative overflow-hidden border-b border-ink-900/20 bg-gradient-to-br from-copper-500 via-copper-500 to-amber-500"
+        className="w-full pt-28 pb-12 lg:pt-36 lg:pb-20 relative overflow-hidden border-b border-ink-900/20 bg-gradient-to-br from-copper-500 via-copper-500 to-amber-500"
       >
         <div className="w-full px-fluid relative z-10 space-y-4">
           {/* Breadcrumb */}
@@ -32,7 +32,7 @@ export const ProductsPage: React.FC = () => {
             EQUIPMENT & VERTICAL MOBILITY CATALOGUE
           </TechnicalEyebrow>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-heading font-black tracking-tight text-surface-heading uppercase leading-[1.02]">
+          <h1 className="text-[clamp(1.85rem,7.5vw,2.75rem)] lg:text-[56px] font-heading font-black tracking-tight text-surface-heading uppercase leading-[1.02]">
             Lift & Elevator{' '}
             <span className="inline-block bg-ink-900 text-amber-400 px-3 py-0.5 rounded-xs">
               Systems
@@ -49,7 +49,7 @@ export const ProductsPage: React.FC = () => {
       <ProductsSection showTitle={false} />
 
       {/* 3. Comprehensive Specifications Matrix */}
-      <Surface tone="teal" as="section" className="w-full py-24 border-t border-[var(--border)]">
+      <Surface tone="teal" as="section" className="w-full py-[clamp(3rem,6vw,5rem)] lg:py-24 border-t border-[var(--border)]">
         <div className="w-full px-fluid">
           <SpecTable themeMode="dark" />
         </div>

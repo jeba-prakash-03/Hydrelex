@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -34,6 +34,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
   onReviewSubmitted,
   onSuccess,
 }) => {
+  const uid = useId();
   const [selectedRating, setSelectedRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -105,7 +106,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
   if (!isOpen) return null;
 
   const inputClasses =
-    'w-full h-14 px-4 text-sm font-sans bg-ink-900 border border-teal-500/40 rounded-xs text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none transition-colors';
+    'w-full min-h-[52px] h-14 px-4 text-base lg:text-sm font-sans bg-ink-900 border border-teal-500/40 rounded-xs text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none transition-colors';
   const labelClasses =
     'block font-sans text-[12px] uppercase tracking-[0.14em] text-surface-fg mb-2 font-bold';
 
@@ -129,7 +130,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 16 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-xl z-10 my-8"
+          className="relative w-full max-w-xl z-10 my-auto"
         >
           <Surface
             tone="dark"
@@ -138,23 +139,23 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
           >
             <button
               onClick={handleModalClose}
-              className="absolute top-4 right-4 z-20 p-2.5 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 transition-colors shadow-copper-glow"
               aria-label="Close"
             >
               <X className="w-5 h-5 font-bold" />
             </button>
 
-            <div className="p-6 sm:p-10 max-h-[85vh] overflow-y-auto">
+            <div className="p-5 sm:p-10 max-h-[90dvh] lg:max-h-[85vh] overflow-y-auto">
               {!submitSuccess ? (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
-                  <div className="space-y-2">
+                  <div className="space-y-2 pr-10 sm:pr-0">
                     <TechnicalEyebrow variant="auto">
                       CLIENT FEEDBACK // QUALITY CONTROL
                     </TechnicalEyebrow>
                     <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-surface-heading">
                       Submit Client Review
                     </h3>
-                    <p className="text-xs sm:text-sm text-surface-muted font-normal">
+                    <p className="text-sm text-surface-muted font-normal">
                       Every review is evaluated by HYDRELEX engineering moderation before public publication.
                     </p>
                   </div>
@@ -168,10 +169,10 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
 
                   {/* Star Rating Evaluation (Accessible) */}
                   <div>
-                    <label className={labelClasses}>
+                    <span id={`${uid}-rating-label`} className={labelClasses}>
                       Rating Evaluation (1 - 5 Stars)*
-                    </label>
-                    <div className="flex items-center gap-2" role="radiogroup" aria-label="Star Rating">
+                    </span>
+                    <div className="flex flex-wrap items-center gap-2" role="radiogroup" aria-labelledby={`${uid}-rating-label`}>
                       {[1, 2, 3, 4, 5].map((star) => {
                         const filled = hoverRating ? hoverRating >= star : selectedRating >= star;
                         return (
@@ -187,13 +188,13 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                                 handleRatingClick(star);
                               }
                             }}
-                            className="p-1 focus:outline-none transition-transform hover:scale-110"
+                            className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-1.5 focus:outline-none transition-transform hover:scale-110"
                             aria-label={`${star} Stars`}
                             role="radio"
                             aria-checked={selectedRating === star}
                           >
                             <Star
-                              className={`w-7 h-7 ${
+                              className={`w-8 h-8 ${
                                 filled
                                   ? 'fill-amber-500 text-amber-500'
                                   : 'text-surface-muted/40 fill-transparent'
@@ -202,7 +203,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                           </button>
                         );
                       })}
-                      <span className="ml-3 text-xs font-mono font-bold text-amber-300">
+                      <span className="ml-1 sm:ml-2 text-xs font-mono font-bold text-amber-300">
                         {hoverRating || selectedRating} / 5 Stars
                       </span>
                     </div>
@@ -210,40 +211,50 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
 
                   {/* Name */}
                   <div>
-                    <label className={labelClasses}>
+                    <label htmlFor={`${uid}-customerName`} className={labelClasses}>
                       Client Name or Organization*
                     </label>
                     <input
+                      id={`${uid}-customerName`}
+                      type="text"
+                      autoComplete="name"
                       {...register('customerName')}
                       placeholder="e.g. S. Venkataraman, Apex Logistics"
                       className={inputClasses}
                     />
                     {errors.customerName && (
-                      <span className="text-[11px] font-mono bg-danger-500 text-white px-2 py-0.5 rounded-xs mt-1.5 inline-block">
+                      <span className="text-xs lg:text-[11px] font-mono bg-danger-500 text-white px-2 py-0.5 rounded-xs mt-1.5 inline-block">
                         {errors.customerName.message}
                       </span>
                     )}
                   </div>
 
                   {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div>
-                      <label className={labelClasses}>
+                      <label htmlFor={`${uid}-email`} className={labelClasses}>
                         Email Address (Optional)
                       </label>
                       <input
+                        id={`${uid}-email`}
                         {...register('email')}
                         type="email"
+                        inputMode="email"
+                        autoComplete="email"
                         placeholder="client@company.com"
                         className={inputClasses}
                       />
                     </div>
 
                     <div>
-                      <label className={labelClasses}>
+                      <label htmlFor={`${uid}-phone`} className={labelClasses}>
                         Phone Number (Optional)
                       </label>
                       <input
+                        id={`${uid}-phone`}
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
                         {...register('phone')}
                         placeholder="+91 98765 43210"
                         className={inputClasses}
@@ -253,16 +264,18 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
 
                   {/* Review Headline */}
                   <div>
-                    <label className={labelClasses}>
+                    <label htmlFor={`${uid}-title`} className={labelClasses}>
                       Review Headline*
                     </label>
                     <input
+                      id={`${uid}-title`}
+                      type="text"
                       {...register('title')}
                       placeholder="e.g. Dependable freight elevator operation in our manufacturing unit"
                       className={inputClasses}
                     />
                     {errors.title && (
-                      <span className="text-[11px] font-mono bg-danger-500 text-white px-2 py-0.5 rounded-xs mt-1.5 inline-block">
+                      <span className="text-xs lg:text-[11px] font-mono bg-danger-500 text-white px-2 py-0.5 rounded-xs mt-1.5 inline-block">
                         {errors.title.message}
                       </span>
                     )}
@@ -270,17 +283,18 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
 
                   {/* Review Description */}
                   <div>
-                    <label className={labelClasses}>
+                    <label htmlFor={`${uid}-description`} className={labelClasses}>
                       Observations & Performance Feedback*
                     </label>
                     <textarea
+                      id={`${uid}-description`}
                       {...register('description')}
                       rows={4}
                       placeholder="Please detail lift travel smoothness, door operator reliability, installation punctuality, and service support..."
-                      className="w-full p-4 min-h-[140px] text-sm font-sans bg-ink-900 border border-teal-500/40 rounded-xs text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none leading-relaxed transition-colors"
+                      className="w-full p-4 min-h-[140px] text-base lg:text-sm font-sans bg-ink-900 border border-teal-500/40 rounded-xs text-surface-fg placeholder:text-surface-muted/60 focus:border-copper-500 focus:ring-2 focus:ring-copper-500/30 outline-none leading-relaxed transition-colors"
                     />
                     {errors.description && (
-                      <span className="text-[11px] font-mono bg-danger-500 text-white px-2 py-0.5 rounded-xs mt-1.5 inline-block">
+                      <span className="text-xs lg:text-[11px] font-mono bg-danger-500 text-white px-2 py-0.5 rounded-xs mt-1.5 inline-block">
                         {errors.description.message}
                       </span>
                     )}
@@ -288,14 +302,18 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
 
                   {/* Optional Image */}
                   <div>
-                    <label className={labelClasses}>
+                    <span className={labelClasses}>
                       Optional Site Photo
-                    </label>
+                    </span>
                     <div className="flex items-center gap-3">
-                      <label className="flex items-center gap-2 px-4 py-3 rounded-sm bg-teal-900 border border-teal-500/40 hover:border-amber-500 cursor-pointer text-xs font-sans uppercase tracking-[0.12em] text-surface-fg hover:text-amber-300 transition-colors">
+                      <label
+                        htmlFor={`${uid}-sitePhoto`}
+                        className="min-h-[48px] flex items-center gap-2 px-4 py-3 rounded-sm bg-teal-900 border border-teal-500/40 hover:border-amber-500 cursor-pointer text-xs font-sans uppercase tracking-[0.12em] text-surface-fg hover:text-amber-300 transition-colors"
+                      >
                         <Upload className="w-4 h-4 text-amber-500" />
                         <span>{uploadingImage ? 'Uploading...' : 'Attach Image'}</span>
                         <input
+                          id={`${uid}-sitePhoto`}
                           type="file"
                           accept="image/*"
                           onChange={handleImageChange}
@@ -313,20 +331,20 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                   </div>
 
                   {/* Honeypot */}
-                  <input {...register('hp_website')} type="text" className="hidden" tabIndex={-1} autoComplete="off" />
+                  <input {...register('hp_website')} type="text" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
-                  <div className="pt-4 flex items-center justify-end gap-3 border-t border-[var(--border)]">
+                  <div className="pt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 border-t border-[var(--border)]">
                     <button
                       type="button"
                       onClick={handleModalClose}
-                      className="px-5 h-12 rounded-sm border border-[var(--border)] text-xs font-sans uppercase tracking-[0.12em] text-surface-muted hover:text-surface-heading hover:bg-teal-900/40 transition-colors"
+                      className="min-h-[48px] px-5 h-12 rounded-sm border border-[var(--border)] text-xs font-sans uppercase tracking-[0.12em] text-surface-muted hover:text-surface-heading hover:bg-teal-900/40 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting || uploadingImage}
-                      className="inline-flex items-center gap-2 px-8 h-12 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-[13px] font-bold uppercase tracking-[0.12em] disabled:opacity-50 transition-all shadow-copper-glow"
+                      className="min-h-[48px] inline-flex items-center justify-center gap-2 px-8 h-12 rounded-sm bg-copper-500 hover:bg-copper-400 text-ink-950 font-sans text-sm lg:text-[13px] font-bold uppercase tracking-[0.12em] disabled:opacity-50 transition-all shadow-copper-glow"
                     >
                       {isSubmitting ? (
                         <>
@@ -347,7 +365,7 @@ export const WriteReviewModal: React.FC<WriteReviewModalProps> = ({
                   <h3 className="font-heading text-2xl font-bold text-surface-heading">
                     Feedback Received
                   </h3>
-                  <p className="text-sm text-surface-muted max-w-sm mx-auto leading-relaxed font-normal">
+                  <p className="text-base lg:text-sm text-surface-muted max-w-sm mx-auto leading-relaxed font-normal">
                     Thank you for reviewing HYDRELEX Lift Systems. Your evaluation has been saved with status PENDING and will be published once verified by engineering moderation.
                   </p>
                   <div className="pt-4">

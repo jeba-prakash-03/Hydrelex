@@ -44,7 +44,7 @@ export const ServicesPage: React.FC = () => {
       <Surface
         tone="sand"
         as="section"
-        className="w-full pt-36 pb-20 relative overflow-hidden border-b border-sand-200"
+        className="w-full pt-28 pb-12 lg:pt-36 lg:pb-20 relative overflow-hidden border-b border-sand-200"
       >
         <div className="w-full px-fluid relative z-10 space-y-4">
           {/* Breadcrumb */}
@@ -62,7 +62,7 @@ export const ServicesPage: React.FC = () => {
             ENGINEERING & LIFECYCLE SUPPORT
           </TechnicalEyebrow>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-heading font-black tracking-tight text-surface-heading uppercase leading-[1.02]">
+          <h1 className="text-[clamp(1.85rem,7.5vw,2.75rem)] lg:text-[56px] font-heading font-black tracking-tight text-surface-heading uppercase leading-[1.02]">
             Lift Engineering &{' '}
             <span className="text-copper-700 underline decoration-copper-500/40 underline-offset-8">
               Servicing
@@ -79,7 +79,7 @@ export const ServicesPage: React.FC = () => {
       <ServicesSection />
 
       {/* 3. Turnkey Execution Protocol (Peach Tint with Color-Badged Cards) */}
-      <Surface tone="peach" as="section" className="w-full px-fluid py-24 sm:py-32 border-b border-[var(--border)]">
+      <Surface tone="peach" as="section" className="w-full px-fluid py-[clamp(3rem,6vw,5rem)] lg:py-32 border-b border-[var(--border)]">
         <div className="max-w-3xl mb-16 space-y-3">
           <TechnicalEyebrow variant="copper">
             TURNKEY PROTOCOL
